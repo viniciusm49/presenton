@@ -192,7 +192,7 @@ const PresentationPage = ({ presentation_id, exportCookie }: PresentationPagePro
       }
     } catch (error) {
       setError(true);
-      notify.error("Failed to load presentation", "The presentation could not be loaded. Please try again.");
+      notify.error("Falha ao carregar apresentação", "Não foi possível carregar a apresentação. Tente novamente.");
       console.error("Error fetching user slides:", error);
     } finally {
       setContentLoading(false);
@@ -213,7 +213,7 @@ const PresentationPage = ({ presentation_id, exportCookie }: PresentationPagePro
 
     return ApiResponseHandler.handleResponse(
       response,
-      "Presentation not found"
+      "Apresentação não encontrada"
     );
   };
 
@@ -266,12 +266,12 @@ const PresentationPage = ({ presentation_id, exportCookie }: PresentationPagePro
             role="alert"
           >
             <AlertCircle className="w-16 h-16 mb-4 text-red-500" />
-            <strong className="font-bold text-4xl mb-2">Oops!</strong>
+            <strong className="font-bold text-4xl mb-2">Ops!</strong>
             <p className="block text-2xl py-2">
-              We encountered an issue loading your presentation.
+              Ocorreu um problema ao carregar sua apresentação.
             </p>
             <p className="text-lg py-2">
-              Please check your internet connection or try again later.
+              Verifique sua conexão com a internet ou tente novamente mais tarde.
             </p>
             <Button
               className="mt-4 bg-red-500 text-white hover:bg-red-600 focus:ring-4 focus:ring-red-300"
@@ -280,7 +280,7 @@ const PresentationPage = ({ presentation_id, exportCookie }: PresentationPagePro
                 window.location.reload();
               }}
             >
-              Retry
+              Tentar novamente
             </Button>
           </div>
         </div>

@@ -148,8 +148,8 @@ const ThemePanel: React.FC = () => {
       } catch (error: any) {
         console.error('Failed to load custom themes', error)
         notify.error(
-          'Could not load themes',
-          error?.message || 'Your saved themes could not be loaded. Built-in themes are still available.'
+          'Não foi possível carregar os temas',
+          error?.message || 'Seus temas salvos não puderam ser carregados. Os temas padrão continuam disponíveis.'
         )
       }
     }
@@ -160,8 +160,8 @@ const ThemePanel: React.FC = () => {
       } catch (error: any) {
         console.error('Failed to load user fonts', error)
         notify.error(
-          'Could not load fonts',
-          error?.message || 'Your uploaded fonts could not be loaded right now.'
+          'Não foi possível carregar as fontes',
+          error?.message || 'Suas fontes enviadas não puderam ser carregadas no momento.'
         )
       }
     }
@@ -318,8 +318,8 @@ const ThemePanel: React.FC = () => {
     } catch (error: any) {
       console.error('Failed to upload logo', error)
       notify.error(
-        'Could not upload logo',
-        error?.message || 'Something went wrong while uploading your logo. Please try again.'
+        'Não foi possível enviar a logo',
+        error?.message || 'Ocorreu um erro ao enviar sua logo. Por favor, tente novamente.'
       )
     } finally {
       setIsLogoUploading(false)
@@ -364,8 +364,8 @@ const ThemePanel: React.FC = () => {
     setIsNewTheme(true)
     const newTheme: Theme = {
       id: `custom-${Date.now()}`,
-      name: 'New Custom Theme',
-      description: 'Start with a blank canvas',
+      name: 'Novo Tema Personalizado',
+      description: 'Comece com uma tela em branco',
       user: 'local',
       logo: '',
       logo_url: '',
@@ -462,12 +462,12 @@ const ThemePanel: React.FC = () => {
             has_logo: Boolean(updated.logo_url),
             font_name: updated.data?.fonts?.textFont?.name || "",
           })
-          notify.success('Theme updated', 'Your theme changes were saved.')
+          notify.success('Tema atualizado', 'As alterações no tema foram salvas.')
         } catch (error: any) {
           console.error('Failed to update theme', error)
           notify.error(
-            'Could not update theme',
-            error?.message || 'Something went wrong while saving your theme changes.'
+            'Não foi possível atualizar o tema',
+            error?.message || 'Ocorreu um erro ao salvar as alterações do tema.'
           )
         }
       })()
@@ -482,7 +482,7 @@ const ThemePanel: React.FC = () => {
       })
       const params: ThemeParams = {
         name: selectedTheme.name,
-        description: selectedTheme.description || `Custom version of ${selectedTheme.name}`,
+        description: selectedTheme.description || `Versão personalizada de ${selectedTheme.name}`,
         logo: customBrandLogoId || null,
         logo_url: customBrandLogo || null,
         company_name: themeCompanyName || null,
@@ -506,12 +506,12 @@ const ThemePanel: React.FC = () => {
         has_logo: Boolean(created.logo_url),
         font_name: created.data?.fonts?.textFont?.name || "",
       })
-      notify.success('Theme saved', 'Your new theme was created and is ready to use.')
+      notify.success('Tema salvo', 'Seu novo tema foi criado e está pronto para uso.')
     } catch (error: any) {
       console.error('Failed to save theme', error)
       notify.error(
-        'Could not save theme',
-        error?.message || 'Something went wrong while creating your theme.'
+        'Não foi possível salvar o tema',
+        error?.message || 'Ocorreu um erro ao criar o tema.'
       )
     }
   }
@@ -527,12 +527,12 @@ const ThemePanel: React.FC = () => {
         pathname,
         theme_id: themeId,
       })
-      notify.success("Theme deleted", "The theme was removed from your library.")
+      notify.success("Tema excluído", "O tema foi removido da sua biblioteca.")
     } catch (error: any) {
       console.error('Failed to delete theme', error)
       notify.error(
-        'Could not delete theme',
-        error?.message || 'Something went wrong while deleting the theme.'
+        'Não foi possível excluir o tema',
+        error?.message || 'Ocorreu um erro ao excluir o tema.'
       )
     }
   }
@@ -566,14 +566,14 @@ const ThemePanel: React.FC = () => {
         }))
       }
       notify.success(
-        'Font uploaded',
-        `Font "${font_name}" is now available for your themes.`
+        'Fonte enviada',
+        `A fonte "${font_name}" agora está disponível para seus temas.`
       )
     } catch (error: any) {
       console.error('Failed to upload font', error)
       notify.error(
-        'Could not upload font',
-        error?.message || 'Something went wrong while uploading the font file.'
+        'Não foi possível enviar a fonte',
+        error?.message || 'Ocorreu um erro ao enviar o arquivo da fonte.'
       )
     } finally {
       setIsFontUploading(false)
@@ -587,7 +587,7 @@ const ThemePanel: React.FC = () => {
     >
       <Label className="flex text-xl font-medium text-[#191919] items-center gap-2 pb-5">
 
-        {step === 1 ? 'Brand Colors' : 'Palette'}
+        {step === 1 ? 'Cores da Marca' : 'Paleta'}
         <RefreshCcw onClick={() => refeshTheme(step === 1 ? {
 
         } : {
@@ -600,7 +600,7 @@ const ThemePanel: React.FC = () => {
 
         <div>
 
-          {step === 2 && <p className="text-xs text-[#4C4C4C] font-medium rounded-lg text-end pb-1.5">Brand Colors</p>}
+          {step === 2 && <p className="text-xs text-[#4C4C4C] font-medium rounded-lg text-end pb-1.5">Cores da Marca</p>}
           <div className="space-y-4"
             style={{
               padding: step === 2 ? '10px' : '0px',
@@ -609,7 +609,7 @@ const ThemePanel: React.FC = () => {
           >
             <ColorPickerComponent
               colorKey="primary"
-              label="Primary Color"
+              label="Cor Primária"
               currentColor={customColors['primary']}
               onColorChange={handleColorChange}
               showColorPicker={showColorPicker}
@@ -617,7 +617,7 @@ const ThemePanel: React.FC = () => {
             />
             <ColorPickerComponent
               colorKey="background"
-              label="Background Color"
+              label="Cor de Fundo"
               currentColor={customColors['background']}
               onColorChange={handleColorChange}
               showColorPicker={showColorPicker}
@@ -626,7 +626,7 @@ const ThemePanel: React.FC = () => {
           </div>
         </div>
         {step === 2 && <div>
-          <p className="text-xs text-[#4C4C4C] font-medium text-end pb-1.5">Text Colors</p>
+          <p className="text-xs text-[#4C4C4C] font-medium text-end pb-1.5">Cores de Texto</p>
           <div className="space-y-4"
             style={{
               padding: step === 2 ? '10px' : '0px',
@@ -635,7 +635,7 @@ const ThemePanel: React.FC = () => {
           >
             <ColorPickerComponent
               colorKey="background_text"
-              label="Background Text"
+              label="Texto de Fundo"
               currentColor={customColors['background_text']}
               onColorChange={handleColorChange}
               showColorPicker={showColorPicker}
@@ -643,7 +643,7 @@ const ThemePanel: React.FC = () => {
             />
             <ColorPickerComponent
               colorKey="primary_text"
-              label="Primary Text"
+              label="Texto Primário"
               currentColor={customColors['primary_text']}
               onColorChange={handleColorChange}
               showColorPicker={showColorPicker}
@@ -654,7 +654,7 @@ const ThemePanel: React.FC = () => {
         {step === 2 && <div className='px-2.5'>
           <ColorPickerComponent
             colorKey="card"
-            label="Card Color"
+            label="Cor do Card"
             currentColor={customColors['card']}
             onColorChange={handleColorChange}
             showColorPicker={showColorPicker}
@@ -662,7 +662,7 @@ const ThemePanel: React.FC = () => {
           />
         </div>}
         {step === 2 && <div>
-          <p className="text-xs text-[#4C4C4C] font-medium text-end pb-1.5">Graph/Chart Colors</p>
+          <p className="text-xs text-[#4C4C4C] font-medium text-end pb-1.5">Cores de Gráfico</p>
           <div className="space-y-4"
             style={{
               padding: step === 2 ? '10px' : '0px',
@@ -765,7 +765,7 @@ const ThemePanel: React.FC = () => {
       }}
     >
       <Label className="flex text-xl font-medium text-[#191919] items-center gap-2 px-2.5">
-        Typography
+        Tipografia
       </Label>
 
 
@@ -773,7 +773,7 @@ const ThemePanel: React.FC = () => {
 
       {/* Upload Custom Font */}
       <div className="px-2.5">
-        <p className='text-xs text-[#4C4C4C] font-medium text-end pb-1.5'>Upload Custom Font</p>
+        <p className='text-xs text-[#4C4C4C] font-medium text-end pb-1.5'>Enviar Fonte Personalizada</p>
         <div
           className={`p-3 rounded-xl border-2 border-dashed transition-all duration-200 cursor-pointer group
             ${isFontUploading
@@ -794,8 +794,8 @@ const ThemePanel: React.FC = () => {
                 <Loader2 className='w-5 h-5 text-[#7A5AF8] animate-spin' />
               </div>
               <div className='flex-1'>
-                <p className='text-sm font-medium text-[#7A5AF8]'>Uploading font...</p>
-                <p className='text-xs text-[#888]'>Please wait</p>
+                <p className='text-sm font-medium text-[#7A5AF8]'>Enviando fonte...</p>
+                <p className='text-xs text-[#888]'>Aguarde por favor</p>
               </div>
             </div>
           ) : (
@@ -804,7 +804,7 @@ const ThemePanel: React.FC = () => {
                 <Plus className='w-5 h-5 text-[#7A5AF8]' />
               </div>
               <div className='flex-1'>
-                <p className='text-sm font-medium text-[#151515]'>Upload Font File</p>
+                <p className='text-sm font-medium text-[#151515]'>Enviar Arquivo de Fonte</p>
                 <p className='text-xs text-[#888]'>.ttf, .otf, .woff, .woff2</p>
               </div>
               <ChevronRight className='w-4 h-4 text-[#999] group-hover:text-[#7A5AF8] transition-colors' />
@@ -828,7 +828,7 @@ const ThemePanel: React.FC = () => {
       {/* User's Uploaded Fonts */}
       {userFonts.fonts.length > 0 && (
         <div className="px-2.5">
-          <p className='text-xs text-[#4C4C4C] font-medium text-end pb-1.5'>Your Uploaded Fonts</p>
+          <p className='text-xs text-[#4C4C4C] font-medium text-end pb-1.5'>Suas Fontes Enviadas</p>
           <div className='grid grid-cols-2 gap-2'>
             {userFonts.fonts?.map((font) => (
               <FontCard
@@ -847,7 +847,7 @@ const ThemePanel: React.FC = () => {
 
       {/* Preset Fonts */}
       <div className='px-2.5'>
-        <p className='text-xs text-[#4C4C4C] font-medium text-end pb-1.5'>Pre-Sets</p>
+        <p className='text-xs text-[#4C4C4C] font-medium text-end pb-1.5'>Fontes Padrão</p>
         <div className="grid grid-cols-2 gap-2 overflow-y-auto custom_scrollbar">
           {FONT_OPTIONS.map((font) => (
             <FontCard
@@ -872,17 +872,17 @@ const ThemePanel: React.FC = () => {
       <div className="space-y-2">
         <Label className="flex text-base items-center gap-2">
 
-          Company Name
+          Nome da Empresa
         </Label>
         <Input
           defaultValue={themeCompanyName}
-          placeholder="Enter company name"
+          placeholder="Insira o nome da empresa"
           onBlur={(e) => setThemeCompanyName(e.target.value)}
         />
       </div>
       <Label className="flex text-base items-center gap-2">
 
-        Brand Logo
+        Logo da Marca
       </Label>
 
       <div className="space-y-2 bg-[#F6F6F9] rounded-md p-1 cursor-pointer"
@@ -900,13 +900,13 @@ const ThemePanel: React.FC = () => {
           {isLogoUploading ? (
             <div className="flex flex-col items-center justify-center py-6 text-gray-500">
               <Loader2 className="h-6 w-6 animate-spin mb-2" />
-              <p className="text-sm">Uploading logo...</p>
+              <p className="text-sm">Enviando logo...</p>
             </div>
           ) : customBrandLogo ? (
             <div className="space-y-2">
               <img
                 src={customBrandLogo}
-                alt="Brand Logo"
+                alt="Logo da Marca"
                 className="mx-auto h-16 w-auto object-contain"
               />
               <Button
@@ -918,7 +918,7 @@ const ThemePanel: React.FC = () => {
                   setCustomBrandLogoId('')
                 }}
               >
-                Remove Logo
+                Remover Logo
               </Button>
             </div>
           ) : (
@@ -930,8 +930,8 @@ const ThemePanel: React.FC = () => {
               </div>
               <div className="mt-2">
                 <label htmlFor="logo-upload" className="cursor-pointer">
-                  <span className="text-blue-600 hover:text-blue-500">Click to upload</span>
-                  <span className="text-gray-500"> or drag and drop</span>
+                  <span className="text-blue-600 hover:text-blue-500">Clique para enviar</span>
+                  <span className="text-gray-500"> ou arraste e solte</span>
                 </label>
                 <input
                   id="logo-upload"
@@ -970,7 +970,7 @@ const ThemePanel: React.FC = () => {
       <div className='py-[28px] flex justify-between'>
 
         <h3 className=" text-[28px]  tracking-[-0.84px] font-unbounded font-normal text-[#101828] flex items-center gap-2">
-          Themes
+          Temas
         </h3>
         <Link
           href="/theme?tab=new-theme"
@@ -979,15 +979,15 @@ const ThemePanel: React.FC = () => {
             source: "theme_page_header",
           })}
           className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-black text-sm font-semibold font-syne shadow-sm hover:shadow-md"
-          aria-label="Create new theme"
+          aria-label="Criar novo tema"
           style={{
             borderRadius: "48px",
             background: "linear-gradient(270deg, #D5CAFC 2.4%, #E3D2EB 27.88%, #F4DCD3 69.23%, #FDE4C2 100%)",
           }}
         >
 
-          <span className="hidden md:inline">New Theme</span>
-          <span className="md:hidden">New</span>
+          <span className="hidden md:inline">Novo Tema</span>
+          <span className="md:hidden">Novo</span>
           <ChevronRight className="w-4 h-4" />
         </Link>
       </div>
@@ -1001,7 +1001,7 @@ const ThemePanel: React.FC = () => {
           style={{
             background: tab === 'custom' ? 'linear-gradient(270deg, #D5CAFC 2.4%, #E3D2EB 27.88%, #F4DCD3 69.23%, #FDE4C2 100%)' : 'transparent'
           }}
-        >Custom</button>
+        >Personalizados</button>
         <svg xmlns="http://www.w3.org/2000/svg" className='mx-1' width="2" height="17" viewBox="0 0 2 17" fill="none">
           <path d="M1 0V16.5" stroke="#EDECEC" strokeWidth="2" />
         </svg>
@@ -1013,7 +1013,7 @@ const ThemePanel: React.FC = () => {
           style={{
             background: tab === 'default' ? 'linear-gradient(270deg, #D5CAFC 2.4%, #E3D2EB 27.88%, #F4DCD3 69.23%, #FDE4C2 100%)' : 'transparent'
           }}
-        >Built-in</button>
+        >Padrão</button>
       </div>
       {/* Built-in Themes */}
 
@@ -1085,7 +1085,7 @@ const ThemePanel: React.FC = () => {
 
                         className='px-3.5 py-2.5 bg-[#F7F6F9] rounded-[48px] text-xs font-semibold text-[#101323]'
                         onClick={() => setCurrentStep(currentStep - 1)}
-                      >Back</button>}
+                      >Voltar</button>}
 
                       <button className='px-7 py-2.5 flex items-center gap-1 rounded-[48px] text-xs font-semibold text-[#101323] '
 
@@ -1111,7 +1111,7 @@ const ThemePanel: React.FC = () => {
                           background: 'linear-gradient(270deg, #D5CAFC 2.4%, #E3D2EB 27.88%, #F4DCD3 69.23%, #FDE4C2 100%)'
                         }}
                       >
-                        {currentStep === 1 ? 'Generate theme palette' : currentStep === 2 ? 'Continue to Fonts' : currentStep === 3 ? 'Continue to Design' : 'Save as Custom Theme'}
+                        {currentStep === 1 ? 'Gerar paleta de tema' : currentStep === 2 ? 'Continuar para Fontes' : currentStep === 3 ? 'Continuar para Design' : 'Salvar como Tema Personalizado'}
                         <ChevronRight className='w-4 h-4' />
                       </button>
                     </div>

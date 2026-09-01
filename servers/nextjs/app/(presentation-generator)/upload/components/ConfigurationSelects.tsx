@@ -117,7 +117,7 @@ const SlideCountSelect: React.FC<{
     }
   };
 
-  const displayLabel = value ? `${value} slides` : "Auto slides";
+  const displayLabel = value ? `${value} slides` : "Slides automáticos";
 
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
@@ -131,7 +131,7 @@ const SlideCountSelect: React.FC<{
           className={cn(
             "flex h-[34px] items-center justify-between gap-2 overflow-hidden rounded-full bg-white px-3.5 font-syne font-medium text-[#191919]",
             compact
-              ? "border border-[#EDEEEF] shadow-none focus-visible:ring-2 focus-visible:ring-[#5146E5]/25"
+              ? "w-full border border-[#EDEEEF] shadow-none focus-visible:ring-2 focus-visible:ring-[#5146E5]/25"
               : "shadow-sm ring-1 ring-inset ring-slate-200 focus-visible:ring-[#5146E5]/30 min-[1800px]:h-10 min-[1800px]:px-4 min-[2200px]:h-11 min-[2200px]:px-5",
           )}
         >
@@ -293,10 +293,10 @@ const LanguageSelect: React.FC<{
         aria-expanded={open}
         aria-controls="language-options"
         className={cn(
-          "flex h-[34px] max-w-[160px] items-center gap-2 overflow-hidden rounded-full bg-white px-3.5 font-syne font-semibold text-[#191919]",
+          "flex h-[34px] items-center gap-2 overflow-hidden rounded-full bg-white px-3.5 font-syne font-semibold text-[#191919]",
           compact
-            ? "border border-[#EDEEEF] shadow-none focus-visible:ring-2 focus-visible:ring-[#5146E5]/25"
-            : "shadow-sm ring-1 ring-inset ring-slate-200 min-[1800px]:h-10 min-[1800px]:max-w-[190px] min-[1800px]:px-4 min-[2200px]:h-11 min-[2200px]:max-w-[220px] min-[2200px]:px-5",
+            ? "w-full border border-[#EDEEEF] shadow-none focus-visible:ring-2 focus-visible:ring-[#5146E5]/25"
+            : "max-w-[160px] shadow-sm ring-1 ring-inset ring-slate-200 min-[1800px]:h-10 min-[1800px]:max-w-[190px] min-[1800px]:px-4 min-[2200px]:h-11 min-[2200px]:max-w-[220px] min-[2200px]:px-5",
         )}
       >
         <Languages
@@ -323,7 +323,7 @@ const LanguageSelect: React.FC<{
                 : "text-xs font-medium min-[1800px]:text-sm min-[2200px]:text-base",
             )}
           >
-            {value || "Select language"}
+            {value || "Selecionar idioma"}
           </span>
           {compact && (
             <ChevronUp
@@ -345,11 +345,11 @@ const LanguageSelect: React.FC<{
     >
       <Command>
         <CommandInput
-          placeholder="Search language..."
+          placeholder="Buscar idioma..."
           className="font-instrument_sans"
         />
         <CommandList>
-          <CommandEmpty>No language found.</CommandEmpty>
+          <CommandEmpty>Nenhum idioma encontrado.</CommandEmpty>
           <CommandGroup>
             {Object.values(LanguageType).map((language) => (
               <CommandItem
@@ -393,8 +393,10 @@ export function ConfigurationSelects({
   return (
     <div
       className={cn(
-        "order-1 flex flex-wrap items-center",
-        compact ? "gap-3" : "gap-4 min-[1800px]:gap-5",
+        "order-1",
+        compact
+          ? "grid w-full grid-cols-2 gap-3"
+          : "flex flex-wrap items-center gap-4 min-[1800px]:gap-5",
       )}
     >
       <Button
@@ -402,10 +404,10 @@ export function ConfigurationSelects({
         onClick={() => setModeDialogOpen(true)}
         className={cn(
           "rounded-full border border-[#EDEEEF] bg-white px-4 py-1 font-syne text-sm font-medium text-[#101323] hover:bg-white",
-          compact ? "h-[34px] shadow-none" : "h-[38px] shadow-sm",
+          compact ? "h-[34px] w-full justify-between shadow-none" : "h-[38px] shadow-sm",
         )}
       >
-        {mode === "standard" ? "Standard" : "Smart"}
+        {mode === "standard" ? "Padrão" : "Smart"}
         <ChevronUp className="h-4 w-4" />
       </Button>
 

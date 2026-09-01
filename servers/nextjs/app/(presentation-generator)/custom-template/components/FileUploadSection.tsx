@@ -21,7 +21,7 @@ export const FileUploadSection: React.FC<FileUploadSectionProps> = ({
   removeFile,
   CheckFonts,
   onPptxFileSelect,
-  processingLabel = "Checking Fonts...",
+  processingLabel = "Verificando fontes...",
 
   isProcessingPptx,
   slides,
@@ -70,7 +70,7 @@ export const FileUploadSection: React.FC<FileUploadSectionProps> = ({
             }}
           >
             <UploadIcon className={`w-4 h-4 text-black`} />
-            <p className='text-xs font-medium text-black'>Upload PPTX File</p>
+            <p className='text-xs font-medium text-black'>Enviar arquivo PPTX</p>
           </div>
         </div>
         <div className=" w-full bg-[#FAFAFF] rounded-[28px] p-2.5 "
@@ -98,7 +98,7 @@ export const FileUploadSection: React.FC<FileUploadSectionProps> = ({
                       </div>
                     </div>
                     <p className='pt-3 text-xs font-normal text-[#808080] tracking-[-0.12px] text-center'>
-                      <span className='text-[#808080] underline underline-offset-4'>Click to Upload</span> or drag &amp; drop.
+                      <span className='text-[#808080] underline underline-offset-4'>Clique para enviar</span> ou arraste e solte.
                     </p>
                   </div>
                 </> : <div className="flex gap-2 items-center justify-center h-full w-fit mx-auto">
@@ -122,7 +122,7 @@ export const FileUploadSection: React.FC<FileUploadSectionProps> = ({
                     </div>
                     <div className="flex-1">
                       <h3 className="text-[#4C4C4C] text-sm font-medium line-clamp-1"> {selectedFile.name}</h3>
-                      <p className="text-xs font-normal text-[#808080] tracking-[-0.12px]">Presentation ( {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB)</p>
+                      <p className="text-xs font-normal text-[#808080] tracking-[-0.12px]">Apresentação ( {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB)</p>
                     </div>
 
                   </div>
@@ -134,14 +134,14 @@ export const FileUploadSection: React.FC<FileUploadSectionProps> = ({
               <div className="flex items-center justify-between gap-2.5">
                 <div className="min-w-[140px] w-full">
                   {isProcessing ? (
-                    <div className="flex items-center justify-end gap-3" aria-live="polite" aria-label="Processing">
+                    <div className="flex items-center justify-end gap-3" aria-live="polite" aria-label="Processando">
                       <div
                         className="h-[14px] w-[74px] rounded-full bg-[#EFEDFF] overflow-hidden ring-1 ring-[#E4E0FF]"
                         aria-hidden="true"
                       >
                         <div className="h-full w-full rounded-full processing-stripes" />
                       </div>
-                      <p className="text-sm font-medium text-[#9A9AA6] tracking-[-0.1px]">Processing</p>
+                      <p className="text-sm font-medium text-[#9A9AA6] tracking-[-0.1px]">Processando</p>
                       {slides.length > 0 ? (
                         <p className="text-sm font-medium text-[#9A9AA6] tracking-[-0.1px]">
                           {completedSlides}/{slides.length} Slides
@@ -186,8 +186,8 @@ export const FileUploadSection: React.FC<FileUploadSectionProps> = ({
                         {isProcessingPptx
                           ? processingLabel
                           : !selectedFile
-                            ? "Select a PPTX file"
-                            : "Check Fonts"}
+                            ? "Selecione um arquivo PPTX"
+                            : "Verificar fontes"}
                         <ChevronRight className="w-3.5 h-3.5 text-black" />
                       </button>
                     </div>
@@ -205,19 +205,19 @@ export const FileUploadSection: React.FC<FileUploadSectionProps> = ({
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
               <circle cx="8.5" cy="8.17041" r="4.5" fill="#EBE9FE" />
             </svg>
-            <p className="md:text-sm text-[10px] font-normal text-[#3A3A3A] ">PPTX. Only</p>
+            <p className="md:text-sm text-[10px] font-normal text-[#3A3A3A] ">Apenas PPTX</p>
           </li>
           <li className="flex items-center gap-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
               <circle cx="8.5" cy="8.17041" r="4.5" fill="#EBE9FE" />
             </svg>
-            <p className="md:text-sm text-[10px] font-normal text-[#3A3A3A] ">Max 100MB</p>
+            <p className="md:text-sm text-[10px] font-normal text-[#3A3A3A] ">Máx. 100MB</p>
           </li>
           <li className="flex items-center gap-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
               <circle cx="8.5" cy="8.17041" r="4.5" fill="#EBE9FE" />
             </svg>
-            <p className="md:text-sm text-[10px] font-normal text-[#3A3A3A] ">5min Generation</p>
+            <p className="md:text-sm text-[10px] font-normal text-[#3A3A3A] ">Geração em 5min</p>
           </li>
         </ul>
 

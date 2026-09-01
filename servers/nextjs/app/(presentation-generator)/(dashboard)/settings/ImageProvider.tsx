@@ -61,12 +61,12 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
             return (
                 <div className="w-[205px] mr-0 ml-auto">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        DALL·E 3 Image Quality
+                        Qualidade de Imagem DALL·E 3
                     </label>
                     <div className="">
                         <Select value={llmConfig.DALL_E_3_QUALITY || 'standard'} onValueChange={(value) => input_field_changed(value, "DALL_E_3_QUALITY")}>
                             <SelectTrigger className="w-full h-12 px-4 py-4 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors hover:border-gray-400 justify-between">
-                                <SelectValue placeholder="Select a quality" />
+                                <SelectValue placeholder="Selecione uma qualidade" />
                             </SelectTrigger>
                             <SelectContent>
                                 {DALLE_3_QUALITY_OPTIONS.map((option) => (
@@ -84,7 +84,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
             return (
                 <div className="w-[205px]">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        GPT Image 1.5 Quality
+                        Qualidade de Imagem GPT Image 1.5
                     </label>
                     <div className="">
                         <Select
@@ -94,7 +94,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                             <SelectTrigger
 
                                 className="w-full h-12 px-4 py-4 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors hover:border-gray-400 justify-between">
-                                <SelectValue placeholder="Select a quality" />
+                                <SelectValue placeholder="Selecione uma qualidade" />
                             </SelectTrigger>
                             <SelectContent>
                                 {GPT_IMAGE_1_5_QUALITY_OPTIONS.map((option) => (
@@ -118,13 +118,13 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
         <div className="space-y-6 bg-[#F9F8F8] p-7 rounded-[12px] ">
             {/* API Key Input */}
             <div className="mb-4  bg-white p-10 pt-5 rounded-[12px]">
-                <ToolTip content="Enable/Disable Image Generation" className='flex justify-end items-center'>
+                <ToolTip content="Ativar/Desativar Geração de Imagens" className='flex justify-end items-center'>
                     <div className='flex justify-end items-center'>
                         <Switch
                             checked={!isImageGenerationDisabled}
                             className='data-[state=checked]:bg-[#4791FF] data-[state=unchecked]:bg-gray-400'
                             onCheckedChange={(checked) => handleChangeImageGenerationDisabled(!checked)}
-                            aria-label="Enable image generation"
+                            aria-label="Ativar geração de imagens"
                         />
                     </div>
 
@@ -138,9 +138,9 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                         >
                             <img src="/image-markup.svg" className='w-full h-full object-cover' alt='image-markup' />
                         </div>
-                        <h3 className="text-xl font-normal text-[#191919] py-2.5">Image Generation Settings</h3>
+                        <h3 className="text-xl font-normal text-[#191919] py-2.5">Configurações de Geração de Imagens</h3>
                         <p className=" text-sm  text-gray-500">
-                            Choosing where images come from
+                            Escolha a origem das imagens
                         </p>
                     </div>
                     <div className=' '>
@@ -152,7 +152,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                                     {/* Image Provider Selection */}
                                     <div className="">
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Select Image Provider
+                                            Selecionar Provedor de Imagem
                                         </label>
                                         <div className="w-full">
                                             <Popover
@@ -170,7 +170,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                                                             <span className="text-sm font-medium text-gray-900">
                                                                 {llmConfig.IMAGE_PROVIDER
                                                                     ? IMAGE_PROVIDERS[llmConfig.IMAGE_PROVIDER]?.label || llmConfig.IMAGE_PROVIDER
-                                                                    : "Select image provider"}
+                                                                    : "Selecionar provedor de imagem"}
                                                             </span>
                                                         </div>
                                                         <ChevronUp className="w-4 h-4 text-gray-500" />
@@ -182,9 +182,9 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                                                     style={{ width: "300px" }}
                                                 >
                                                     <Command>
-                                                        <CommandInput placeholder="Search provider..." />
+                                                        <CommandInput placeholder="Buscar provedor..." />
                                                         <CommandList>
-                                                            <CommandEmpty>No provider found.</CommandEmpty>
+                                                            <CommandEmpty>Nenhum provedor encontrado.</CommandEmpty>
                                                             <CommandGroup>
                                                                 {Object.values(IMAGE_PROVIDERS).map((provider) => (
                                                                     <CommandItem
@@ -261,7 +261,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                                                     <div className=" space-y-4">
                                                         <div className='w-[205px]'>
                                                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                                ComfyUI Server URL
+                                                                URL do Servidor ComfyUI
                                                             </label>
                                                             <div className="relative">
                                                                 <input
@@ -290,7 +290,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                                                     <div className="space-y-4">
                                                         <div className='w-[205px]'>
                                                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                                Open WebUI URL
+                                                                URL do Open WebUI
                                                             </label>
                                                             <div className="relative">
                                                                 <input
@@ -320,7 +320,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                                                     <div className="relative">
                                                         <input
                                                             type={showApiKey ? 'text' : 'password'}
-                                                            placeholder={`Enter your ${provider.apiKeyFieldLabel}`}
+                                                            placeholder={`Insira sua ${provider.apiKeyFieldLabel}`}
                                                             className="w-full px-4 pr-12 py-2.5 h-12 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors"
                                                             value={getFieldValue(provider.apiKeyField)}
                                                             onChange={(e) =>
@@ -334,7 +334,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                                                             type="button"
                                                             onClick={() => setShowApiKey((prev) => !prev)}
                                                             className='absolute inset-y-0 right-0 flex w-12 cursor-pointer items-center justify-center rounded-r-lg text-gray-500 transition-colors hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500'
-                                                            aria-label={showApiKey ? 'Hide API key' : 'Show API key'}
+                                                            aria-label={showApiKey ? 'Ocultar chave de API' : 'Mostrar chave de API'}
                                                             aria-pressed={showApiKey}
                                                         >
                                                             {showApiKey ? <EyeOff className='w-4 h-4' aria-hidden="true" /> : <Eye className='w-4 h-4' aria-hidden="true" />}
@@ -354,12 +354,12 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                             {llmConfig.IMAGE_PROVIDER === "open_webui" && (
                                 <div className='w-[205px]'>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        API Key (optional)
+                                        Chave de API (opcional)
                                     </label>
                                     <div className="relative">
                                         <input
                                             type={showApiKey ? 'text' : 'password'}
-                                            placeholder="API key"
+                                            placeholder="Chave de API"
                                             className="w-full px-4 pr-12 py-2.5 h-12 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors"
                                             value={llmConfig.OPEN_WEBUI_IMAGE_API_KEY || ""}
                                             onChange={(e) => {
@@ -370,7 +370,7 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                                             type="button"
                                             onClick={() => setShowApiKey((prev) => !prev)}
                                             className='absolute inset-y-0 right-0 flex w-12 cursor-pointer items-center justify-center rounded-r-lg text-gray-500 transition-colors hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500'
-                                            aria-label={showApiKey ? 'Hide API key' : 'Show API key'}
+                                            aria-label={showApiKey ? 'Ocultar chave de API' : 'Mostrar chave de API'}
                                             aria-pressed={showApiKey}
                                         >
                                             {showApiKey ? <EyeOff className='w-4 h-4' aria-hidden="true" /> : <Eye className='w-4 h-4' aria-hidden="true" />}
@@ -380,11 +380,11 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                             )}
                             {llmConfig.IMAGE_PROVIDER === "comfyui" && <div className='w-full'>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Workflow JSON
+                                    JSON do Fluxo de Trabalho (Workflow)
                                 </label>
                                 <div className="relative">
                                     <textarea
-                                        placeholder='Paste your ComfyUI workflow JSON here (export via "Export (API)" in ComfyUI)'
+                                        placeholder='Cole o JSON do seu workflow do ComfyUI aqui (exporte via "Export (API)" no ComfyUI)'
                                         className="w-full px-4 py-2.5 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors font-mono text-xs"
                                         rows={3}
                                         value={llmConfig.COMFYUI_WORKFLOW || ""}
@@ -410,15 +410,15 @@ const ImageProvider = ({ llmConfig, setLlmConfig }: { llmConfig: LLMConfig, setL
                     <>
                         <div className="mb-4 rounded-lg border border-yellow-200 bg-yellow-50 p-3">
                             <p className="text-sm text-yellow-800">
-                                No models found. Please make sure your provider credentials are valid and the selected provider is reachable.
+                                Nenhum modelo encontrado. Certifique-se de que suas credenciais são válidas e que o provedor selecionado está acessível.
                             </p>
                         </div>
                         <div className="flex w-full justify-end">
                             <div className="w-[205px]">
-                                <label className="mb-2 block text-sm font-medium text-gray-700">Image model id</label>
+                                <label className="mb-2 block text-sm font-medium text-gray-700">ID do modelo de imagem</label>
                                 <input
                                     type="text"
-                                    placeholder="e.g. dall-e-3, gpt-image-1"
+                                    placeholder="ex: dall-e-3, gpt-image-1"
                                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                                     value={llmConfig.OPENAI_COMPAT_IMAGE_MODEL || ""}
                                     onChange={(e) => {

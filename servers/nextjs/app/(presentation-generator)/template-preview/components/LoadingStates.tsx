@@ -23,10 +23,10 @@ const LoadingStates: React.FC<LoadingStatesProps> = ({ type, message }) => {
 
             <div className="space-y-2">
               <h3 className="text-xl font-semibold text-gray-900">
-                Loading Layouts
+                Carregando Layouts
               </h3>
               <p className="text-gray-600">
-                {message || "Discovering and loading layout components..."}
+                {message || "Descobrindo e carregando componentes de layout..."}
               </p>
             </div>
 
@@ -62,11 +62,11 @@ const LoadingStates: React.FC<LoadingStatesProps> = ({ type, message }) => {
 
             <div className="space-y-2">
               <h3 className="text-xl font-semibold text-gray-900">
-                Something went wrong
+                Algo deu errado
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
                 {message ||
-                  "Failed to load layouts. Please check your layout files and try again."}
+                  "Falha ao carregar layouts. Verifique os arquivos de layout e tente novamente."}
               </p>
             </div>
           </CardContent>
@@ -86,16 +86,16 @@ const LoadingStates: React.FC<LoadingStatesProps> = ({ type, message }) => {
 
             <div className="space-y-2">
               <h3 className="text-xl font-semibold text-gray-700">
-                No Layouts Found
+                Nenhum Layout Encontrado
               </h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                No valid layout files were discovered. Make sure your layout
-                components export both a default component and a Schema.
+                Nenhum arquivo de layout válido foi encontrado. Certifique-se de que seus
+                componentes exportem um componente padrão e um Schema.
               </p>
             </div>
 
             <div className="bg-gray-50 p-4 rounded-lg text-left text-xs text-gray-600">
-              <p className="font-medium mb-2">Expected structure:</p>
+              <p className="font-medium mb-2">Estrutura esperada:</p>
               <code className="block">
                 export default MyLayout
                 <br />

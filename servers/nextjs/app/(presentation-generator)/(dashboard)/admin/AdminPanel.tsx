@@ -54,7 +54,7 @@ type AdminPanelProps = {
 async function errorDetail(response: Response): Promise<string> {
   const payload = await response.json().catch(() => null);
   return payload?.detail === undefined
-    ? `Request failed (${response.status})`
+    ? `A requisição falhou (${response.status})`
     : formatFastApiDetail(payload.detail);
 }
 
@@ -101,7 +101,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           status_code: response.status,
           error_message: sanitizeAnalyticsError(detail),
         });
-        notify.error("Could not load users", detail);
+        notify.error("Não foi possível carregar os usuários", detail);
       }
     } catch (loadError) {
       trackEvent(MixpanelEvent.Auth_Admin_User_List_Failed, {
@@ -109,10 +109,10 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
         status_code: null,
         error_message: sanitizeAnalyticsError(
           loadError,
-          "Could not load users"
+          "Não foi possível carregar os usuários"
         ),
       });
-      notify.error("Could not load users", "Please try again.");
+      notify.error("Não foi possível carregar os usuários", "Por favor, tente novamente.");
     } finally {
       setBusy(null);
     }
@@ -137,17 +137,17 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           status_code: response.status,
           error_message: sanitizeAnalyticsError(detail),
         });
-        notify.error("Could not load API keys", detail);
+        notify.error("Não foi possível carregar as chaves de API", detail);
       }
     } catch (loadError) {
       trackEvent(MixpanelEvent.Auth_Admin_API_Key_List_Failed, {
         status_code: null,
         error_message: sanitizeAnalyticsError(
           loadError,
-          "Could not load API keys"
+          "Não foi possível carregar as chaves de API"
         ),
       });
-      notify.error("Could not load API keys", "Please try again.");
+      notify.error("Não foi possível carregar as chaves de API", "Por favor, tente novamente.");
     } finally {
       setBusy(null);
     }
@@ -180,7 +180,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           username_length: cleanedUsername.length,
           user_count_after: users.length + 1,
         });
-        notify.success("User created", `${cleanedUsername} can now sign in.`);
+        notify.success("Usuário criado", `${cleanedUsername} agora pode fazer login.`);
         setUsername("");
         setPassword("");
         await loadUsers("user_created");
@@ -190,17 +190,17 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           status_code: response.status,
           error_message: sanitizeAnalyticsError(detail),
         });
-        notify.error("Could not create user", detail);
+        notify.error("Não foi possível criar o usuário", detail);
       }
     } catch (createError) {
       trackEvent(MixpanelEvent.Auth_Admin_User_Create_Failed, {
         status_code: null,
         error_message: sanitizeAnalyticsError(
           createError,
-          "Could not create user"
+          "Não foi possível criar o usuário"
         ),
       });
-      notify.error("Could not create user", "Please try again.");
+      notify.error("Não foi possível criar o usuário", "Por favor, tente novamente.");
     } finally {
       setBusy(null);
     }
@@ -232,7 +232,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           target_role: user.role,
           sessions_invalidated: true,
         });
-        notify.success("Password reset", "Existing sessions were signed out.");
+        notify.success("Senha redefinida", "As sessões existentes foram encerradas.");
         setDialog(null);
         setResetPasswordValue("");
       } else {
@@ -242,7 +242,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           status_code: response.status,
           error_message: sanitizeAnalyticsError(detail),
         });
-        notify.error("Could not reset password", detail);
+        notify.error("Não foi possível redefinir a senha", detail);
       }
     } catch (resetError) {
       trackEvent(MixpanelEvent.Auth_Admin_User_Password_Reset_Failed, {
@@ -250,10 +250,10 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
         status_code: null,
         error_message: sanitizeAnalyticsError(
           resetError,
-          "Could not reset password"
+          "Não foi possível redefinir a senha"
         ),
       });
-      notify.error("Could not reset password", "Please try again.");
+      notify.error("Não foi possível redefinir a senha", "Por favor, tente novamente.");
     } finally {
       setBusy(null);
     }
@@ -278,7 +278,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           target_role: user.role,
           user_count_after: Math.max(0, users.length - 1),
         });
-        notify.success("User deleted", `${user.username}'s workspace was removed.`);
+        notify.success("Usuário excluído", `A área de trabalho de ${user.username} foi removida.`);
         setDialog(null);
         await loadUsers("user_deleted");
       } else {
@@ -288,7 +288,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           status_code: response.status,
           error_message: sanitizeAnalyticsError(detail),
         });
-        notify.error("Could not delete user", detail);
+        notify.error("Não foi possível excluir o usuário", detail);
       }
     } catch (deleteError) {
       trackEvent(MixpanelEvent.Auth_Admin_User_Delete_Failed, {
@@ -296,10 +296,10 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
         status_code: null,
         error_message: sanitizeAnalyticsError(
           deleteError,
-          "Could not delete user"
+          "Não foi possível excluir o usuário"
         ),
       });
-      notify.error("Could not delete user", "Please try again.");
+      notify.error("Não foi possível excluir o usuário", "Por favor, tente novamente.");
     } finally {
       setBusy(null);
     }
@@ -323,9 +323,9 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
         });
         try {
           await navigator.clipboard.writeText(key.token);
-          notify.success("API key created", "The new key was copied to your clipboard.");
+          notify.success("Chave de API criada", "A nova chave foi copiada para sua área de transferência.");
         } catch {
-          notify.success("API key created", "Use the copy button to copy the new key.");
+          notify.success("Chave de API criada", "Use o botão copiar para copiar a nova chave.");
         }
       } else {
         const detail = await errorDetail(response);
@@ -333,17 +333,17 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           status_code: response.status,
           error_message: sanitizeAnalyticsError(detail),
         });
-        notify.error("Could not create API key", detail);
+        notify.error("Não foi possível criar a chave de API", detail);
       }
     } catch (createError) {
       trackEvent(MixpanelEvent.Auth_Admin_API_Key_Create_Failed, {
         status_code: null,
         error_message: sanitizeAnalyticsError(
           createError,
-          "Could not create API key"
+          "Não foi possível criar a chave de API"
         ),
       });
-      notify.error("Could not create API key", "Please try again.");
+      notify.error("Não foi possível criar a chave de API", "Por favor, tente novamente.");
     } finally {
       setBusy(null);
     }
@@ -375,24 +375,24 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           api_key_count_after: Math.max(0, keys.length - 1),
         });
         setDialog(null);
-        notify.success("API key revoked");
+        notify.success("Chave de API revogada");
       } else {
         const detail = await errorDetail(response);
         trackEvent(MixpanelEvent.Auth_Admin_API_Key_Revoke_Failed, {
           status_code: response.status,
           error_message: sanitizeAnalyticsError(detail),
         });
-        notify.error("Could not revoke API key", detail);
+        notify.error("Não foi possível revogar a chave de API", detail);
       }
     } catch (revokeError) {
       trackEvent(MixpanelEvent.Auth_Admin_API_Key_Revoke_Failed, {
         status_code: null,
         error_message: sanitizeAnalyticsError(
           revokeError,
-          "Could not revoke API key"
+          "Não foi possível revogar a chave de API"
         ),
       });
-      notify.error("Could not revoke API key", "Please try again.");
+      notify.error("Não foi possível revogar a chave de API", "Por favor, tente novamente.");
     } finally {
       setBusy(null);
     }
@@ -410,9 +410,9 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
   const copyKey = async (token: string) => {
     try {
       await navigator.clipboard.writeText(token);
-      notify.success("API key copied");
+      notify.success("Chave de API copiada");
     } catch {
-      notify.error("Could not copy API key", "Please try again.");
+      notify.error("Não foi possível copiar a chave de API", "Por favor, tente novamente.");
     }
   };
 
@@ -433,7 +433,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
       <div className={embedded ? "max-w-5xl" : "mx-auto max-w-5xl"}>
         {!embedded ? (
           <h1 className="font-unbounded text-[28px] font-normal tracking-[-0.84px] text-black">
-            Admin
+            Administração
           </h1>
         ) : null}
 
@@ -443,11 +443,10 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
           }`}
         >
           <h2 className="text-sm font-semibold text-[#191919]">
-            Manage access
+            Gerenciar acesso
           </h2>
           <p className="mt-1 max-w-2xl text-xs leading-relaxed text-[#6B7280]">
-            Create login accounts and manage admin-owned API/MCP access keys.
-            User workspaces remain private.
+            Crie contas de login e gerencie chaves de acesso à API/MCP pertencentes ao administrador. As áreas de trabalho dos usuários permanecem privadas.
           </p>
 
           <Tabs defaultValue="users" className="mt-6">
@@ -456,13 +455,13 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
               value="users"
               className="h-9 rounded-full px-5 text-xs text-[#667085] shadow-none data-[state=active]:bg-white data-[state=active]:text-[#5146E5] data-[state=active]:shadow-sm"
             >
-              Users
+              Usuários
             </TabsTrigger>
             <TabsTrigger
               value="keys"
               className="h-9 rounded-full px-5 text-xs text-[#667085] shadow-none data-[state=active]:bg-white data-[state=active]:text-[#5146E5] data-[state=active]:shadow-sm"
             >
-              API keys
+              Chaves de API
             </TabsTrigger>
           </TabsList>
 
@@ -473,21 +472,21 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   <UserPlus className="h-4 w-4 text-[#5146E5]" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-semibold text-[#101323]">Add user</h2>
+                  <h2 className="text-sm font-semibold text-[#101323]">Adicionar usuário</h2>
                   <p className="mt-0.5 text-xs text-[#667085]">
-                    Create a private workspace and sign-in credentials.
+                    Crie uma área de trabalho privada e credenciais de login.
                   </p>
                 </div>
               </div>
               <form onSubmit={addUser} className="grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
                 <input
-                  aria-label="Username"
+                  aria-label="Nome de usuário"
                   className={inputClass}
-                  placeholder="Username"
+                  placeholder="Nome de usuário"
                   minLength={3}
                   maxLength={128}
                   pattern="\S+"
-                  title="Username cannot contain spaces"
+                  title="O nome de usuário não pode conter espaços"
                   value={username}
                   onChange={(event) =>
                     setUsername(event.target.value.replace(/\s/g, ""))
@@ -496,10 +495,10 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   spellCheck={false}
                 />
                 <input
-                  aria-label="Password"
+                  aria-label="Senha"
                   className={inputClass}
                   type="password"
-                  placeholder="Password (8+ characters)"
+                  placeholder="Senha (8+ caracteres)"
                   minLength={8}
                   maxLength={128}
                   value={password}
@@ -508,7 +507,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                 />
                 <button type="submit" className={primaryButtonClass} disabled={busy === "add"}>
                   {busy === "add" && <Loader2 className="h-4 w-4 animate-spin" />}
-                  Create user
+                  Criar usuário
                 </button>
               </form>
             </section>
@@ -520,15 +519,15 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                     <Users className="h-4 w-4 text-[#5146E5]" />
                   </div>
                   <div>
-                    <h2 className="text-sm font-semibold text-[#101323]">Accounts</h2>
+                    <h2 className="text-sm font-semibold text-[#101323]">Contas</h2>
                     <p className="mt-0.5 text-xs text-[#667085]">
-                      {users.length} account{users.length === 1 ? "" : "s"}
+                      {users.length} conta{users.length === 1 ? "" : "s"}
                     </p>
                   </div>
                 </div>
                 <button
                   type="button"
-                  aria-label="Refresh accounts"
+                  aria-label="Atualizar contas"
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-[#EDEEEF] text-[#667085] transition hover:bg-[#F9FAFB] hover:text-[#5146E5]"
                   onClick={() => void loadUsers("manual")}
                 >
@@ -544,9 +543,9 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                     <div>
                       <p className="text-sm font-semibold text-[#101323]">{user.username}</p>
                       <p className="mt-1 text-xs text-[#667085]">
-                        {user.role === "admin" ? "Administrator" : "User"}
+                        {user.role === "admin" ? "Administrador" : "Usuário"}
                         {user.created_at
-                          ? ` · ${new Date(user.created_at).toLocaleDateString()}`
+                          ? ` · ${new Date(user.created_at).toLocaleDateString("pt-BR")}`
                           : ""}
                       </p>
                     </div>
@@ -558,11 +557,11 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                           onClick={() => openResetPassword(user)}
                           disabled={busy !== null}
                         >
-                          Reset password
+                          Redefinir senha
                         </button>
                         <button
                           type="button"
-                          aria-label={`Delete ${user.username}`}
+                          aria-label={`Excluir ${user.username}`}
                           className="flex h-9 w-9 items-center justify-center rounded-full border border-[#FEE4E2] bg-white text-[#D92D20] transition hover:bg-[#FEF3F2]"
                           onClick={() => setDialog({ kind: "delete-user", user })}
                           disabled={busy !== null}
@@ -585,9 +584,9 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                     <KeyRound className="h-4 w-4 text-[#5146E5]" />
                   </div>
                   <div>
-                    <h2 className="text-sm font-semibold text-[#101323]">API and MCP keys</h2>
+                    <h2 className="text-sm font-semibold text-[#101323]">Chaves de API e MCP</h2>
                     <p className="mt-0.5 text-xs text-[#667085]">
-                      Keys are hidden by default. Generate as many as you need.
+                      As chaves ficam ocultas por padrão. Gere quantas precisar.
                     </p>
                   </div>
                 </div>
@@ -598,7 +597,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   disabled={busy === "create-key"}
                 >
                   {busy === "create-key" && <Loader2 className="h-4 w-4 animate-spin" />}
-                  Generate key
+                  Gerar chave
                 </button>
               </div>
               <div className="divide-y divide-[#EDEEEF]">
@@ -606,7 +605,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   <div className="px-6 py-12 text-center">
                     <KeyRound className="mx-auto h-6 w-6 text-[#B8B4C7]" />
                     <p className="mt-3 text-sm text-[#667085]">
-                      No API keys have been generated.
+                      Nenhuma chave de API foi gerada.
                     </p>
                   </div>
                 )}
@@ -622,13 +621,13 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                           {isVisible ? key.token : maskedKey(key.token)}
                         </code>
                         <p className="mt-1 text-[11px] text-[#98A2B3]">
-                          Created {new Date(key.created_at).toLocaleDateString()}
+                          Criada em {new Date(key.created_at).toLocaleDateString("pt-BR")}
                         </p>
                       </div>
                       <button
                         type="button"
-                        aria-label={isVisible ? "Hide API key" : "Show API key"}
-                        title={isVisible ? "Hide API key" : "Show API key"}
+                        aria-label={isVisible ? "Ocultar chave de API" : "Mostrar chave de API"}
+                        title={isVisible ? "Ocultar chave de API" : "Mostrar chave de API"}
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-[#EDEEEF] text-[#667085] transition hover:bg-[#F4F3FF] hover:text-[#5146E5]"
                         onClick={() => toggleKeyVisibility(key.token)}
                       >
@@ -636,8 +635,8 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                       </button>
                       <button
                         type="button"
-                        aria-label="Copy API key"
-                        title="Copy API key"
+                        aria-label="Copiar chave de API"
+                        title="Copiar chave de API"
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-[#EDEEEF] text-[#667085] transition hover:bg-[#F4F3FF] hover:text-[#5146E5]"
                         onClick={() => void copyKey(key.token)}
                       >
@@ -645,8 +644,8 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                       </button>
                       <button
                         type="button"
-                        aria-label="Revoke API key"
-                        title="Revoke API key"
+                        aria-label="Revogar chave de API"
+                        title="Revogar chave de API"
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-[#FEE4E2] text-[#D92D20] transition hover:bg-[#FEF3F2]"
                         onClick={() => setDialog({ kind: "revoke-key", key })}
                         disabled={busy !== null}
@@ -680,22 +679,22 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   <LockKeyhole className="h-5 w-5 text-[#5146E5]" />
                 </div>
                 <DialogTitle className="text-xl font-semibold leading-7 text-[#101323]">
-                  Reset password
+                  Redefinir senha
                 </DialogTitle>
                 <DialogDescription className="pt-1 text-sm leading-6 text-[#667085]">
-                  Set a new password for{" "}
+                  Defina uma nova senha para{" "}
                   <span className="font-semibold text-[#344054]">{dialog.user.username}</span>.
-                  Existing sessions will be signed out.
+                  As sessões existentes serão encerradas.
                 </DialogDescription>
                 <label className="pt-4 text-xs font-semibold text-[#344054]" htmlFor="reset-password">
-                  New password
+                  Nova senha
                 </label>
                 <input
                   id="reset-password"
                   autoFocus
                   className={inputClass}
                   type="password"
-                  placeholder="Minimum 8 characters"
+                  placeholder="Mínimo de 8 caracteres"
                   minLength={8}
                   maxLength={128}
                   value={resetPasswordValue}
@@ -710,11 +709,11 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   onClick={() => setDialog(null)}
                   disabled={dialogBusy}
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button type="submit" className={primaryButtonClass} disabled={dialogBusy}>
                   {dialogBusy && <Loader2 className="h-4 w-4 animate-spin" />}
-                  Reset password
+                  Redefinir senha
                 </button>
               </DialogFooter>
             </form>
@@ -727,11 +726,11 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   <AlertTriangle className="h-5 w-5 text-[#D92D20]" />
                 </div>
                 <DialogTitle className="text-xl font-semibold leading-7 text-[#101323]">
-                  Delete {dialog.user.username}?
+                  Excluir {dialog.user.username}?
                 </DialogTitle>
                 <DialogDescription className="pt-1 text-sm leading-6 text-[#667085]">
-                  This permanently removes the user and all of their presentations,
-                  templates, chats, tasks, and files. This action cannot be undone.
+                  Isso remove permanentemente o usuário e todas as suas apresentações,
+                  modelos, chats, tarefas e arquivos. Esta ação não pode ser desfeita.
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter className="flex-row border-t border-[#EAECF0] p-4 sm:justify-end sm:space-x-0">
@@ -741,7 +740,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   onClick={() => setDialog(null)}
                   disabled={dialogBusy}
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="button"
@@ -750,7 +749,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   disabled={dialogBusy}
                 >
                   {dialogBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                  Delete user
+                  Excluir usuário
                 </button>
               </DialogFooter>
             </>
@@ -763,11 +762,11 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   <AlertTriangle className="h-5 w-5 text-[#D92D20]" />
                 </div>
                 <DialogTitle className="text-xl font-semibold leading-7 text-[#101323]">
-                  Revoke API key?
+                  Revogar chave de API?
                 </DialogTitle>
                 <DialogDescription className="pt-1 text-sm leading-6 text-[#667085]">
-                  Any application using this key will lose API and MCP access
-                  immediately. This action cannot be undone.
+                  Qualquer aplicativo que use esta chave perderá o acesso à API e MCP
+                  imediatamente. Esta ação não pode ser desfeita.
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter className="flex-row border-t border-[#EAECF0] p-4 sm:justify-end sm:space-x-0">
@@ -777,7 +776,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   onClick={() => setDialog(null)}
                   disabled={dialogBusy}
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="button"
@@ -786,7 +785,7 @@ export default function AdminPanel({ embedded = false }: AdminPanelProps) {
                   disabled={dialogBusy}
                 >
                   {dialogBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                  Revoke key
+                  Revogar chave
                 </button>
               </DialogFooter>
             </>

@@ -83,11 +83,11 @@ export const SlidePreviewSection: React.FC<SlidePreviewSectionProps> = ({
                                 <Images className="w-6 h-6 text-[#7A5AF8]" />
                             </div>
                             <div>
-                                <h2 className="text-xl font-semibold text-[#111827]">Slide Preview</h2>
+                                <h2 className="text-xl font-semibold text-[#111827]">Pré-visualização de Slides</h2>
                                 <p className="text-sm text-[#6B7280] mt-0.5">
-                                    {slideCount} slide{slideCount !== 1 ? 's' : ''} ready
+                                    {slideCount} slide{slideCount !== 1 ? 's' : ''} pronto{slideCount !== 1 ? 's' : ''}
                                     {fontCount > 0 && (
-                                        <> · {fontCount} font{fontCount !== 1 ? 's' : ''} applied</>
+                                        <> · {fontCount} fonte{fontCount !== 1 ? 's' : ''} aplicada{fontCount !== 1 ? 's' : ''}</>
                                     )}
                                 </p>
                             </div>
@@ -127,7 +127,7 @@ export const SlidePreviewSection: React.FC<SlidePreviewSectionProps> = ({
                 <div className="px-6 py-5 border-t border-[#F3F4F6] bg-gradient-to-r from-[#FAFAFA] to-white">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                         <p className="text-sm text-[#6B7280] max-w-md text-center sm:text-left">
-                            Ready to generate your template. Each slide will be converted to a reusable React component.
+                            Pronto para gerar seu modelo. Cada slide será convertido em um componente React reutilizável.
                         </p>
                         <Button
                             size="lg"
@@ -144,12 +144,12 @@ export const SlidePreviewSection: React.FC<SlidePreviewSectionProps> = ({
                             {isLoading ? (
                                 <>
                                     <Loader2 className="w-4 h-4 mr-1 animate-spin" />
-                                    Starting...
+                                    Iniciando...
                                 </>
                             ) : (
                                 <>
 
-                                    Generate Template
+                                    Gerar Modelo
                                     <ChevronRight className="w-4 h-4 ml-1" />
                                 </>
                             )}
@@ -162,36 +162,36 @@ export const SlidePreviewSection: React.FC<SlidePreviewSectionProps> = ({
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2">
                             <Sparkles className="h-5 w-5 text-[#7A5AF8]" />
-                            Template details
+                            Detalhes do modelo
                         </DialogTitle>
                         <DialogDescription>
-                            Name this template before generation starts.
+                            Dê um nome a este modelo antes de iniciar a geração.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-5 py-2">
                         <div className="grid gap-2">
                             <Label htmlFor="template-name">
-                                Name <span className="text-red-500">*</span>
+                                Nome <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 id="template-name"
                                 value={templateName}
                                 onChange={(event) => setTemplateName(event.target.value)}
                                 disabled={isLoading}
-                                placeholder="Template name"
+                                placeholder="Nome do modelo"
                                 aria-required
                             />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="template-description">
-                                Description <span className="text-gray-400">(optional)</span>
+                                Descrição <span className="text-gray-400">(opcional)</span>
                             </Label>
                             <Textarea
                                 id="template-description"
                                 value={description}
                                 onChange={(event) => setDescription(event.target.value)}
                                 disabled={isLoading}
-                                placeholder="Add a short summary of this template..."
+                                placeholder="Adicione um breve resumo deste modelo..."
                                 rows={3}
                                 className="resize-none"
                             />
@@ -203,7 +203,7 @@ export const SlidePreviewSection: React.FC<SlidePreviewSectionProps> = ({
                             onClick={handleCloseMetadata}
                             disabled={isLoading}
                         >
-                            Cancel
+                            Cancelar
                         </Button>
                         <Button
                             onClick={handleGenerateTemplate}
@@ -213,11 +213,11 @@ export const SlidePreviewSection: React.FC<SlidePreviewSectionProps> = ({
                             {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Generating...
+                                    Gerando...
                                 </>
                             ) : (
                                 <>
-                                    Generate Template
+                                    Gerar Modelo
                                     <ChevronRight className="ml-2 h-4 w-4" />
                                 </>
                             )}

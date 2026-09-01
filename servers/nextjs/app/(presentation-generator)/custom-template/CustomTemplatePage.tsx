@@ -79,9 +79,9 @@ type StudioStep = 1 | 2 | 3 | 4;
 
 const studioSteps: { id: StudioStep; label: string }[] = [
   { id: 1, label: "Upload" },
-  { id: 2, label: "Analyze" },
-  { id: 3, label: "Preview" },
-  { id: 4, label: "Review" },
+  { id: 2, label: "Analisar" },
+  { id: 3, label: "Pré-visualizar" },
+  { id: 4, label: "Revisar" },
 ];
 
 const pillGradient =
@@ -114,7 +114,7 @@ function StudioTopBar({ activeStep }: { activeStep: StudioStep }) {
         <a
           href="/dashboard"
           className="pointer-events-auto block h-8 w-8 sm:h-[34px] sm:w-[34px] 2xl:h-[44px] 2xl:w-[44px] shrink-0"
-          aria-label="Dashboard"
+          aria-label="Painel"
         >
           <img
             src="/logo-with-bg.png"
@@ -126,7 +126,7 @@ function StudioTopBar({ activeStep }: { activeStep: StudioStep }) {
 
         <nav
           className="pointer-events-auto flex items-center"
-          aria-label="Template Studio progress"
+          aria-label="Progresso do Estúdio de Modelos"
         >
           {studioSteps.map((step, index) => {
             const isActive = step.id === activeStep;
@@ -208,11 +208,11 @@ function TemplateStudioTitle({ compact = false }: { compact?: boolean }) {
       className={`px-4 text-center ${compact ? "pt-[88px] sm:pt-[96px] 2xl:pt-[112px]" : "pt-[96px] sm:pt-[108px] 2xl:pt-[128px]"}`}
     >
       <h1 className="font-unbounded text-[36px] font-normal leading-none tracking-[-1.2px] text-[#101323] sm:text-[48px] sm:tracking-[-1.4px] md:text-[56px] 2xl:text-[68px] 2xl:tracking-[-1.8px]">
-        Template Studio
+        Estúdio de Modelos
       </h1>
       <p className="mx-auto mt-3 max-w-[480px] text-center font-syne text-[15px] font-normal leading-[1.4] text-[#101323CC] sm:mt-4 sm:max-w-[520px] sm:text-[16px] 2xl:mt-5 2xl:max-w-[600px] 2xl:text-[18px]">
-        Upload your PPTX file to extract slides and convert them to a template
-        which you can use to generate AI presentations.
+        Envie seu arquivo PPTX para extrair slides e convertê-los em um modelo
+        que você pode usar para gerar apresentações com IA.
       </p>
     </div>
   );
@@ -263,7 +263,7 @@ function UploadPanel({
               className="flex h-[34px] 2xl:h-[42px] items-center gap-1.5 2xl:gap-2 rounded-[80px] bg-white px-3.5 2xl:px-4 text-[12px] 2xl:text-sm font-semibold text-black shadow-[0_0_4px_rgba(0,0,0,0.06)]"
             >
               <Upload className="h-3.5 w-3.5 2xl:h-4 2xl:w-4 text-[#7A5AF8]" />
-              Upload PPTX File
+              Enviar arquivo PPTX
             </button>
             <input
               ref={inputRef}
@@ -304,12 +304,12 @@ function UploadPanel({
                       </p>
                       <p className="mt-2 2xl:mt-2.5 text-sm 2xl:text-base text-[#777985]">
                         {isProcessing ? (
-                          "Processing..."
+                          "Processando..."
                         ) : (
                           <>
                             {formatFileSize(selectedFile.size)}
                             <span className="px-2">•</span>
-                            Ready
+                            Pronto
                           </>
                         )}
                       </p>
@@ -325,7 +325,7 @@ function UploadPanel({
                       }}
                       disabled={isProcessing}
                       className="w-[36px] h-[36px] 2xl:w-[44px] 2xl:h-[44px] top-1/2 z-20 flex items-center justify-center rounded-full border border-[#E8E8EF] bg-[#EFF0F4] text-black disabled:opacity-50"
-                      aria-label="Remove file"
+                      aria-label="Remover arquivo"
                     >
                       <X className="h-3.5 w-3.5 2xl:h-4 2xl:w-4" />
                     </button>
@@ -340,7 +340,7 @@ function UploadPanel({
                     draggable={false}
                   />
                   <p className="mt-3 2xl:mt-4 text-sm 2xl:text-base font-normal text-[#808080]">
-                    Drag &amp; Drop your files here
+                    Arraste e solte seus arquivos aqui
                   </p>
                 </div>
               )}
@@ -352,7 +352,7 @@ function UploadPanel({
                 disabled={isProcessing}
                 className="h-9 px-5 text-xs font-semibold"
               >
-                {isProcessing ? "Processing" : "Get Started"}
+                {isProcessing ? "Processando..." : "Começar"}
                 {isProcessing ? (
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
                 ) : (
@@ -364,7 +364,7 @@ function UploadPanel({
         </div>
 
         <ul className="mx-auto mt-6 2xl:mt-8 flex max-w-[480px] 2xl:max-w-[600px] items-center justify-between gap-5 2xl:gap-8">
-          {["Test in Real Time", "Max 100MB", "5min Generation"].map((item) => (
+          {["Teste em tempo real", "Máx. 100MB", "Geração em 5min"].map((item) => (
             <li key={item} className="flex items-center gap-2 2xl:gap-2.5">
               <span className="h-2.5 w-2.5 2xl:h-3 2xl:w-3 rounded-full bg-[#EBE9FE]" />
               <span className="text-[13px] 2xl:text-[15px] font-normal text-[#3A3A3A]">{item}</span>
@@ -379,9 +379,7 @@ function UploadPanel({
             i
           </span>
           <p>
-            Presenton sends each slide as a screenshot and HTML reference. Use a
-            vision-enabled model for accurate layouts. Text-only models may produce
-            poor results or fail.
+            O Presenton envia cada slide como captura de tela e referência HTML. Use um modelo compatível com visão para layouts precisos. Modelos somente de texto podem produzir resultados inferiores ou falhar.
           </p>
         </div>
       </div>
@@ -390,7 +388,7 @@ function UploadPanel({
 }
 
 function chipLabel(font: FontItem): string {
-  return font.name || font.family_name || font.original_name || "Unknown font";
+  return font.name || font.family_name || font.original_name || "Fonte desconhecida";
 }
 
 function uniqueFontChips(fontsData: FontData): FontItem[] {
@@ -525,12 +523,12 @@ function FontFallbackPicker({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          aria-label={`Fallback font for ${fontName}`}
+          aria-label={`Fonte alternativa para ${fontName}`}
           disabled={disabled}
           className="h-11 w-full justify-between rounded-lg border-[#DADDE6] bg-white px-3 font-syne text-sm font-medium text-[#282A32] shadow-none hover:border-[#B8BCC8] hover:bg-white"
         >
           <span className="min-w-0 truncate">
-            {selectedOption?.family ?? "Choose fallback"}
+            {selectedOption?.family ?? "Escolha a fonte alternativa"}
           </span>
           <ChevronDown className="h-4 w-4 shrink-0 text-[#61646F]" />
         </Button>
@@ -543,7 +541,7 @@ function FontFallbackPicker({
           <CommandInput
             value={query}
             onValueChange={setQuery}
-            placeholder="Search fonts"
+            placeholder="Pesquisar fontes"
             className="font-syne text-sm"
           />
           <CommandList
@@ -554,7 +552,7 @@ function FontFallbackPicker({
           >
             {filteredOptions.length === 0 ? (
               <CommandEmpty>
-                {options.length === 0 ? "Loading fonts..." : "No fonts found"}
+                {options.length === 0 ? "Carregando fontes..." : "Nenhuma fonte encontrada"}
               </CommandEmpty>
             ) : (
               <CommandGroup
@@ -638,20 +636,20 @@ function AnalyzePanel({
     ? allFontsAvailable
       ? {
         tone: "success",
-        title: "All fonts are available",
-        description: "Preparing the slide preview automatically.",
+        title: "Todas as fontes estão disponíveis",
+        description: "Preparando a pré-visualização dos slides automaticamente.",
       }
       : allMissingFontsResolved
         ? {
           tone: "success",
-          title: "Missing fonts resolved",
-          description: "All required font files are attached. Continue to preview.",
+          title: "Fontes ausentes resolvidas",
+          description: "Todos os arquivos de fontes necessários foram anexados. Continue para pré-visualizar.",
         }
         : {
           tone: "warning",
-          title: `${pendingMissingCount} font${pendingMissingCount === 1 ? "" : "s"} need attention`,
+          title: `${pendingMissingCount} fonte${pendingMissingCount === 1 ? "" : "s"} precisa${pendingMissingCount === 1 ? "" : "m"} de atenção`,
           description:
-            "Upload exact font files or keep the selected fallback fonts before continuing.",
+            "Envie os arquivos exatos de fonte ou mantenha as fontes alternativas selecionadas antes de continuar.",
         }
     : null;
 
@@ -687,7 +685,7 @@ function AnalyzePanel({
             className="flex h-[34px] 2xl:h-[42px] items-center gap-1.5 2xl:gap-2 rounded-[80px] bg-white px-3.5 2xl:px-4 text-[12px] 2xl:text-sm font-semibold text-black shadow-[0_0_4px_rgba(0,0,0,0.06)]"
           >
             <Upload className="h-3.5 w-3.5 2xl:h-4 2xl:w-4 text-[#7A5AF8]" />
-            Fonts Upload
+            Envio de Fontes
           </button>
         </div>
 
@@ -773,7 +771,7 @@ function AnalyzePanel({
               })
             ) : (
               <div className="col-span-full flex min-h-[140px] items-center justify-center rounded-xl border border-[#E8EAF0] bg-white text-sm font-medium text-[#686C78]">
-                No fonts detected
+                Nenhuma fonte detectada
               </div>
             )}
           </div>
@@ -787,11 +785,11 @@ function AnalyzePanel({
               {isUploading || isAutoContinuing ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  {isAutoContinuing ? "Preparing..." : "Creating..."}
+                  {isAutoContinuing ? "Preparando..." : "Criando..."}
                 </>
               ) : (
                 <>
-                  Continue
+                  Continuar
                   <ChevronRight className="h-4 w-4" />
                 </>
               )}
@@ -805,7 +803,7 @@ function AnalyzePanel({
               <button
                 type="button"
                 onClick={() => setResolvingFont(null)}
-                aria-label="Close"
+                aria-label="Fechar"
                 className="absolute -right-14 top-0 flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#20222B] shadow-sm"
               >
                 <X className="h-6 w-6" />
@@ -814,10 +812,10 @@ function AnalyzePanel({
               <div className="flex items-center justify-between gap-4 border-b border-[#EEF0F5] px-5 py-4">
                 <div className="min-w-0">
                   <h3 className=" text-lg font-semibold text-[#191919]">
-                    Resolve Missing Font
+                    Resolver Fonte Ausente
                   </h3>
                   <p className="mt-1 text-xs text-[#808080]">
-                    {resolvingFontName} is missing.
+                    A fonte {resolvingFontName} está ausente.
                   </p>
                 </div>
                 <button
@@ -826,14 +824,14 @@ function AnalyzePanel({
                   className="h-9 rounded-full px-5 text-sm font-medium text-black"
                   style={{ background: pillGradient }}
                 >
-                  Save
+                  Salvar
                 </button>
               </div>
 
               <div className="space-y-4 px-5 py-4">
                 <div>
                   <p className="mb-2 text-xs font-semibold text-[#30323A]">
-                    Upload original font file
+                    Enviar arquivo original da fonte
                   </p>
                   <input
                     ref={(node) => {
@@ -857,19 +855,19 @@ function AnalyzePanel({
                         <Upload className="h-4 w-4" />
                       )}
                     </span>
-                    {resolvingFontUploaded ? "Font file uploaded" : "Upload .ttf / .otf"}
+                    {resolvingFontUploaded ? "Arquivo de fonte enviado" : "Enviar .ttf / .otf"}
                   </button>
                 </div>
 
                 <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3">
                   <span className="h-px bg-[#EEF0F5]" />
-                  <span className="text-xs font-medium text-[#686C78]">or</span>
+                  <span className="text-xs font-medium text-[#686C78]">ou</span>
                   <span className="h-px bg-[#EEF0F5]" />
                 </div>
 
                 <div>
                   <p className="mb-2 text-xs font-semibold text-[#30323A]">
-                    Fallback font
+                    Fonte alternativa
                   </p>
                   <FontFallbackPicker
                     fontName={resolvingFontName}
@@ -895,8 +893,8 @@ function AnalyzePanel({
             i
           </span>
           <p>
-            Exact font files maintain typography and spacing. Fallback fonts may
-            slightly change the layout and text wrapping.
+            Arquivos de fonte exatos mantêm a tipografia e o espaçamento. Fontes alternativas podem
+            alterar levemente o layout e a quebra de linha.
           </p>
         </div>
       </div>
@@ -1015,7 +1013,7 @@ function GeneratingSlidesOverlay() {
         <span aria-hidden className="generating-slides-background absolute" />
         <span className="relative z-10 flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-[#9034EA]" />
-          Updating slides...
+          Atualizando slides...
         </span>
       </span>
     </div>
@@ -1140,7 +1138,7 @@ function ThumbnailStrip({
         <button
           type="button"
           onClick={() => scrollThumbnails(-1)}
-          aria-label="Scroll thumbnails left"
+          aria-label="Rolar miniaturas para a esquerda"
           className={`absolute left-0 top-1/2 z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7ED] bg-white/95 text-black shadow-[0_2px_10px_rgba(16,24,40,0.14)] transition sm:h-9 sm:w-9 ${canScrollLeft ? "opacity-100" : "pointer-events-none opacity-0"}`}
         >
           <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -1186,7 +1184,7 @@ function ThumbnailStrip({
         <button
           type="button"
           onClick={() => scrollThumbnails(1)}
-          aria-label="Scroll thumbnails right"
+          aria-label="Rolar miniaturas para a direita"
           className={`absolute right-0 top-1/2 z-10 flex h-8 w-8 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7ED] bg-white/95 text-black shadow-[0_2px_10px_rgba(16,24,40,0.14)] transition sm:h-9 sm:w-9 ${canScrollRight ? "opacity-100" : "pointer-events-none opacity-0"}`}
         >
           <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -1245,7 +1243,7 @@ function ReviewSlideCanvas({
   return (
     <ResponsiveSlideViewport className="border border-[#E8E8EF] bg-[#F7F7FA]">
       <div className="flex h-full w-full items-center justify-center text-sm text-[#777985] 2xl:text-base">
-        {slide.processing ? "Generating slide..." : "Slide unavailable"}
+        {slide.processing ? "Gerando slide..." : "Slide indisponível"}
       </div>
     </ResponsiveSlideViewport>
   );
@@ -1299,7 +1297,7 @@ function PreviewPanel({
             bottomReserve={176}
           >
             <div className="flex h-full w-full items-center justify-center text-sm text-[#777985] 2xl:text-base">
-              Preview unavailable
+              Pré-visualização indisponível
             </div>
           </ResponsiveSlideViewport>
         )}
@@ -1357,7 +1355,7 @@ function ReviewPanel({
                     disabled={!selectedSlide || selectedSlide.processing}
                     className="h-8 rounded-[4px] px-2.5 text-[12px] font-medium text-black transition hover:bg-[#F6F6F9] disabled:cursor-not-allowed disabled:opacity-50 2xl:h-9 2xl:px-3 2xl:text-sm"
                   >
-                    Re-Construct
+                    Reconstruir
                   </button>
                   <span className="h-6 w-px bg-[#E8E8EE] 2xl:h-7" />
                   <button
@@ -1365,7 +1363,7 @@ function ReviewPanel({
                     onClick={handleDelete}
                     disabled={!isReady}
                     className="flex h-8 w-8 items-center justify-center rounded-[4px] text-black transition hover:bg-[#F6F6F9] disabled:cursor-not-allowed disabled:opacity-50 2xl:h-9 2xl:w-9"
-                    aria-label="Delete slide"
+                    aria-label="Excluir slide"
                   >
                     <Trash2 className="h-4 w-4 2xl:h-[18px] 2xl:w-[18px]" />
                   </button>
@@ -1396,9 +1394,9 @@ function SaveTemplateModal({
   isOpen,
   defaultName,
   isSaving,
-  title = "Save Template",
-  subtitle = "Give your template a name.",
-  submitLabel = "Save",
+  title = "Salvar Modelo",
+  subtitle = "Dê um nome ao seu modelo.",
+  submitLabel = "Salvar",
   onClose,
   onSave,
 }: {
@@ -1436,7 +1434,7 @@ function SaveTemplateModal({
           type="button"
           onClick={onClose}
           disabled={isSaving}
-          aria-label="Close"
+          aria-label="Fechar"
           className="absolute -right-[54px] 2xl:-right-[62px] top-0 flex h-[46px] w-[46px] 2xl:h-[52px] 2xl:w-[52px] items-center justify-center rounded-full bg-white text-black shadow-sm disabled:opacity-50"
         >
           <X className="h-6 w-6 2xl:h-7 2xl:w-7" />
@@ -1460,25 +1458,25 @@ function SaveTemplateModal({
         <div className="space-y-4 2xl:space-y-5 px-[18px] 2xl:px-6 pb-[18px] 2xl:pb-6 pt-5 2xl:pt-6">
           <label className="block">
             <span className="mb-2 2xl:mb-2.5 block text-[12px] 2xl:text-sm font-medium text-[#25272F]">
-              Template Name
+              Nome do Modelo
             </span>
             <input
               value={name}
               onChange={(event) => setName(event.target.value)}
               disabled={isSaving}
-              placeholder="e.g. Modern Tech Pitch Deck"
+              placeholder="ex: Pitch Deck de Tecnologia"
               className="h-9 2xl:h-10 w-full rounded-[5px] border border-[#E1E2E8] bg-white px-3 2xl:px-4 text-[13px] 2xl:text-[15px] text-black outline-none placeholder:text-[#8C8E96] focus:border-[#B9ABFF]"
             />
           </label>
           <label className="block">
             <span className="mb-2 2xl:mb-2.5 block text-[12px] 2xl:text-sm font-medium text-[#25272F]">
-              Description
+              Descrição
             </span>
             <textarea
               value={description}
               onChange={(event) => setDescription(event.target.value)}
               disabled={isSaving}
-              placeholder="Briefly describe when or how this template should be used."
+              placeholder="Descreva brevemente quando ou como este modelo deve ser usado."
               rows={4}
               className="h-[86px] 2xl:h-[100px] w-full resize-none rounded-[5px] border border-[#E1E2E8] bg-white px-3 2xl:px-4 py-3 2xl:py-3.5 text-[13px] 2xl:text-[15px] text-black outline-none placeholder:text-[#8C8E96] focus:border-[#B9ABFF]"
             />
@@ -1522,7 +1520,7 @@ const CustomTemplatePage = () => {
     retrySlide,
   } = useTemplateCreation();
 
-  const defaultTemplateName = getDefaultTemplateName(selectedFile) || "Untitled Template";
+  const defaultTemplateName = getDefaultTemplateName(selectedFile) || "Modelo Sem Título";
   const activeStep = activeStudioStep(state.step);
   const showUpload = state.step === "file-upload";
   const showAnalyze = state.step === "font-check" || state.step === "font-upload";
@@ -1704,15 +1702,15 @@ const CustomTemplatePage = () => {
     const unavailableFontCount = data.unavailable_fonts?.length ?? 0;
     if (unavailableFontCount === 0) {
       notify.success(
-        "All fonts available",
-        "Preparing the slide preview automatically.",
+        "Todas as fontes disponíveis",
+        "Preparando a pré-visualização dos slides automaticamente.",
       );
       return;
     }
 
     notify.warning(
-      "Fonts need attention",
-      `${unavailableFontCount} font${unavailableFontCount === 1 ? "" : "s"} are unavailable. Upload exact font files or use the selected fallback fonts before continuing.`,
+      "Fontes precisam de atenção",
+      `${unavailableFontCount} fonte${unavailableFontCount === 1 ? "" : "s"} não está${unavailableFontCount === 1 ? "" : "ão"} disponível${unavailableFontCount === 1 ? "" : "is"}. Envie os arquivos exatos de fonte ou use as fontes alternativas selecionadas antes de continuar.`,
     );
   }, [checkFonts, selectedFile]);
 
@@ -1720,8 +1718,8 @@ const CustomTemplatePage = () => {
     if (!selectedFile) return;
     if (hasPendingMissingFonts) {
       notify.warning(
-        "Missing fonts",
-        "Continuing without uploaded font files. Selected Google replacements will be applied.",
+        "Fontes ausentes",
+        "Continuando sem arquivos de fontes enviados. As substituições do Google selecionadas serão aplicadas.",
       );
     }
     const data = await fontUploadAndPreview(
@@ -1779,7 +1777,7 @@ const CustomTemplatePage = () => {
   const handleCreateTemplate = useCallback(
     async (name: string, description: string) => {
       if (!state.previewData) {
-        notify.error("Preview unavailable", "Create the slide preview before continuing.");
+        notify.error("Pré-visualização indisponível", "Crie a pré-visualização dos slides antes de continuar.");
         return;
       }
 
@@ -1800,15 +1798,15 @@ const CustomTemplatePage = () => {
           description: description || null,
         });
         notify.success(
-          "Template generation started",
-          "You can track the template status from the Templates page.",
+          "Geração de modelo iniciada",
+          "Você pode acompanhar o status do modelo na página de Modelos.",
         );
         setTemplateModalMode(null);
         router.push("/templates?tab=custom");
       } catch (error) {
         notify.error(
-          "Failed to create template",
-          error instanceof Error ? error.message : "An unexpected error occurred",
+          "Falha ao criar modelo",
+          error instanceof Error ? error.message : "Ocorreu um erro inesperado",
         );
       } finally {
         setIsSubmittingTemplate(false);
@@ -1820,7 +1818,7 @@ const CustomTemplatePage = () => {
   const handleSaveTemplate = useCallback(
     async (name: string, description: string) => {
       if (!state.templateId) {
-        notify.error("Template unavailable", "Generate the template before saving.");
+        notify.error("Modelo indisponível", "Gere o modelo antes de salvar.");
         return;
       }
 
@@ -1830,13 +1828,13 @@ const CustomTemplatePage = () => {
           name,
           description: description || null,
         });
-        notify.success("Template saved", "The template was saved successfully.");
+        notify.success("Modelo salvo", "O modelo foi salvo com sucesso.");
         setTemplateModalMode(null);
         router.push(`/template-preview?templateV2Id=${encodeURIComponent(state.templateId)}`);
       } catch (error) {
         notify.error(
-          "Failed to save template",
-          error instanceof Error ? error.message : "An unexpected error occurred",
+          "Falha ao salvar modelo",
+          error instanceof Error ? error.message : "Ocorreu um erro inesperado",
         );
       } finally {
         setIsSubmittingTemplate(false);
@@ -1868,7 +1866,7 @@ const CustomTemplatePage = () => {
           disabled={state.isLoading || isSubmittingTemplate}
           fullWidth
         >
-          {isSubmittingTemplate ? "Creating Template..." : "Create Template"}
+          {isSubmittingTemplate ? "Criando Modelo..." : "Criar Modelo"}
         </GradientPillButton>
       );
     }
@@ -1880,7 +1878,7 @@ const CustomTemplatePage = () => {
           disabled={!generatedSlidesReady || state.isLoading || isSubmittingTemplate}
           fullWidth
         >
-          {generatedSlidesReady ? "Save as Template" : "Generating Template"}
+          {generatedSlidesReady ? "Salvar como Modelo" : "Gerando Modelo"}
         </GradientPillButton>
       );
     }
@@ -1954,13 +1952,13 @@ const CustomTemplatePage = () => {
         isOpen={isTemplateModalOpen}
         defaultName={defaultTemplateName}
         isSaving={isSubmittingTemplate}
-        title={isCreateTemplateModal ? "Create Template" : "Save Template"}
+        title={isCreateTemplateModal ? "Criar Modelo" : "Salvar Modelo"}
         subtitle={
           isCreateTemplateModal
-            ? "Name this template before generation starts."
-            : "Give your template a name."
+            ? "Dê um nome a este modelo antes de iniciar a geração."
+            : "Dê um nome ao seu modelo."
         }
-        submitLabel={isCreateTemplateModal ? "Create" : "Save"}
+        submitLabel={isCreateTemplateModal ? "Criar" : "Salvar"}
         onClose={() => {
           if (!isSubmittingTemplate) setTemplateModalMode(null);
         }}

@@ -82,6 +82,48 @@ export function ConfigurationInitializer({ children }: { children: React.ReactNo
     let selectedProvider: string | undefined;
     const revalidateProviderConfiguration = async () => {
       try {
+        const canChangeResponse = await fetch('/api/can-change-keys', {
+          cache: 'no-store',
+        });
+        if (!canChangeResponse.ok) {
+          await assertBackendReachable();
+          throw new Error(`can-change-keys returned ${canChangeResponse.status}`);
+        }
+        const { canChange = false } = (await canChangeResponse.json()) as {
+          canChange?: boolean;
+        };
+        dispatch(setCanChangeKeys(canChange));
+
+        // Non-admins cannot read /api/user-config (admin-only). Use the
+        // instance runtime config instead, matching the bootstrap path.
+        if (!canChange) {
+          const runtimeResponse = await fetch('/api/runtime-config', {
+            cache: 'no-store',
+          });
+          if (!runtimeResponse.ok) {
+            await assertBackendReachable();
+            throw new Error(`runtime-config returned ${runtimeResponse.status}`);
+          }
+          const runtime = (await runtimeResponse.json()) as {
+            configured?: boolean;
+            config?: LLMConfig;
+          };
+          const runtimeConfig = normalizeLLMConfig(
+            (runtime.config || {}) as LLMConfig
+          );
+          selectedProvider = runtimeConfig.LLM;
+          dispatch(setLLMConfig(runtimeConfig));
+
+          if (!cancelled && !runtime.configured) {
+            notify.error(
+              "Instance not configured",
+              "Ask the administrator to configure the AI providers in Settings.",
+              { id: "instance-not-configured" }
+            );
+          }
+          return;
+        }
+
         const configResponse = await fetch('/api/user-config', {
           cache: 'no-store',
         });

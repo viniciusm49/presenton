@@ -96,7 +96,7 @@ const TemplateSelection: React.FC<TemplateSelectionProps> = memo(
     if (error) {
       return (
         <TemplateListEmptyState
-          message={`Templates could not be loaded: ${error}`}
+          message={`Não foi possível carregar os modelos: ${error}`}
         />
       );
     }
@@ -140,8 +140,8 @@ const TemplateSelection: React.FC<TemplateSelectionProps> = memo(
 
     const suggestionNotice = suggestedTemplate && selectedTemplateId && (
       <div className="mb-5 rounded-xl border border-[#E4E0FF] bg-[#F7F5FF] px-4 py-3 font-syne text-xs font-medium text-[#5141E5]">
-        <strong className="font-semibold">Suggested template selected.</strong>{" "}
-        Click the highlighted template to continue.
+        <strong className="font-semibold">Modelo sugerido selecionado.</strong>{" "}
+        Clique no modelo destacado para continuar.
       </div>
     );
 
@@ -149,7 +149,7 @@ const TemplateSelection: React.FC<TemplateSelectionProps> = memo(
       return (
         <div className="mb-8">
           {suggestionNotice}
-          <TemplateListSection label="Templates" selectionPage>
+          <TemplateListSection label="Modelos" selectionPage>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {!presentonCloudOnly && (
                 <CreateCustomTemplate
@@ -169,7 +169,7 @@ const TemplateSelection: React.FC<TemplateSelectionProps> = memo(
     return (
       <div className="mb-8 space-y-[30px]">
         {suggestionNotice}
-        <TemplateListSection label="Custom" selectionPage>
+        <TemplateListSection label="Personalizados" selectionPage>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {!presentonCloudOnly && (
               <CreateCustomTemplate
@@ -183,9 +183,9 @@ const TemplateSelection: React.FC<TemplateSelectionProps> = memo(
           </div>
         </TemplateListSection>
 
-        <TemplateListSection label="Built-In" selectionPage>
+        <TemplateListSection label="Padrão do Sistema" selectionPage>
           {defaultTemplates.length === 0 ? (
-            <TemplateListEmptyState message="No built-in templates available." />
+            <TemplateListEmptyState message="Nenhum modelo padrão disponível." />
           ) : (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {defaultTemplates.map((template, index) =>

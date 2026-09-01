@@ -28,10 +28,10 @@ const Header = () => {
 
   const backHref = backToUpload ? "/upload" : backToTemplates ? "/templates" : "/dashboard";
   const backLabel = backToUpload
-    ? "BACK"
+    ? "VOLTAR"
     : backToTemplates
-      ? "BACK"
-      : "BACK";
+      ? "VOLTAR"
+      : "VOLTAR";
 
   return (
     <div className="w-full   sticky top-0 z-50 py-7 "
@@ -46,7 +46,7 @@ const Header = () => {
             <Link href="/dashboard" onClick={() => trackEvent(MixpanelEvent.Navigation, { from: pathname, to: "/dashboard" })}>
               <img
                 src="/logo-with-bg.png"
-                alt="Presentation logo"
+                alt="Logo Presenton"
                 className="h-[40px] w-[40px]"
               />
             </Link>

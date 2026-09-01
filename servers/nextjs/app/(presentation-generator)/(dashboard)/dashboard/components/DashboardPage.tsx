@@ -26,8 +26,6 @@ import { notify } from "@/components/ui/sonner";
 import { sanitizeAnalyticsError } from "@/utils/analytics";
 import { IMAGE_PROVIDERS, LLM_PROVIDERS } from "@/utils/providerConstants";
 
-const GITHUB_REPOSITORY_URL = "https://github.com/presenton/presenton";
-const DISCORD_INVITE_URL = "https://discord.com/invite/9ZsKKxudNE";
 const APP_UPDATE_URL = "https://presenton.ai/download";
 
 const actionCardBase =
@@ -38,18 +36,6 @@ const dashboardHeaderPill =
 
 const dashboardHeaderAsset = (name: string) => `/dashboard-header/${name}`;
 const dashboardBodyAsset = (name: string) => `/dashboard-body/${name}`;
-
-const DashboardHeaderDivider = () => (
-  <span className="relative h-5 w-px shrink-0" aria-hidden="true">
-    <Image
-      src={dashboardHeaderAsset("divider.svg")}
-      alt=""
-      width={20}
-      height={1}
-      className="absolute left-1/2 top-1/2 h-px w-5 max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90"
-    />
-  </span>
-);
 
 const FloatingActionCards = () => (
   <div className="pointer-events-none absolute right-[14px] top-[-35px] z-0 hidden h-[64px] w-[158px] sm:block">
@@ -208,16 +194,6 @@ const sortPresentationsNewestFirst = (presentations: PresentationResponse[]) =>
     );
   });
 
-function formatGitHubStars(stars: number) {
-  if (stars >= 1_000_000) {
-    return `${(stars / 1_000_000).toFixed(1).replace(/\.0$/, "")}m`;
-  }
-  if (stars >= 1_000) {
-    return `${(stars / 1_000).toFixed(1).replace(/\.0$/, "")}k`;
-  }
-  return stars.toLocaleString();
-}
-
 function DashboardHeader() {
   const pathname = usePathname();
   const llmConfig = useSelector(
@@ -236,19 +212,13 @@ function DashboardHeader() {
 
   useEffect(() => {
     setIsElectronApp(Boolean(window.electron));
-
-    let isMounted = true;
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   return (
     <header className="sticky top-0 z-50 ml-7 mr-[9px] flex h-[105px] items-center justify-between border-b border-[#EDEEEF] bg-white px-1 max-lg:h-auto max-lg:min-h-[105px] max-lg:flex-col max-lg:items-start max-lg:gap-4 max-lg:py-5">
       <div className="flex w-[504.392px] max-w-full shrink-0 items-center gap-3.5 max-xl:w-auto">
         <h1 className="whitespace-nowrap font-syne text-[22px] font-medium leading-normal tracking-[-0.66px] text-[#101323]">
-          Dashboard
+          Painel
         </h1>
       </div>
 
@@ -291,59 +261,8 @@ function DashboardHeader() {
                 ))}
               </span>
               <span className="font-syne text-sm font-medium leading-[17.6px] tracking-[0.56px]">
-                Settings
+                Configurações
               </span>
-            </Link>
-
-            <DashboardHeaderDivider />
-
-            <Link
-              href={DISCORD_INVITE_URL}
-              target="_blank"
-              rel="noreferrer"
-              className={`${dashboardHeaderPill} h-[29.6px] gap-[8.8px] p-1.5`}
-              onClick={() =>
-                trackEvent(MixpanelEvent.Navigation, {
-                  from: pathname,
-                  to: DISCORD_INVITE_URL,
-                  source: "dashboard_header_discord",
-                })
-              }
-            >
-              <Image
-                src={dashboardHeaderAsset("discord.svg")}
-                alt=""
-                aria-hidden="true"
-                width={18}
-                height={18}
-                className="h-[17.6px] w-[17.6px] shrink-0"
-              />
-              <span className="font-syne text-sm font-normal leading-normal tracking-[-0.14px] text-[#191919]">
-                Join Discord
-              </span>
-            </Link>
-            <DashboardHeaderDivider />
-            <Link
-              href={GITHUB_REPOSITORY_URL}
-              target="_blank"
-              rel="noreferrer"
-              className={`${dashboardHeaderPill} h-[29.6px] gap-[8.8px] p-1.5`}
-              onClick={() =>
-                trackEvent(MixpanelEvent.Navigation, {
-                  from: pathname,
-                  to: GITHUB_REPOSITORY_URL,
-                  source: "dashboard_header_github",
-                })
-              }
-            >
-              <Image
-                src={dashboardHeaderAsset("github.svg")}
-                alt=""
-                aria-hidden="true"
-                width={18}
-                height={18}
-                className="h-[17.6px] w-[17.6px] shrink-0"
-              />
             </Link>
           </div>
 
@@ -352,8 +271,8 @@ function DashboardHeader() {
               href={APP_UPDATE_URL}
               target="_blank"
               rel="noreferrer"
-              aria-label="Update Presenton"
-              title="Update Presenton"
+              aria-label="Atualizar Presenton"
+              title="Atualizar Presenton"
               className="relative flex h-[42.24px] w-[42.24px] shrink-0 items-center justify-center rounded-full border-[1.32px] border-[#D9D6FE] bg-[#FAFAFF] transition-colors hover:bg-[#F3F0FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8] focus-visible:ring-offset-2"
               onClick={() =>
                 trackEvent(MixpanelEvent.Navigation, {
@@ -471,12 +390,12 @@ const DashboardPage: React.FC = () => {
       const message =
         creationError instanceof Error
           ? creationError.message
-          : "Something went wrong while creating the presentation.";
+          : "Ocorreu um erro ao criar a apresentação.";
       trackEvent(MixpanelEvent.Dashboard_Blank_Presentation_Create_Failed, {
         pathname,
         error_message: sanitizeAnalyticsError(creationError),
       });
-      notify.error("Could not create blank presentation", message);
+      notify.error("Não foi possível criar a apresentação em branco", message);
     } finally {
       blankPresentationRequestInFlight.current = false;
       setIsCreatingBlankPresentation(false);
@@ -502,7 +421,7 @@ const DashboardPage: React.FC = () => {
       <DashboardHeader />
       <section className="relative z-10 overflow-visible pb-0 pl-3 pr-3 pt-[17px] sm:pl-6 sm:pr-[9px]">
         <h2 className="w-full font-syne text-[16px] font-medium leading-[normal] text-[#191919]">
-          Actions
+          Ações
         </h2>
         <div className="mt-[18px] grid w-full max-w-[625px] grid-cols-1 gap-4 sm:grid-cols-2">
           <DashboardActionCard
@@ -513,8 +432,8 @@ const DashboardPage: React.FC = () => {
                 source: "dashboard_actions_card",
               })
             }
-            title="Create new Presentation"
-            ariaLabel="Create new presentation"
+            title="Criar nova apresentação"
+            ariaLabel="Criar nova apresentação"
             media={
               <Image
                 src="/create_presentation_bg.png"
@@ -533,12 +452,12 @@ const DashboardPage: React.FC = () => {
             disabled={isCreatingBlankPresentation}
             isLoading={isCreatingBlankPresentation}
             title={
-              isCreatingBlankPresentation ? "Creating..." : "Blank Presentation"
+              isCreatingBlankPresentation ? "Criando..." : "Apresentação em Branco"
             }
             ariaLabel={
               isCreatingBlankPresentation
-                ? "Creating blank presentation"
-                : "Create blank presentation"
+                ? "Criando apresentação em branco"
+                : "Criar apresentação em branco"
             }
             mediaClassName="w-[90px]"
             media={
@@ -552,14 +471,14 @@ const DashboardPage: React.FC = () => {
       <section className="relative z-10 mt-[46px] pl-3 pr-3 sm:pl-6 sm:pr-[9px]">
         <div className="mb-[14px] flex items-center justify-between gap-4">
           <h2 className="font-syne text-[16px] font-medium leading-[normal] text-[#191919]">
-            Decks
+            Apresentações
           </h2>
           <div className="flex items-center gap-[17px]">
             <div className="flex items-center rounded-[4px] border border-[#EDEEEF] p-1">
               <button
                 type="button"
                 onClick={() => setDeckViewMode("grid")}
-                aria-label="Grid view"
+                aria-label="Visualização em grade"
                 aria-pressed={deckViewMode === "grid"}
                 className={`flex items-center rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8] ${deckViewMode === "grid" ? "bg-[#F6F6F9]" : "hover:bg-[#FAFAFC]"}`}
               >
@@ -568,7 +487,7 @@ const DashboardPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setDeckViewMode("list")}
-                aria-label="List view"
+                aria-label="Visualização em lista"
                 aria-pressed={deckViewMode === "list"}
                 className={`flex items-center rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8] ${deckViewMode === "list" ? "bg-[#F6F6F9]" : "hover:bg-[#FAFAFC]"}`}
               >

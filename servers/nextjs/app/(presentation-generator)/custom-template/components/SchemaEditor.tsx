@@ -543,7 +543,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
         if (!isOpen) return;
 
         if (!compiledLayout?.schemaJSON) {
-            setParseError("Could not parse schema from slide code");
+            setParseError("Não foi possível analisar o schema a partir do código do slide");
             setFields([]);
             return;
         }
@@ -556,7 +556,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
             setParseError(null);
         } catch (error) {
             console.error("Error parsing schema:", error);
-            setParseError("Failed to parse schema");
+            setParseError("Falha ao analisar o schema");
             setFields([]);
         }
     }, [compiledLayout, isOpen]);
@@ -677,14 +677,14 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
         return name
             .replace(/([A-Z])/g, ' $1')
             .replace(/^./, str => str.toUpperCase())
-            .replace(/\[\]$/, ' (items)')
+            .replace(/\[\]$/, ' (itens)')
             .trim();
     };
 
     const getConstraintSummary = (field: SchemaField): string | null => {
         if (field.type === 'string') {
             if (field.minLength !== undefined || field.maxLength !== undefined) {
-                return `${field.minLength ?? '∞'}-${field.maxLength ?? '∞'} chars`;
+                return `${field.minLength ?? '∞'}-${field.maxLength ?? '∞'} caracteres`;
             }
         } else if (field.type === 'number') {
             if (field.minimum !== undefined || field.maximum !== undefined) {
@@ -692,7 +692,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
             }
         } else if (field.type === 'array') {
             if (field.minItems !== undefined || field.maxItems !== undefined) {
-                return `${field.minItems ?? '∞'}-${field.maxItems ?? '∞'} items`;
+                return `${field.minItems ?? '∞'}-${field.maxItems ?? '∞'} itens`;
             }
         }
         return null;
@@ -808,12 +808,12 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-gray-800 text-base font-semibold">
 
-                        Schema Editor
+                        Editor de Schema
                     </div>
                     <div className="flex items-center gap-2">
                         {hasChanges && (
                             <span className="px-2 py-0.5 text-[10px] font-medium bg-amber-50 text-amber-600 rounded border border-amber-200">
-                                Unsaved
+                                Não salvo
                             </span>
                         )}
                         <Button
@@ -823,7 +823,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                             className="h-7 px-3 text-[11px] bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-40 disabled:cursor-not-allowed"
                         >
                             <Save className="w-3 h-3 mr-1" />
-                            Save
+                            Salvar
                         </Button>
                         <button
                             onClick={handleCancel}
@@ -845,7 +845,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                         <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2">
                                 <span className="text-lg font-medium text-[#111827]">
-                                    Character Limits
+                                    Limites de Caracteres
                                 </span>
                                 <span className="text-sm px-1.5 py-0.5 bg-gray-50 text-gray-700 rounded">
                                     {fields.length}
@@ -862,12 +862,12 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                     }}
                                     className="text-[10px] font-medium text-gray-400 hover:text-violet-600 transition-colors"
                                 >
-                                    {areAllCollapsed ? 'Expand all' : 'Collapse all'}
+                                    {areAllCollapsed ? 'Expandir tudo' : 'Recolher tudo'}
                                 </button>
                             )}
                         </div>
                         <p className="text-sm text-gray-600 py-1">
-                            Set min/max character limits for each field. This controls how much text AI generates for your slide.
+                            Defina limites mín/máx de caracteres para cada campo. Isso controla quanto texto a IA gera para seu slide.
                         </p>
                     </div>
 
@@ -879,7 +879,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                     ) : fields.length === 0 ? (
                         <div className="text-center py-8 text-gray-400">
                             <Box className="w-8 h-8 mx-auto mb-2 opacity-30" />
-                            <p className="text-xs">No editable fields</p>
+                            <p className="text-xs">Nenhum campo editável</p>
                         </div>
                     ) : (
                         <div className="space-y-1 px-2 ">
@@ -934,7 +934,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                     {isHighlighted && (
                                                         <span className="flex items-center gap-1 text-[9px] px-1.5 py-0.5 bg-violet-100 text-violet-600 rounded">
                                                             <MousePointer2 className="w-2.5 h-2.5" />
-                                                            clicked
+                                                            clicado
                                                         </span>
                                                     )}
                                                 </div>
@@ -953,7 +953,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                     {(f.originalType === 'string' || f.originalType === 'number') && (
                                                         <div className="mb-2">
                                                             <div className="flex items-center gap-2">
-                                                                <Label className="text-xs text-gray-600">Type:</Label>
+                                                                <Label className="text-xs text-gray-600">Tipo:</Label>
                                                                 <Select
                                                                     value={f.type}
                                                                     onValueChange={(value) => handleTypeChange(f.path, value as 'string' | 'number')}
@@ -962,12 +962,12 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                                         <SelectValue />
                                                                     </SelectTrigger>
                                                                     <SelectContent>
-                                                                        <SelectItem value="string">String</SelectItem>
-                                                                        <SelectItem value="number">Number</SelectItem>
+                                                                        <SelectItem value="string">Texto</SelectItem>
+                                                                        <SelectItem value="number">Número</SelectItem>
                                                                     </SelectContent>
                                                                 </Select>
                                                                 {isTypeChanged(f) && (
-                                                                    <span className="text-[9px] px-1 py-0.5 bg-blue-50 text-blue-500 rounded">changed</span>
+                                                                    <span className="text-[9px] px-1 py-0.5 bg-blue-50 text-blue-500 rounded">alterado</span>
                                                                 )}
                                                             </div>
                                                         </div>
@@ -977,7 +977,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                     {f.type === 'string' && (
                                                         <div className="grid grid-cols-2 gap-2">
                                                             <div>
-                                                                <Label className="text-xs text-gray-600 mb-1 block">Min chars</Label>
+                                                                <Label className="text-xs text-gray-600 mb-1 block">Mín. caracteres</Label>
                                                                 <Input
                                                                     type="number"
                                                                     min={0}
@@ -988,7 +988,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <Label className="text-xs text-gray-600 mb-1 block">Max chars</Label>
+                                                                <Label className="text-xs text-gray-600 mb-1 block">Máx. caracteres</Label>
                                                                 <Input
                                                                     type="number"
                                                                     min={0}
@@ -1004,7 +1004,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                     {f.type === 'number' && (
                                                         <div className="grid grid-cols-2 gap-2">
                                                             <div>
-                                                                <Label className="text-xs text-gray-600 mb-1 block">Min value</Label>
+                                                                <Label className="text-xs text-gray-600 mb-1 block">Valor mín.</Label>
                                                                 <Input
                                                                     type="number"
                                                                     value={f.minimum ?? ''}
@@ -1014,7 +1014,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <Label className="text-xs text-gray-600 mb-1 block">Max value</Label>
+                                                                <Label className="text-xs text-gray-600 mb-1 block">Valor máx.</Label>
                                                                 <Input
                                                                     type="number"
                                                                     value={f.maximum ?? ''}
@@ -1029,7 +1029,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                     {f.type === 'array' && (
                                                         <div className="grid grid-cols-2 gap-2">
                                                             <div>
-                                                                <Label className="text-xs text-gray-600 mb-1 block">Min items</Label>
+                                                                <Label className="text-xs text-gray-600 mb-1 block">Mín. itens</Label>
                                                                 <Input
                                                                     type="number"
                                                                     min={0}
@@ -1040,7 +1040,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <Label className="text-xs text-gray-600 mb-1 block">Max items</Label>
+                                                                <Label className="text-xs text-gray-600 mb-1 block">Máx. itens</Label>
                                                                 <Input
                                                                     type="number"
                                                                     min={0}
@@ -1055,7 +1055,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
 
                                                     {f.default !== undefined && typeof f.default !== 'object' && (
                                                         <div className="mt-3">
-                                                            <Label className="text-xs text-gray-600 mb-1 block">Current value</Label>
+                                                            <Label className="text-xs text-gray-600 mb-1 block">Valor atual</Label>
                                                             <div className="text-xs text-gray-700 bg-gray-50 px-2 py-1 rounded border border-gray-100 truncate font-mono">
                                                                 {String(f.default)}
                                                             </div>
@@ -1074,7 +1074,7 @@ export const SchemaEditor: React.FC<SchemaEditorProps> = ({
                                 const textColor = isArrayParent ? 'text-purple-500' : 'text-blue-500';
                                 const bgColor = isArrayParent ? 'bg-purple-50' : 'bg-blue-50';
                                 const badgeTextColor = isArrayParent ? 'text-purple-400' : 'text-blue-400';
-                                const headerLabel = isArrayParent ? 'Item Fields' : `${formatFieldName(field.name)} Properties`;
+                                const headerLabel = isArrayParent ? 'Campos do Item' : `Propriedades de ${formatFieldName(field.name)}`;
 
                                 return (
                                     <div key={field.path} className="space-y-1">

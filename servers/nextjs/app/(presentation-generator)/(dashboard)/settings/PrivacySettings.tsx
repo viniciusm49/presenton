@@ -68,10 +68,10 @@ const PrivacySettings = () => {
     <div className="w-full space-y-6">
       <div className="bg-[#F9F8F8] p-7 rounded-[20px]">
         <h4 className="text-sm font-semibold text-[#191919] mb-1">
-          Usage analytics
+          Análise de uso e telemetria
         </h4>
         <p className="text-xs text-[#6B7280] mb-6 leading-relaxed max-w-lg">
-          Share anonymous usage data to help us improve Presenton. No personal information or presentation content is collected.
+          Compartilhe dados de uso anônimos para nos ajudar a melhorar o Presenton. Nenhuma informação pessoal ou conteúdo de apresentação é coletado.
         </p>
 
         <div className="flex items-center justify-between gap-4 rounded-[10px] bg-white border border-[#EDEEEF] p-4">
@@ -80,12 +80,12 @@ const PrivacySettings = () => {
               htmlFor="tracking-toggle"
               className="text-sm font-medium text-[#191919] cursor-pointer select-none block"
             >
-              Share anonymous usage data
+              Compartilhar dados de uso anônimos
             </label>
             <p className="text-xs text-[#9CA3AF] mt-0.5">
               {trackingEnabled
-                ? "Anonymous usage data is being shared."
-                : "Anonymous usage data is not being shared"}
+                ? "Dados anônimos de uso estão sendo compartilhados."
+                : "Dados anônimos de uso não estão sendo compartilhados."}
             </p>
           </div>
           <div className="flex items-center gap-2">

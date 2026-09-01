@@ -1099,10 +1099,10 @@ const PresentonMode = ({
                 </h2>
                 <p className='text-[#000000CC] text-xl font-normal font-syne'>
                     {providerStep === 1
-                        ? "Use your Presenton account, or configure your own AI providers."
+                        ? "Use sua conta Presenton ou configure seus próprios provedores de IA."
                         : providerStep === 2
-                            ? "Choose how Presenton creates visuals, or continue without image generation."
-                            : "Add current web context to presentations, or continue with web search disabled."}
+                            ? "Escolha como o Presenton gera recursos visuais ou continue sem geração de imagens."
+                            : "Adicione contexto web atualizado às apresentações ou continue com a pesquisa desativada."}
                 </p>
             </div>
 
@@ -1112,7 +1112,7 @@ const PresentonMode = ({
                     <div className="my-8 flex items-center gap-4" aria-hidden="true">
                         <div className="h-px flex-1 bg-[#E8E6EC]" />
                         <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#938D9B]">
-                            Or configure your own providers
+                            Ou configure seus próprios provedores
                         </span>
                         <div className="h-px flex-1 bg-[#E8E6EC]" />
                     </div>
@@ -1124,7 +1124,7 @@ const PresentonMode = ({
                 providerStep === 1 ? 'mb-6' : 'my-[54px]'
             )}>
                 <Info className='w-4 h-4 shrink-0 fill-[#003399] stroke-white' />
-                <p className='text-sm text-[#5F6062] font-medium'>Your own provider keys and local generation setup stay on this machine.</p>
+                <p className='text-sm text-[#5F6062] font-medium'>Suas chaves de provedor e configurações locais ficam apenas nesta máquina.</p>
             </div>
 
             {providerStep === 1 && <>
@@ -1142,9 +1142,9 @@ const PresentonMode = ({
                     </div>
                     <div className='w-full'>
 
-                        <h3 className="text-xl font-normal text-[#191919] pb-1.5">Text Generation Settings</h3>
+                        <h3 className="text-xl font-normal text-[#191919] pb-1.5">Configurações de Geração de Texto</h3>
                         <p className=" text-sm  text-gray-500">
-                            Choosing where text content comes from
+                            Escolha de onde vem o conteúdo de texto
                         </p>
                     </div>
                 </div>
@@ -1164,15 +1164,15 @@ const PresentonMode = ({
                         </TabsTrigger>
                         <TabsTrigger value="other" className="h-12 gap-2 rounded-[8px] border border-transparent px-4 text-sm font-semibold text-[#5F6062] transition-all hover:text-[#191919] data-[state=active]:border-[#D9D6FE] data-[state=active]:bg-white data-[state=active]:text-[#191919] data-[state=active]:shadow-[0_8px_24px_rgba(16,19,35,0.08)]">
                             <Blocks className="h-4 w-4" />
-                            AI Providers
+                            Provedores de IA
                         </TabsTrigger>
                     </TabsList>
                     <p className="mt-3 text-xs leading-relaxed text-gray-500">
                         {textProviderTab === "chatgpt"
-                            ? "Connect your ChatGPT account and choose a supported model."
+                            ? "Conecte sua conta do ChatGPT e escolha um modelo compatível."
                             : textProviderTab === "local"
-                                ? "Run models on your machine with Ollama or LM Studio."
-                                : "Connect hosted AI providers using an API key or custom endpoint."}
+                                ? "Execute modelos na sua própria máquina com Ollama ou LM Studio."
+                                : "Conecte provedores de IA hospedados usando uma chave de API ou endpoint personalizado."}
                     </p>
                     <TabsContent value="chatgpt" className="mt-6">
                         <CodexConfig
@@ -1188,7 +1188,7 @@ const PresentonMode = ({
                         />
                         {chatGptAuthenticated && (llmConfig.LLM === "codex" || llmConfig.LLM === "chatgpt") && (
                             <div className="mt-5">
-                                <label className="mb-2 block text-sm font-medium text-gray-700">ChatGPT model</label>
+                                <label className="mb-2 block text-sm font-medium text-gray-700">Modelo do ChatGPT</label>
                                 <Select
                                     value={llmConfig.CODEX_MODEL || ""}
                                     onValueChange={(value) => {
@@ -1201,7 +1201,7 @@ const PresentonMode = ({
                                     }}
                                 >
                                     <SelectTrigger className="h-12 w-full rounded-lg border-gray-300">
-                                        <SelectValue placeholder="Select a model" />
+                                        <SelectValue placeholder="Selecione um modelo" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {CODEX_MODELS.map((model) => (
@@ -1222,7 +1222,7 @@ const PresentonMode = ({
                                         key={value}
                                         onClick={() => handleProviderChange(value)}
                                         className={cn(
-                                            "flex items-center gap-3 rounded-xl border p-4 text-left transition-colors hover:bg-[#F7F6F9]",
+                                             "flex items-center gap-3 rounded-xl border p-4 text-left transition-colors hover:bg-[#F7F6F9]",
                                             llmConfig.LLM === value ? "border-[#7A5AF8] bg-[#F4F3FF]" : "border-[#EDEEEF]"
                                         )}
                                     >
@@ -1243,7 +1243,7 @@ const PresentonMode = ({
                     <div className="flex w-full flex-col justify-start">
 
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Select Text Provider
+                            Selecionar Provedor de Texto
                         </label>
                         <Popover
                             open={openProviderSelect}
@@ -1261,7 +1261,7 @@ const PresentonMode = ({
                                             {llmConfig.LLM && OTHER_PROVIDER_VALUES.has(llmConfig.LLM)
                                                 ? LLM_PROVIDERS[llmConfig.LLM]
                                                     ?.label || llmConfig.LLM
-                                                : "Select text provider"}
+                                                : "Selecionar provedor de texto"}
                                         </span>
                                     </div>
                                     <ChevronUp className="w-4 h-4 text-gray-500" />
@@ -1273,9 +1273,9 @@ const PresentonMode = ({
 
                             >
                                 <Command>
-                                    <CommandInput placeholder="Search provider..." />
+                                    <CommandInput placeholder="Buscar provedor..." />
                                     <CommandList className='hide-scrollbar'>
-                                        <CommandEmpty>No provider found.</CommandEmpty>
+                                        <CommandEmpty>Nenhum provedor encontrado.</CommandEmpty>
                                         <CommandGroup >
                                             {OTHER_PROVIDERS.map(
                                                 (provider, index) => (

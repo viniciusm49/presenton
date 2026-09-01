@@ -149,14 +149,14 @@ const describeHtmlSelection = (selection: ChatHtmlSelection) => {
   const tag = selection.elementTag?.toLowerCase();
   const elementLabel =
     tag && /^h[1-6]$/.test(tag)
-      ? "Heading"
+      ? "Título"
       : tag === "p"
-        ? "Paragraph"
+        ? "Parágrafo"
         : tag === "img"
-          ? "Image"
+          ? "Imagem"
           : tag
             ? tag.toUpperCase()
-            : "Element";
+            : "Elemento";
   const selectedText = selection.selectedText?.replace(/\s+/g, " ").trim();
   return selectedText ? `${elementLabel} · ${selectedText}` : elementLabel;
 };
@@ -165,7 +165,7 @@ const describeTemplateV2Target = (
   target: NonNullable<ChatProps["selectedTemplateV2Target"]>,
 ) =>
   target.kind === "multi-component"
-    ? target.targetLabel || `${target.components.length} components selected`
+    ? target.targetLabel || `${target.components.length} componentes selecionados`
     : target.targetLabel ||
       target.componentLabel ||
       target.elementName ||
@@ -334,11 +334,11 @@ const ConversationControls = ({
           type="button"
           disabled={isBusy}
           className="inline-flex h-8 items-center gap-1.5 rounded-full border border-[#E5E5E8] bg-white px-2.5 font-manrope text-xs font-medium text-[#55555F] shadow-sm transition-colors hover:border-[#D7D7DC] hover:bg-[#F7F7F8] hover:text-[#252529] disabled:cursor-not-allowed disabled:opacity-50"
-          aria-label="Open saved chats"
-          title="Saved chats"
+          aria-label="Abrir conversas salvas"
+          title="Conversas salvas"
         >
           <History className="h-3.5 w-3.5" />
-          Chats
+          Conversas
           <ChevronDown className="h-3 w-3" />
         </button>
       </PopoverTrigger>
@@ -351,10 +351,10 @@ const ConversationControls = ({
         <div className="flex items-center justify-between px-2 pb-2 pt-1">
           <div>
             <p className="font-manrope text-xs font-semibold text-[#252529]">
-              Conversations
+              Conversas
             </p>
             <p className="mt-0.5 font-manrope text-[10px] text-[#98A2B3]">
-              {conversations.length} saved
+              {conversations.length} salvas
             </p>
           </div>
           <button
@@ -364,15 +364,15 @@ const ConversationControls = ({
             className="inline-flex h-7 items-center gap-1 rounded-full bg-[#F4F3FF] px-2.5 font-manrope text-[11px] font-semibold text-[#6941C6] transition-colors hover:bg-[#EBE9FE] disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Plus className="h-3 w-3" />
-            New
+            Nova
           </button>
         </div>
         <div className="max-h-[320px] space-y-1 overflow-y-auto overscroll-contain pr-0.5 [scrollbar-color:#D7D9DF_transparent] [scrollbar-width:thin]">
           {conversations.length === 0 ? (
             <div className="rounded-[8px] bg-[#FAFAFA] px-3 py-5 text-center font-manrope text-[11px] leading-4 text-[#98A2B3]">
-              No saved conversations yet.
+              Nenhuma conversa salva ainda.
               <br />
-              Start a new chat to create one.
+              Inicie uma nova conversa para criar uma.
             </div>
           ) : (
             conversations.map((conversation) => {
@@ -426,8 +426,8 @@ const ConversationControls = ({
                         disabled={isBusy || isDeleting}
                         onClick={(event) => event.stopPropagation()}
                         className="mr-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[#98A2B3] opacity-70 transition-colors hover:bg-white hover:text-[#344054] group-hover:opacity-100 data-[state=open]:bg-white data-[state=open]:opacity-100 disabled:cursor-not-allowed disabled:opacity-40"
-                        aria-label={`Conversation options for ${getConversationTitle(conversation)}`}
-                        title="Conversation options"
+                        aria-label={`Opções da conversa para ${getConversationTitle(conversation)}`}
+                        title="Opções da conversa"
                       >
                         {isDeleting ? (
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -447,7 +447,7 @@ const ConversationControls = ({
                         className="cursor-pointer rounded-[6px] px-2 py-2 font-manrope text-xs font-medium text-[#D92D20] focus:bg-[#FEF3F2] focus:text-[#B42318]"
                       >
                         <Trash2 className="h-3.5 w-3.5" />
-                        Delete
+                        Excluir
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -466,11 +466,11 @@ const ConversationControls = ({
         "inline-flex h-8 items-center justify-center gap-1.5 rounded-full border border-[#E5E5E8] bg-white font-manrope text-xs font-medium text-[#55555F] shadow-sm transition-colors hover:border-[#D7D7DC] hover:bg-[#F7F7F8] hover:text-[#252529] disabled:cursor-not-allowed disabled:opacity-50",
         showNewChatLabel ? "px-3" : "w-8",
       )}
-      aria-label="Start a new chat"
-      title="Start a new chat"
+      aria-label="Iniciar nova conversa"
+      title="Iniciar nova conversa"
     >
       <Plus className="h-3.5 w-3.5" />
-      {showNewChatLabel ? "New chat" : null}
+      {showNewChatLabel ? "Nova conversa" : null}
     </button>
   </div>
 );
@@ -767,8 +767,8 @@ const Chat = ({
         const detail =
           error instanceof Error
             ? error.message
-            : "Could not load previous chat";
-        notify.error("Could not load chat", detail);
+            : "Não foi possível carregar o chat anterior";
+        notify.error("Não foi possível carregar o chat", detail);
       } finally {
         if (!cancelled) {
           setIsHistoryLoading(false);
@@ -1163,10 +1163,10 @@ const Chat = ({
       const rows = Array.isArray(data?.messages) ? data.messages : [];
       if (rows.length > 0 && !historyMatchesVariant(rows, variant)) {
         notify.error(
-          "Could not open chat",
+          "Não foi possível abrir o chat",
           variant === "outline"
-            ? "This conversation belongs to the presentation editor."
-            : "This conversation belongs to the outline editor.",
+            ? "Esta conversa pertence ao editor de apresentação."
+            : "Esta conversa pertence ao editor de tópicos.",
         );
         return;
       }
@@ -1196,8 +1196,8 @@ const Chat = ({
       setIsConversationListOpen(false);
     } catch (error) {
       notify.error(
-        "Could not open chat",
-        error instanceof Error ? error.message : "Please try again.",
+        "Não foi possível abrir o chat",
+        error instanceof Error ? error.message : "Por favor, tente novamente.",
       );
     } finally {
       setIsHistoryLoading(false);
@@ -1223,11 +1223,11 @@ const Chat = ({
       if (conversationIdToDelete === conversationId) {
         startNewConversation();
       }
-      notify.success("Conversation deleted");
+      notify.success("Conversa excluída");
     } catch (error) {
       notify.error(
-        "Could not delete chat",
-        error instanceof Error ? error.message : "Please try again.",
+        "Não foi possível excluir o chat",
+        error instanceof Error ? error.message : "Por favor, tente novamente.",
       );
     } finally {
       setDeletingConversationId(null);
@@ -1282,13 +1282,13 @@ const Chat = ({
   ) => {
     if (applyingEditPreviewMessageId) return;
     if (!presentationData || typeof presentationData !== "object") {
-      notify.error("Preview unavailable", "The presentation is not ready yet.");
+      notify.error("Pré-visualização indisponível", "A apresentação ainda não está pronta.");
       return;
     }
 
     const currentPresentation = presentationData as Record<string, unknown>;
     if (!Array.isArray(currentPresentation.slides)) {
-      notify.error("Preview unavailable", "No slide data is available.");
+      notify.error("Pré-visualização indisponível", "Nenhum dado de slide disponível.");
       return;
     }
 
@@ -1330,9 +1330,9 @@ const Chat = ({
       }
       await onPresentationChanged?.();
       notify.success(
-        version === "original" ? "Original restored" : "Changes restored",
-        `${preview.slideIndices.length} ${preview.slideIndices.length === 1 ? "slide" : "slides"
-        } updated.`,
+        version === "original" ? "Original restaurado" : "Alterações restauradas",
+        `${preview.slideIndices.length} ${preview.slideIndices.length === 1 ? "slide atualizado" : "slides atualizados"
+        }.`,
       );
     } catch (error) {
       dispatch(setPresentationData(presentationData as PresentationData));
@@ -1341,8 +1341,8 @@ const Chat = ({
         [messageId]: previousVersion,
       }));
       notify.error(
-        "Could not restore slides",
-        error instanceof Error ? error.message : "Please try again.",
+        "Não foi possível restaurar os slides",
+        error instanceof Error ? error.message : "Por favor, tente novamente.",
       );
     } finally {
       onChatMutationStateChange?.(false);
@@ -1367,7 +1367,7 @@ const Chat = ({
         "Failed to refresh presentation after tool mutation:",
         error
       );
-      notify.error("Refresh failed", "Changes were saved, but refresh failed.");
+      notify.error("Falha na atualização", "As alterações foram salvas, mas a atualização falhou.");
     } finally {
       refreshInFlightRef.current = false;
       if (refreshQueuedRef.current) {
@@ -1387,7 +1387,7 @@ const Chat = ({
       await onPresentationChanged();
     } catch (error) {
       console.error("Failed to refresh presentation after chat update:", error);
-      notify.error("Refresh failed", "Chat completed, but refresh failed.");
+      notify.error("Falha na atualização", "Chat concluído, mas a atualização falhou.");
     }
   };
 
@@ -1485,7 +1485,7 @@ const Chat = ({
       return;
     }
     if (variant !== "template-v2") {
-      notify.info("Attachments are available in Template V2 chat.");
+      notify.info("Anexos estão disponíveis no chat do Modelo V2.");
       return;
     }
 
@@ -1505,7 +1505,7 @@ const Chat = ({
           return [
             {
               id: upload.id || createMessageId(),
-              name: file.name || `Image ${index + 1}`,
+              name: file.name || `Imagem ${index + 1}`,
               url,
               file,
             },
@@ -1527,7 +1527,7 @@ const Chat = ({
           return [
             {
               id: createMessageId(),
-              name: file.name || `Document ${index + 1}`,
+              name: file.name || `Documento ${index + 1}`,
               filePath,
               mimeType: file.type || undefined,
             },
@@ -1540,8 +1540,8 @@ const Chat = ({
       }
 
       notify.success(
-        "Attachment ready",
-        `${files.length} file${files.length === 1 ? "" : "s"} attached.`
+        "Anexo pronto",
+        `${files.length} ${files.length === 1 ? "arquivo anexado" : "arquivos anexados"}.`
       );
       trackEvent(MixpanelEvent.AI_Assistant_Attachment_Added, {
         ...baseAnalyticsProps(),
@@ -1558,8 +1558,8 @@ const Chat = ({
         error_message: sanitizeAnalyticsError(error, "Attachment upload failed"),
       });
       notify.error(
-        "Could not attach file",
-        error instanceof Error ? error.message : "Upload failed."
+        "Não foi possível anexar o arquivo",
+        error instanceof Error ? error.message : "Falha no envio."
       );
     } finally {
       setIsUploadingPastedImage(false);
@@ -1612,10 +1612,10 @@ const Chat = ({
     const outboundMessage =
       trimmedMessage ||
       (attachedDocuments.length > 0
-        ? "Use the attached document."
+        ? "Use o documento anexado."
         : chatLinks.length > 0
-          ? "Use the provided link."
-          : "Use the pasted image.");
+          ? "Use o link fornecido."
+          : "Use a imagem colada.");
 
     if (
       (!trimmedMessage && !hasAttachedContext) ||
@@ -1627,8 +1627,8 @@ const Chat = ({
 
     if (!activeResourceId) {
       notify.error(
-        `${resourceLabel.charAt(0).toUpperCase()}${resourceLabel.slice(1)} not ready`,
-        `The ${resourceLabel} is not ready yet.`
+        `${resourceLabel.charAt(0).toUpperCase()}${resourceLabel.slice(1)} não está pronto(a)`,
+        `O/A ${resourceLabel} ainda não está pronto(a).`
       );
       return;
     }
@@ -1650,8 +1650,8 @@ const Chat = ({
           error_message: sanitizeAnalyticsError(error, "Image processing failed"),
         });
         notify.error(
-          "Could not read image",
-          error instanceof Error ? error.message : "Image processing failed."
+          "Não foi possível ler a imagem",
+          error instanceof Error ? error.message : "Falha no processamento da imagem."
         );
         return;
       }
@@ -1966,7 +1966,7 @@ const Chat = ({
           content: message,
         },
       ]);
-      notify.error("Chat error", message);
+      notify.error("Erro no chat", message);
     } finally {
       setHasChatMutationStarted(false);
       if (abortControllerRef.current === streamAbortController) {
@@ -2116,7 +2116,7 @@ const Chat = ({
       const nextImages = uploads
         .map((upload, index) => ({
           id: upload.id || createMessageId(),
-          name: imageFiles[index]?.name || `Pasted image ${index + 1}`,
+          name: imageFiles[index]?.name || `Imagem colada ${index + 1}`,
           url: upload.file_url || upload.path,
           file: imageFiles[index],
         }))
@@ -2133,8 +2133,8 @@ const Chat = ({
         total_count: nextImages.length,
       });
       notify.success(
-        "Image pasted",
-        `${nextImages.length} image${nextImages.length === 1 ? "" : "s"} ready to use.`
+        "Imagem colada",
+        `${nextImages.length} ${nextImages.length === 1 ? "imagem pronta" : "imagens prontas"} para usar.`
       );
     } catch (error) {
       trackEvent(MixpanelEvent.AI_Assistant_Attachment_Failed, {
@@ -2144,8 +2144,8 @@ const Chat = ({
         error_message: sanitizeAnalyticsError(error, "Image upload failed"),
       });
       notify.error(
-        "Could not paste image",
-        error instanceof Error ? error.message : "Image upload failed."
+        "Não foi possível colar a imagem",
+        error instanceof Error ? error.message : "Falha no envio da imagem."
       );
     } finally {
       setIsUploadingPastedImage(false);
@@ -2196,7 +2196,7 @@ const Chat = ({
     event.stopPropagation();
     setIsDraggingAttachment(false);
     if (files.length === 0) {
-      notify.warning("Drop unavailable", "Use the attach button for this file.");
+      notify.warning("Arrastar indisponível", "Use o botão de anexo para este arquivo.");
       return;
     }
     void processTemplateV2Files(files, "drop");
@@ -2554,7 +2554,7 @@ const Chat = ({
                             previous.filter((item) => item.id !== link.id),
                           )
                         }
-                        aria-label="Remove link"
+                        aria-label="Remover link"
                       >
                         <X className="h-3 w-3" />
                       </button>
@@ -2574,7 +2574,7 @@ const Chat = ({
                             previous.filter((item) => item.id !== image.id),
                           )
                         }
-                        aria-label="Remove pasted image"
+                        aria-label="Remover imagem colada"
                       >
                         <X className="h-3 w-3" />
                       </button>
@@ -2594,7 +2594,7 @@ const Chat = ({
                             previous.filter((item) => item.id !== document.id),
                           )
                         }
-                        aria-label="Remove attached document"
+                        aria-label="Remover documento anexado"
                       >
                         <X className="h-3 w-3" />
                       </button>
@@ -2602,7 +2602,7 @@ const Chat = ({
                   ))}
                   {isUploadingPastedImage && (
                     <span className="inline-flex items-center gap-1 text-[10px] text-[#808080]">
-                      <Loader2 className="h-3 w-3 animate-spin" /> Processing
+                      <Loader2 className="h-3 w-3 animate-spin" /> Processando...
                     </span>
                   )}
                 </div>
@@ -2625,8 +2625,8 @@ const Chat = ({
               onKeyDown={handleKeyDown}
               placeholder={
                 isOutlineVariant
-                  ? "Ask about your outline.\nType / to get Quick prompts."
-                  : "Ask anything.\nType / to get Quick prompts."
+                  ? "Pergunte sobre seus tópicos.\nDigite / para ver prompts rápidos."
+                  : "Pergunte qualquer coisa.\nDigite / para ver prompts rápidos."
               }
               aria-invalid={Boolean(errorMessage)}
             />
@@ -2639,7 +2639,7 @@ const Chat = ({
                     onClick={() => fileInputRef.current?.click()}
                     disabled={!isTemplateV2Variant || chatInputDisabled}
                     className="inline-flex h-[14px] w-[14px] items-center justify-center disabled:cursor-not-allowed disabled:opacity-40"
-                    aria-label="Attach files"
+                    aria-label="Anexar arquivos"
                   >
                     <Plus className="h-[14px] w-[14px] text-black" />
                   </button>
@@ -2647,8 +2647,8 @@ const Chat = ({
                   <ToolTip
                     content={
                       isFollowAgentEnabled
-                        ? "Disable follow AI mode"
-                        : "Enable follow AI mode"
+                        ? "Desativar modo seguir IA"
+                        : "Ativar modo seguir IA"
                     }
                   >
                     <button
@@ -2660,8 +2660,8 @@ const Chat = ({
                       className="inline-flex h-[14px] w-[14px] items-center justify-center disabled:cursor-not-allowed disabled:opacity-40"
                       aria-label={
                         isFollowAgentEnabled
-                          ? "Disable follow AI mode"
-                          : "Enable follow AI mode"
+                          ? "Desativar modo seguir IA"
+                          : "Ativar modo seguir IA"
                       }
                     >
                       <svg
@@ -2698,7 +2698,7 @@ const Chat = ({
                       type="button"
                       disabled={chatInputDisabled}
                       className="inline-flex h-[28px] items-center gap-1.5 rounded-full border border-[#EDEEEF] bg-white px-[11px] font-syne text-xs font-medium tracking-[0.16px] text-[#191919] transition-colors hover:bg-[#FAFAFF] disabled:cursor-not-allowed disabled:opacity-40"
-                      aria-label="Open quick prompts"
+                      aria-label="Abrir prompts rápidos"
                     >
                       <Image
                         src="/ai-star.svg"
@@ -2733,7 +2733,7 @@ const Chat = ({
                   type="button"
                   onClick={stopStreaming}
                   className="flex h-8 w-10 shrink-0 items-center justify-center rounded-full bg-[#EDEEEF] text-[#191919]"
-                  aria-label="Stop chat response"
+                  aria-label="Interromper resposta do chat"
                 >
                   <Square className="h-3 w-3 fill-current" />
                 </button>
@@ -2754,7 +2754,7 @@ const Chat = ({
                       ? "linear-gradient(270deg, #D5CAFC 2.4%, #E3D2EB 27.88%, #F4DCD3 69.23%, #FDE4C2 100%)"
                       : "#EDEEEF",
                   }}
-                  aria-label="Send prompt"
+                  aria-label="Enviar prompt"
                 >
                   <ArrowUp className="h-4 w-4" />
                 </button>
@@ -3122,8 +3122,8 @@ const Chat = ({
                       )
                     }
                     className="rounded-full p-0.5 text-[#2563EB] transition-colors hover:bg-[#DBEAFE]"
-                    aria-label="Remove link"
-                    title="Remove link"
+                    aria-label="Remover link"
+                    title="Remover link"
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -3166,8 +3166,8 @@ const Chat = ({
                       )
                     }
                     className="rounded-full p-0.5 text-[#667085] transition-colors hover:bg-[#E4E7EC]"
-                    aria-label="Remove attached document"
-                    title="Remove attached document"
+                    aria-label="Remover documento anexado"
+                    title="Remover documento anexado"
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -3176,7 +3176,7 @@ const Chat = ({
               {isUploadingPastedImage && (
                 <span className="inline-flex items-center gap-1.5 rounded-[8px] border border-[#EDEEEF] bg-[#F9FAFB] px-2 py-1 text-xs font-medium text-[#667085]">
                   <Loader2 className="h-3 w-3 animate-spin" aria-hidden="true" />
-                  Processing attachment
+                  Processando anexo...
                 </span>
               )}
             </div>
@@ -3201,12 +3201,12 @@ const Chat = ({
           onKeyDown={handleKeyDown}
           placeholder={
             isOutlineVariant
-              ? "Regenerate this outline"
+              ? "Regenerar estes tópicos"
               : showEditorEmptyState
-                ? "Ask anything.\nType / to get Quick prompts."
+                ? "Pergunte qualquer coisa.\nDigite / para ver prompts rápidos."
                 : isTemplateV2Variant
-                  ? "Change slide 2 title"
-                  : "Improve slide design"
+                  ? "Alterar título do slide 2"
+                  : "Melhorar design do slide"
           }
           aria-invalid={Boolean(errorMessage)}
         />
@@ -3218,11 +3218,11 @@ const Chat = ({
                 onClick={() => fileInputRef.current?.click()}
                 disabled={!isTemplateV2Variant || chatInputDisabled}
                 className="inline-flex h-[28px] items-center rounded-[64px] disabled:cursor-not-allowed disabled:opacity-50"
-                aria-label="Attach files"
+                aria-label="Anexar arquivos"
                 title={
                   isTemplateV2Variant
-                    ? "Attach files"
-                    : "Attachments are available in Template V2 chat"
+                    ? "Anexar arquivos"
+                    : "Anexos estão disponíveis no chat do Modelo V2"
                 }
               >
                 <Plus className="h-3 w-3 text-black" />
@@ -3239,8 +3239,8 @@ const Chat = ({
               <ToolTip
                 content={
                   isFollowAgentEnabled
-                    ? "Disable follow AI mode"
-                    : "Enable follow AI mode"
+                    ? "Desativar modo seguir IA"
+                    : "Ativar modo seguir IA"
                 }
               >
                 <button
@@ -3252,13 +3252,13 @@ const Chat = ({
                   className="inline-flex h-[28px] items-center gap-1 rounded-[64px] text-[11px] font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label={
                     isFollowAgentEnabled
-                      ? "Disable follow AI mode"
-                      : "Enable follow AI mode"
+                      ? "Desativar modo seguir IA"
+                      : "Ativar modo seguir IA"
                   }
                   title={
                     isFollowAgentEnabled
-                      ? "Follow AI is on: auto-jump to active slide"
-                      : "Follow AI is off"
+                      ? "Seguir IA ativado: pula automaticamente para o slide ativo"
+                      : "Seguir IA desativado"
                   }
                 >
                   <svg
@@ -3320,7 +3320,7 @@ const Chat = ({
               onClick={() => inputRef.current?.focus()}
               disabled={chatInputDisabled}
               className="inline-flex h-[30px] items-center gap-1.5 rounded-[64px] border border-[#EDEEEF] bg-white px-3 text-[12px] font-medium text-[#4A4A4A] transition-colors hover:bg-[#FAFAFA] disabled:cursor-not-allowed disabled:opacity-50"
-              aria-label="Focus prompt input"
+              aria-label="Focar no campo de prompt"
             >
               <svg
                 width="13"
@@ -3347,14 +3347,14 @@ const Chat = ({
                 type="button"
                 onClick={stopStreaming}
                 className="flex items-center gap-1.5 whitespace-nowrap rounded-[34px] border border-[#E4E7EC] bg-white px-3 py-2 text-sm font-medium text-[#344054] transition-colors hover:bg-[#F9FAFB]"
-                aria-label="Stop chat response"
+                aria-label="Interromper resposta do chat"
               >
                 <Loader2
                   className="h-3 w-3 animate-spin text-[#667085]"
                   aria-hidden="true"
                 />
                 <Square className="h-3 w-3 fill-current" aria-hidden="true" />
-                Stop
+                Parar
               </button>
             ) : (
               <button
@@ -3372,7 +3372,7 @@ const Chat = ({
                   background:
                     "linear-gradient(270deg, #D5CAFC 2.4%, #E3D2EB 27.88%, #F4DCD3 69.23%, #FDE4C2 100%)",
                 }}
-                aria-label="Send prompt"
+                aria-label="Enviar prompt"
               >
                 <ArrowUp className="h-4 w-4 text-[#191919]" />
               </button>

@@ -60,7 +60,7 @@ export function PromptInput({
                   type="button"
                   onClick={() => onRemoveReference(reference.id)}
                   className="flex h-3.5 w-3.5 items-center justify-center rounded-full text-[#666666] hover:bg-[#E4E4E7] hover:text-[#191919]"
-                  aria-label={`Remove ${reference.label}`}
+                  aria-label={`Remover ${reference.label}`}
                 >
                   <X className="h-2.5 w-2.5" />
                 </button>
@@ -76,7 +76,7 @@ export function PromptInput({
         </span>
         <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1">
           <p className="text-sm font-normal leading-normal text-[#333333]">
-            {isCommunityStart ? "Create from community" : "Write prompt"}
+            {isCommunityStart ? "Criar a partir da comunidade" : "Escreva o prompt"}
           </p>
           <Textarea
             value={value}
@@ -86,8 +86,8 @@ export function PromptInput({
             onKeyDown={handleKeyDown}
             placeholder={
               isCommunityStart
-                ? "Choose a design, then tell AI how to turn it into your deck."
-                : "Start with your idea... we'll handle the slides"
+                ? "Escolha um design e descreva como a IA deve criar sua apresentação."
+                : "Comece com a sua ideia... nós cuidamos dos slides"
             }
             data-testid="prompt-input"
             className={cn(

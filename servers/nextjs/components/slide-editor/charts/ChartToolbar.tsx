@@ -21,17 +21,17 @@ const CHART_TYPE_OPTIONS: Array<{
   label: string;
   value: ChartSlideElement["chart_type"];
 }> = [
-    { value: "bar", label: "Bar Chart" },
-    { value: "horizontal_bar", label: "Horizontal Bar" },
-    { value: "stacked_bar", label: "Stacked Bar" },
-    { value: "horizontal_stacked_bar", label: "Horizontal Stack Bar" },
-    { value: "line", label: "Line Chart" },
-    { value: "area", label: "Area Chart" },
-    { value: "pie", label: "Pie Chart" },
-    { value: "donut", label: "Donut Chart" },
-    { value: "scatter", label: "Scatter Chart" },
-    { value: "radar", label: "Radar Chart" },
-    { value: "polar_area", label: "Polar Area" },
+    { value: "bar", label: "Gráfico de Barras" },
+    { value: "horizontal_bar", label: "Barras Horizontais" },
+    { value: "stacked_bar", label: "Barras Empilhadas" },
+    { value: "horizontal_stacked_bar", label: "Barras Horiz. Empilhadas" },
+    { value: "line", label: "Gráfico de Linhas" },
+    { value: "area", label: "Gráfico de Área" },
+    { value: "pie", label: "Gráfico de Pizza" },
+    { value: "donut", label: "Gráfico de Rosca" },
+    { value: "scatter", label: "Gráfico de Dispersão" },
+    { value: "radar", label: "Gráfico Radar" },
+    { value: "polar_area", label: "Área Polar" },
   ];
 
 export function ChartToolbarControls({
@@ -76,8 +76,8 @@ export function ChartToolbarControls({
       >
         <BarChart3 size={16} strokeWidth={2} />
         <select
-          aria-label="Chart type"
-          title="Chart type"
+          aria-label="Tipo de gráfico"
+          title="Tipo de gráfico"
           value={element.chart_type}
           onChange={(event) =>
             onChange({
@@ -104,8 +104,8 @@ export function ChartToolbarControls({
       {onEdit ? (
         <button
           type="button"
-          aria-label="Edit chart data"
-          title="Edit data"
+          aria-label="Editar dados do gráfico"
+          title="Editar dados"
           onClick={() => {
             setPaletteOpen(false);
             onEdit();
@@ -120,8 +120,8 @@ export function ChartToolbarControls({
         <button
           type="button"
           aria-expanded={paletteOpen}
-          aria-label="Chart colors"
-          title="Chart colors"
+          aria-label="Cores do gráfico"
+          title="Cores do gráfico"
           onClick={() => setPaletteOpen(!paletteOpen)}
           style={{
             ...inlineStyles.iconButton,

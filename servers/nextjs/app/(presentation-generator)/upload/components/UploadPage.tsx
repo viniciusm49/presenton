@@ -27,7 +27,6 @@ import { sanitizeAnalyticsError } from "@/utils/analytics";
 import { ConfigurationSelects } from "./ConfigurationSelects";
 import { RootState } from "@/store/store";
 import { ImagesApi } from "../../services/api/images";
-import CurrentConfig from "./CurrentConfig";
 import { LLMConfig } from "@/types/llm_config";
 import {
   clampSlideCountValue,
@@ -148,8 +147,8 @@ const UploadPage = () => {
   const [communityReference, setCommunityReference] =
     useState<CommunityPresentation | null>(null);
   const [config, setConfig] = useState<PresentationConfig>({
-    slides: null,
-    language: LanguageType.Auto,
+    slides: "8",
+    language: LanguageType.Portuguese,
     prompt: "",
     tone: ToneType.Default,
     verbosity: VerbosityType.Standard,
@@ -165,7 +164,9 @@ const UploadPage = () => {
     const requestedCommunityId = Number(params.get("communityId"));
     let active = true;
 
-    if (params.get("mode") === "smart") {
+    if (params.get("mode") === "standard") {
+      setGenerationMode("standard");
+    } else if (params.get("mode") === "smart") {
       setGenerationMode("smart");
     }
     if (requestedPrompt) {
@@ -185,7 +186,7 @@ const UploadPage = () => {
         .catch((loadError) => {
           if (!active) return;
           notify.error(
-            "Could not select the community design",
+            "Não foi possível selecionar o design da comunidade",
             loadError instanceof Error ? loadError.message : undefined
           );
         });
@@ -333,9 +334,9 @@ const UploadPage = () => {
       return true;
     } catch (error: any) {
       notify.error(
-        "Image provider unavailable",
+        "Provedor de imagem indisponível",
         error?.message ||
-        `Unable to reach ${selectedProvider} right now. Please check your API key/settings and try again.`
+        `Não foi possível conectar ao ${selectedProvider} no momento. Verifique sua chave de API/configurações e tente novamente.`
       );
       return false;
     }
@@ -348,13 +349,13 @@ const UploadPage = () => {
   const validateConfiguration = (): boolean => {
     if (!config.language) {
       trackUploadValidationFailure("language_missing");
-      notify.warning("Language required", "Please select a language.");
+      notify.warning("Idioma obrigatório", "Por favor, selecione um idioma.");
       return false;
     }
 
     if (files.length > 0 && config.language === LanguageType.Auto) {
       trackUploadValidationFailure("language_auto_with_documents");
-      notify.warning("Language required", "Please choose a language before processing uploaded documents.");
+      notify.warning("Idioma obrigatório", "Por favor, escolha um idioma antes de processar os documentos enviados.");
       return false;
     }
 
@@ -365,8 +366,8 @@ const UploadPage = () => {
     ) {
       trackUploadValidationFailure("prompt_or_document_missing");
       notify.warning(
-        "Input required",
-        "Provide a prompt, upload a document, or select a community reference."
+        "Entrada obrigatória",
+        "Informe um prompt, envie um documento ou selecione uma referência da comunidade."
       );
       return false;
     }
@@ -413,10 +414,10 @@ const UploadPage = () => {
   const handleDocumentProcessing = async () => {
     setLoadingState({
       isLoading: true,
-      message: "Processing documents...",
+      message: "Processando documentos...",
       showProgress: true,
       duration: 90,
-      extra_info: files.length > 0 ? "It might take a few minutes for large documents." : "",
+      extra_info: files.length > 0 ? "Pode levar alguns minutos para documentos grandes." : "",
     });
 
     let documents = [];
@@ -445,8 +446,8 @@ const UploadPage = () => {
       isLoading: true,
       message:
         generationMode === "smart"
-          ? "Starting Smart presentation..."
-          : "Generating presentation outline...",
+          ? "Iniciando apresentação Smart..."
+          : "Gerando tópicos da apresentação...",
       showProgress: true,
       duration: 40,
       extra_info: "",
@@ -506,8 +507,8 @@ const UploadPage = () => {
       isLoading: true,
       message:
         generationMode === "smart"
-          ? "Starting Smart presentation..."
-          : "Preparing outline generation...",
+          ? "Iniciando apresentação Smart..."
+          : "Preparando a geração dos tópicos...",
       showProgress: true,
       duration: 30,
     });
@@ -570,8 +571,8 @@ const UploadPage = () => {
       showProgress: false,
     });
     notify.error(
-      "Generation failed",
-      error.message || "Something went wrong while starting your presentation."
+      "Falha na geração",
+      error.message || "Ocorreu um erro ao iniciar a apresentação."
     );
   };
 
@@ -589,10 +590,7 @@ const UploadPage = () => {
           generationMode === "smart" ? "mb-[75px]" : "mb-8"
         }`}
       >
-        <div className="flex min-h-[34px] w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-2">
-            <CurrentConfig webSearchEnabled={config.webSearch} />
-          </div>
+        <div className="w-full">
           <ConfigurationSelects
             compact
             mode={generationMode}

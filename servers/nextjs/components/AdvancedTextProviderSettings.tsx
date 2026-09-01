@@ -55,19 +55,19 @@ interface SelectOption {
 }
 
 const REASONING_EFFORT_OPTIONS: SelectOption[] = [
-  { value: "model_default", label: "Model default" },
-  { value: "minimal", label: "Minimal" },
-  { value: "low", label: "Low" },
-  { value: "medium", label: "Medium" },
-  { value: "high", label: "High" },
-  { value: "xhigh", label: "Extra high" },
-  { value: "max", label: "Maximum" },
+  { value: "model_default", label: "Padrão do modelo" },
+  { value: "minimal", label: "Mínimo" },
+  { value: "low", label: "Baixo" },
+  { value: "medium", label: "Médio" },
+  { value: "high", label: "Alto" },
+  { value: "xhigh", label: "Muito alto" },
+  { value: "max", label: "Máximo" },
 ];
 
 const REASONING_MODE_OPTIONS: SelectOption[] = [
-  { value: "model_default", label: "Model default" },
-  { value: "enabled", label: "On" },
-  { value: "disabled", label: "Off" },
+  { value: "model_default", label: "Padrão do modelo" },
+  { value: "enabled", label: "Ativado" },
+  { value: "disabled", label: "Desativado" },
 ];
 
 const FALLBACK_DEFAULT_MAX_OUTPUT_TOKENS = 8_192;
@@ -254,8 +254,8 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
   const loadProviders = async () => {
     if (!config.OPENROUTER_MODEL?.trim() || !config.OPENROUTER_API_KEY?.trim()) {
       notify.warning(
-        "Model and API key required",
-        "Enter an OpenRouter model and API key first."
+        "Modelo e chave de API necessários",
+        "Insira um modelo e chave de API do OpenRouter primeiro."
       );
       return;
     }
@@ -277,7 +277,7 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
         throw new Error(
           await getApiErrorMessage(
             response,
-            "Could not load OpenRouter providers."
+            "Não foi possível carregar os provedores do OpenRouter."
           )
         );
       }
@@ -291,10 +291,10 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
       );
     } catch (error) {
       notify.error(
-        "Could not load providers",
+        "Não foi possível carregar os provedores",
         error instanceof Error
           ? error.message
-          : "OpenRouter provider discovery failed."
+          : "A descoberta de provedores do OpenRouter falhou."
       );
     } finally {
       setProvidersLoading(false);
@@ -338,11 +338,11 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-[12px] border border-[#EDEEEF] bg-white px-6 py-5 select-none [&::-webkit-details-marker]:hidden">
         <span>
           <span className="block text-sm font-semibold text-[#191919]">
-            Advanced text-provider settings
-            <span className="ml-1 font-normal text-[#777A82]">(optional)</span>
+            Configurações avançadas do provedor de texto
+            <span className="ml-1 font-normal text-[#777A82]"> (opcional)</span>
           </span>
           <span className="mt-1 block text-xs font-normal text-[#6B6C70]">
-            Configure output limits and reasoning behavior when needed.
+            Configure limites de tokens e comportamento de raciocínio quando necessário.
           </span>
         </span>
         <ChevronDown
@@ -359,23 +359,23 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
             className="inline-flex items-center gap-2 rounded-[48px] border border-[#EDEEEF] bg-white px-4 py-2.5 text-xs font-semibold text-[#5146E5] transition hover:bg-[#F4F3FF]"
           >
             <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
-            Reset to defaults
+            Restaurar padrões
           </button>
         </div>
         <section className="space-y-6 rounded-[12px] border border-[#EDEEEF] bg-white p-6">
           <div>
             <h4 className="text-sm font-semibold text-[#191919]">
-              Generation controls
+              Controles de geração
             </h4>
             <p className="mt-1 text-xs leading-5 text-[#6B6C70]">
-              Set an output limit and control reasoning for supported models.
+              Defina um limite de saída e controle o raciocínio para modelos compatíveis.
             </p>
           </div>
 
           <div className="space-y-5">
             <div className="min-w-0">
               <label className="mb-2 block text-sm font-medium text-[#303036]">
-                Max output tokens
+                Máximo de tokens de saída
               </label>
               <input
                 type="number"
@@ -393,7 +393,7 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                   );
                 }}
                 placeholder={
-                  useModelMaximum ? "Model maximum" : "Enter a token limit"
+                  useModelMaximum ? "Máximo do modelo" : "Insira um limite de tokens"
                 }
                 className={numberInputClass}
               />
@@ -416,23 +416,22 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                   }}
                   className="h-4 w-4 rounded border-[#C8CBD3] accent-[#7A5AF8]"
                 />
-                Use the selected model&apos;s maximum output limit
+                Usar o limite máximo de saída do modelo selecionado
               </label>
               <p className="mt-1.5 text-xs leading-5 text-[#6B6C70]">
-                Leave blank to use the default, enter a manual limit, or select
-                model maximum to use the selected model&apos;s advertised limit.
-                The selected limit applies to every generation attempt,
-                including retries.
+                Deixe em branco para usar o padrão, insira um limite manual ou selecione o
+                máximo do modelo para usar o limite anunciado do modelo selecionado. O
+                limite selecionado se aplica a todas as tentativas de geração.
                 {!hasManualMaxOutputTokens && !useModelMaximum && (
-                  <> The effective default is shown in the field.</>
+                  <> O padrão efetivo é exibido no campo.</>
                 )}
               </p>
             </div>
 
             <div className="grid gap-5 md:grid-cols-2">
               <SettingSelect
-                label="Reasoning mode"
-                description="Use the backend model default, force reasoning on, or turn it off for faster responses."
+                label="Modo de raciocínio"
+                description="Use o padrão do modelo, force o raciocínio ativado ou desative-o para respostas mais rápidas."
                 value={reasoningMode}
                 options={REASONING_MODE_OPTIONS}
                 onValueChange={setReasoningMode}
@@ -440,8 +439,8 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
 
               {reasoningAvailable && (
                 <SettingSelect
-                  label="Reasoning effort"
-                  description="Higher effort may improve difficult generations, but can increase latency and token usage."
+                  label="Esforço de raciocínio"
+                  description="Um esforço maior pode melhorar gerações complexas, mas pode aumentar a latência e o consumo de tokens."
                   value={
                     config.LLM_REASONING_EFFORT === "default" ||
                     config.LLM_REASONING_EFFORT === "none"
@@ -461,10 +460,10 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h4 className="text-sm font-semibold text-[#191919]">
-                  OpenRouter routing
+                  Roteamento do OpenRouter
                 </h4>
                 <p className="mt-1 text-xs leading-5 text-[#6B6C70]">
-                  Leave the order empty to let OpenRouter route automatically.
+                  Deixe a ordem vazia para permitir que o OpenRouter faça o roteamento automaticamente.
                 </p>
               </div>
               <button
@@ -476,7 +475,7 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                 {providersLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
-                  "Load providers"
+                  "Carregar provedores"
                 )}
               </button>
             </div>
@@ -497,7 +496,7 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                     <span className="min-w-0 flex-1 truncate">
                       {providerToAdd
                         ? providerMap.get(providerToAdd)?.label || providerToAdd
-                        : "Default"}
+                        : "Padrão"}
                     </span>
                     <ChevronDown
                       className={`h-4 w-4 shrink-0 text-[#667085] transition-transform ${
@@ -514,9 +513,9 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                   className="z-[70] overflow-hidden rounded-lg border border-[#EDEEEF] bg-white p-0 shadow-[0_10px_30px_rgba(16,24,40,0.12)]"
                 >
                   <Command>
-                    <CommandInput placeholder="Search providers..." />
+                    <CommandInput placeholder="Buscar provedores..." />
                     <CommandList id={providerListId} className="max-h-60 p-1">
-                      <CommandEmpty>No providers found.</CommandEmpty>
+                      <CommandEmpty>Nenhum provedor encontrado.</CommandEmpty>
                       <CommandGroup>
                         {availableProviders.map((provider) => (
                           <CommandItem
@@ -533,7 +532,7 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                             </span>
                             {!provider.available && (
                               <span className="shrink-0 text-xs text-[#8A8B91]">
-                                Unavailable
+                                Indisponível
                               </span>
                             )}
                             {providerToAdd === provider.value && (
@@ -563,7 +562,7 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                   setProviderToAdd("");
                 }}
               >
-                Add
+                Adicionar
               </button>
             </div>
 
@@ -578,11 +577,11 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                     >
                       <span className="min-w-0 flex-1 truncate">
                         {provider?.label || value}
-                        {provider ? "" : " (unverified)"}
+                        {provider ? "" : " (não verificado)"}
                       </span>
                       <button
                         type="button"
-                        aria-label="Move provider up"
+                        aria-label="Mover provedor para cima"
                         disabled={index === 0}
                         onClick={() => move(index, -1)}
                         className="rounded p-1 text-[#667085] hover:bg-white disabled:opacity-30"
@@ -591,7 +590,7 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                       </button>
                       <button
                         type="button"
-                        aria-label="Move provider down"
+                        aria-label="Mover provedor para baixo"
                         disabled={index === order.length - 1}
                         onClick={() => move(index, 1)}
                         className="rounded p-1 text-[#667085] hover:bg-white disabled:opacity-30"
@@ -600,7 +599,7 @@ export default function AdvancedTextProviderSettings({ config, onChange }: Props
                       </button>
                       <button
                         type="button"
-                        aria-label="Remove provider"
+                        aria-label="Remover provedor"
                         onClick={() =>
                           onChange(
                             order.filter((item) => item !== value),

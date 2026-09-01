@@ -71,15 +71,15 @@ type CropDragState =
   };
 
 const FIT_OPTIONS: Array<{ label: string; value: ImageFit }> = [
-  { label: "Fill", value: "cover" },
-  { label: "Contain", value: "contain" },
-  { label: "Stretch", value: "fill" },
+  { label: "Preencher", value: "cover" },
+  { label: "Conter", value: "contain" },
+  { label: "Esticar", value: "fill" },
 ];
 
 const FIT_LABELS: Record<ImageFit, string> = {
-  contain: "Contain",
-  cover: "Fill",
-  fill: "Stretch",
+  contain: "Conter",
+  cover: "Preencher",
+  fill: "Esticar",
 };
 
 const clampPercent = (value: number | null | undefined) =>
@@ -97,14 +97,14 @@ const CROP_HANDLE_SIZE = 12;
 const MAX_UPLOAD_FILE_SIZE = 5 * 1024 * 1024;
 
 const CROP_HANDLES: Array<{ label: string; value: CropHandle }> = [
-  { label: "Top left resize handle", value: "nw" },
-  { label: "Top resize handle", value: "n" },
-  { label: "Top right resize handle", value: "ne" },
-  { label: "Right resize handle", value: "e" },
-  { label: "Bottom right resize handle", value: "se" },
-  { label: "Bottom resize handle", value: "s" },
-  { label: "Bottom left resize handle", value: "sw" },
-  { label: "Left resize handle", value: "w" },
+  { label: "Alça de redimensionamento superior esquerda", value: "nw" },
+  { label: "Alça de redimensionamento superior", value: "n" },
+  { label: "Alça de redimensionamento superior direita", value: "ne" },
+  { label: "Alça de redimensionamento direita", value: "e" },
+  { label: "Alça de redimensionamento inferior direita", value: "se" },
+  { label: "Alça de redimensionamento inferior", value: "s" },
+  { label: "Alça de redimensionamento inferior esquerda", value: "sw" },
+  { label: "Alça de redimensionamento esquerda", value: "w" },
 ];
 
 function normalizeCropDraft(draft: CropDraft): CropDraft {
@@ -519,11 +519,11 @@ export function ImageToolbar({
   const uploadReplacementImage = async (file: File | undefined) => {
     if (!file) return;
     if (!file.type.startsWith("image/")) {
-      notify.error("Upload failed", "Please choose a valid image file.");
+      notify.error("Falha no envio", "Por favor, escolha um arquivo de imagem válido.");
       return;
     }
     if (file.size > MAX_UPLOAD_FILE_SIZE) {
-      notify.error("Upload failed", "Image files must be smaller than 5MB.");
+      notify.error("Falha no envio", "Arquivos de imagem devem ter menos de 5MB.");
       return;
     }
 
@@ -532,7 +532,7 @@ export function ImageToolbar({
     try {
       const asset = await ImagesApi.uploadImage(file);
       const url = resolveBackendAssetSource(asset);
-      if (!url) throw new Error("Upload did not return an image URL.");
+      if (!url) throw new Error("O envio não retornou a URL da imagem.");
       update({
         data: url,
         name: file.name,
@@ -540,11 +540,11 @@ export function ImageToolbar({
         focus_y: 50,
         crop_scale: null,
       });
-      notify.success("Image uploaded", "The selected image was replaced.");
+      notify.success("Imagem enviada", "A imagem selecionada foi substituída.");
     } catch (uploadError: unknown) {
       notify.error(
-        "Upload failed",
-        uploadError instanceof Error ? uploadError.message : "Could not upload image.",
+        "Falha no envio",
+        uploadError instanceof Error ? uploadError.message : "Não foi possível enviar a imagem.",
       );
     } finally {
       setIsUploadingImage(false);
@@ -574,8 +574,8 @@ export function ImageToolbar({
         <div className="relative">
           <button
             type="button"
-            title={`Image type: ${FIT_LABELS[fit]}`}
-            aria-label={`Image type: ${FIT_LABELS[fit]}`}
+            title={`Tipo de ajuste: ${FIT_LABELS[fit]}`}
+            aria-label={`Tipo de ajuste: ${FIT_LABELS[fit]}`}
             aria-expanded={openPanel === "fit"}
             onClick={() => togglePanel("fit")}
             className="flex min-w-[83px] items-center justify-between gap-2 rounded-[10px] border-0 bg-transparent py-[6px] text-[14px] font-medium font-syne leading-4"
@@ -614,8 +614,8 @@ export function ImageToolbar({
 
         <button
           type="button"
-          title="Upload image"
-          aria-label="Upload image"
+          title="Enviar imagem"
+          aria-label="Enviar imagem"
           onClick={() => uploadInputRef.current?.click()}
           disabled={isUploadingImage}
           className="rounded-[2px] border-0 bg-transparent p-1 text-[#05070A] hover:bg-[#F4F3FF] disabled:cursor-wait disabled:opacity-50"
@@ -629,8 +629,8 @@ export function ImageToolbar({
 
         <button
           type="button"
-          title="Replace image"
-          aria-label="Replace image"
+          title="Substituir imagem"
+          aria-label="Substituir imagem"
           onClick={() => {
             setOpenPanel(null);
             setImagePickerOpen(true);
@@ -652,8 +652,8 @@ export function ImageToolbar({
         <div className="flex items-center gap-3">
           <button
             type="button"
-            title="Crop image"
-            aria-label="Crop image"
+            title="Cortar imagem"
+            aria-label="Cortar imagem"
             aria-pressed={openPanel === "crop"}
             onClick={() => togglePanel("crop")}
             className={cn(
@@ -666,8 +666,8 @@ export function ImageToolbar({
 
           <button
             type="button"
-            title="Flip horizontally"
-            aria-label="Flip horizontally"
+            title="Espelhar horizontalmente"
+            aria-label="Espelhar horizontalmente"
             aria-pressed={element.flip_h === true}
             onClick={() => update({ flip_h: !(element.flip_h ?? false) })}
             className={cn(
@@ -680,8 +680,8 @@ export function ImageToolbar({
 
           <button
             type="button"
-            title="Flip vertically"
-            aria-label="Flip vertically"
+            title="Espelhar verticalmente"
+            aria-label="Espelhar verticalmente"
             aria-pressed={element.flip_v === true}
             onClick={() => update({ flip_v: !(element.flip_v ?? false) })}
             className={cn(
@@ -695,8 +695,8 @@ export function ImageToolbar({
           <div className="relative">
             <button
               type="button"
-              title="Image border radius"
-              aria-label="Image border radius"
+              title="Raio do canto da imagem"
+              aria-label="Raio do canto da imagem"
               aria-pressed={openPanel === "radius"}
               onClick={() => togglePanel("radius")}
               className={cn(
@@ -710,13 +710,13 @@ export function ImageToolbar({
               <Panel className="w-[220px] p-3">
                 <label className="block text-[12px] font-medium text-[#4B5563]">
                   <span className="mb-2 flex items-center justify-between">
-                    <span>Border radius</span>
+                    <span>Raio do canto</span>
                     <span className="font-medium text-[#191919]">
                       {formatRadiusValue(radiusDraft)}
                     </span>
                   </span>
                   <input
-                    aria-label="Image border radius"
+                    aria-label="Raio do canto da imagem"
                     type="range"
                     min={0}
                     max={maxRadius}
@@ -746,8 +746,8 @@ export function ImageToolbar({
         <div className="relative">
           <button
             type="button"
-            title="Image opacity"
-            aria-label="Image opacity"
+            title="Opacidade da imagem"
+            aria-label="Opacidade da imagem"
             aria-pressed={openPanel === "opacity"}
             onClick={() => togglePanel("opacity")}
             className={cn(
@@ -760,7 +760,7 @@ export function ImageToolbar({
           {openPanel === "opacity" ? (
             <Panel className="flex min-w-[115px] items-center p-2.5">
               <input
-                aria-label="Image opacity"
+                aria-label="Opacidade da imagem"
                 type="range"
                 min={0}
                 max={1}
@@ -906,7 +906,7 @@ function CropOverlay({
   const transform = [flipH ? "scaleX(-1)" : "", flipV ? "scaleY(-1)" : ""]
     .filter(Boolean)
     .join(" ");
-  const cropLabel = `Crop image. Zoom ${Math.round(cropDraft.scale * 100)} percent.`;
+  const cropLabel = `Cortar imagem. Zoom de ${Math.round(cropDraft.scale * 100)} por cento.`;
 
   return (
     <div
@@ -1091,8 +1091,8 @@ function CropActions({
     >
       <button
         type="button"
-        title="Reset crop"
-        aria-label="Reset crop"
+        title="Redefinir corte"
+        aria-label="Redefinir corte"
         onClick={onReset}
         className="rounded-[6px] p-2 text-[#4B5563] hover:bg-[#F4F3FF] hover:text-[#191919]"
       >
@@ -1100,8 +1100,8 @@ function CropActions({
       </button>
       <button
         type="button"
-        title="Apply crop"
-        aria-label="Apply crop"
+        title="Aplicar corte"
+        aria-label="Aplicar corte"
         onClick={onDone}
         className="rounded-[6px] bg-[#111827] p-2 text-white hover:bg-[#0B1220]"
       >
@@ -1109,8 +1109,8 @@ function CropActions({
       </button>
       <button
         type="button"
-        title="Close crop controls"
-        aria-label="Close crop controls"
+        title="Fechar controles de corte"
+        aria-label="Fechar controles de corte"
         onClick={onClose}
         className="rounded-[6px] p-2 text-[#4B5563] hover:bg-[#F4F3FF] hover:text-[#191919]"
       >

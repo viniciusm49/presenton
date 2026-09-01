@@ -29,22 +29,22 @@ const steps: StepConfig[] = [
     },
     {
         id: 'font-check',
-        label: 'Fonts',
+        label: 'Fontes',
         icon: <Type className="w-4 h-4" />
     },
     {
         id: 'slides-preview',
-        label: 'Preview',
+        label: 'Pré-visualizar',
         icon: <Images className="w-4 h-4" />
     },
     {
         id: 'template-creation',
-        label: 'Generate',
+        label: 'Gerar',
         icon: <Sparkles className="w-4 h-4" />
     },
     {
         id: 'completed',
-        label: 'Done',
+        label: 'Concluído',
         icon: <Check className="w-4 h-4" />
     },
 ];
@@ -145,7 +145,7 @@ export const TemplateCreationProgress: React.FC<TemplateCreationProgressProps> =
                 <div className="mt-6 p-4 bg-[#F9FAFB] rounded-xl border border-[#E5E7EB]">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-sm text-[#374151]">
-                            Processing slides
+                            Processando slides
                         </span>
                         <span className="text-sm font-medium text-[#374151]">
                             {processedSlides} / {totalSlides}

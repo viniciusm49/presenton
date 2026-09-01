@@ -2,29 +2,29 @@ import type { ChatStreamTrace } from "../../../services/api/chat";
 import type { AssistantActivity } from "./chat-types";
 
 const TOOL_LABELS: Record<string, string> = {
-  addOutline: "Outline adder",
-  updateOutline: "Outline editor",
-  deleteOutline: "Outline remover",
-  addNewSlide: "Blank slide adder",
-  addNewSlideLayout: "Layout slide adder",
-  getAvailableLayouts: "Layout finder",
-  getTemplateSummary: "Template reader",
-  readSourceDocuments: "Source document reader",
-  searchSlide: "Slide search",
-  getSlideAtIndex: "Slide reader",
-  saveSlide: "Slide saver",
-  updateSlide: "Slide updater",
-  deleteSlide: "Slide remover",
-  addElement: "Element adder",
-  updateElement: "Element updater",
-  deleteElement: "Element remover",
-  addComponent: "Component adder",
-  createComponent: "Component creator",
-  updateComponent: "Component updater",
-  deleteComponent: "Component remover",
-  getPresentationTheme: "Theme reader",
-  setPresentationTheme: "Theme applier",
-  generateAssets: "Asset generator",
+  addOutline: "Adicionador de tópicos",
+  updateOutline: "Editor de tópicos",
+  deleteOutline: "Removedor de tópicos",
+  addNewSlide: "Adicionador de slide em branco",
+  addNewSlideLayout: "Adicionador de layout de slide",
+  getAvailableLayouts: "Buscador de layouts",
+  getTemplateSummary: "Leitor de modelos",
+  readSourceDocuments: "Leitor de documentos de origem",
+  searchSlide: "Buscador de slides",
+  getSlideAtIndex: "Leitor de slide",
+  saveSlide: "Salvador de slide",
+  updateSlide: "Atualizador de slide",
+  deleteSlide: "Removedor de slide",
+  addElement: "Adicionador de elemento",
+  updateElement: "Atualizador de elemento",
+  deleteElement: "Removedor de elemento",
+  addComponent: "Adicionador de componente",
+  createComponent: "Criador de componente",
+  updateComponent: "Atualizador de componente",
+  deleteComponent: "Removedor de componente",
+  getPresentationTheme: "Leitor de tema",
+  setPresentationTheme: "Aplicador de tema",
+  generateAssets: "Gerador de recursos",
 };
 
 export const MUTATING_TOOLS = new Set([
@@ -76,30 +76,30 @@ const humanizeTraceMessage = (message: string, tool?: string) => {
 
   const lower = trimmed.toLowerCase();
   const exactMessages: Record<string, string> = {
-    "reading deck context": "Reviewing your presentation context.",
-    "reading the presentation outline": "Reading the presentation outline.",
-    "reading the outline draft": "Reading the outline draft.",
-    "adding an outline slide": "Adding an outline slide.",
-    "updating the outline slide": "Updating the outline slide.",
-    "deleting the outline slide": "Deleting the outline slide.",
-    "reordering outline slides": "Reordering outline slides.",
-    "searching relevant slides": "Searching slides for relevant content.",
-    "opening the requested slide": "Opening the selected slide.",
-    "checking available themes": "Checking available color themes.",
-    "checking available layouts": "Checking available layouts.",
-    "checking the layout schema": "Validating the slide schema.",
-    "generating slide assets": "Generating images and icons.",
-    "saving the slide": "Saving slide updates.",
-    "deleting the slide": "Deleting the slide.",
-    "applying presentation theme": "Applying the selected theme.",
-    "reading template structure": "Reading the template structure.",
-    "reading source documents": "Reading the source documents.",
-    "opening the requested template slide": "Opening the selected template slide.",
-    "searching template content": "Searching template content.",
-    "finding editable elements": "Finding editable elements.",
-    "updating template content": "Updating template content.",
-    "deleting the template component": "Deleting the selected component.",
-    "swapping component variant": "Swapping the component variant.",
+    "reading deck context": "Revisando o contexto da sua apresentação.",
+    "reading the presentation outline": "Lendo os tópicos da apresentação.",
+    "reading the outline draft": "Lendo o rascunho dos tópicos.",
+    "adding an outline slide": "Adicionando um slide aos tópicos.",
+    "updating the outline slide": "Atualizando o slide dos tópicos.",
+    "deleting the outline slide": "Excluindo o slide dos tópicos.",
+    "reordering outline slides": "Reordenando os slides dos tópicos.",
+    "searching relevant slides": "Buscando slides com conteúdo relevante.",
+    "opening the requested slide": "Abrindo o slide selecionado.",
+    "checking available themes": "Verificando temas de cores disponíveis.",
+    "checking available layouts": "Verificando layouts disponíveis.",
+    "checking the layout schema": "Validando o esquema do slide.",
+    "generating slide assets": "Gerando imagens e ícones.",
+    "saving the slide": "Salvando atualizações do slide.",
+    "deleting the slide": "Excluindo o slide.",
+    "applying presentation theme": "Aplicando o tema selecionado.",
+    "reading template structure": "Lendo a estrutura do modelo.",
+    "reading source documents": "Lendo os documentos de origem.",
+    "opening the requested template slide": "Abrindo o slide do modelo selecionado.",
+    "searching template content": "Buscando conteúdo no modelo.",
+    "finding editable elements": "Localizando elementos editáveis.",
+    "updating template content": "Atualizando conteúdo do modelo.",
+    "deleting the template component": "Excluindo o componente selecionado.",
+    "swapping component variant": "Alterando a variante do componente.",
   };
   if (exactMessages[lower]) return exactMessages[lower];
 
@@ -111,13 +111,13 @@ const humanizeTraceMessage = (message: string, tool?: string) => {
       .filter(Boolean)
       .map((entry) => getToolLabel(entry));
     return toolNames.length === 0
-      ? "Planning the next step."
-      : "Choosing the best way to help.";
+      ? "Planejando o próximo passo."
+      : "Escolhendo a melhor forma de ajudar.";
   }
   if (lower.includes("found requested data")) {
     return tool === "getSlideAtIndex"
-      ? "Found the requested slide details."
-      : "Found the requested information.";
+      ? "Detalhes do slide solicitados encontrados."
+      : "Informações solicitadas encontradas.";
   }
   return trimmed;
 };
@@ -168,10 +168,10 @@ const humanActivityForTool = (
   switch (tool) {
     case "searchSlide":
       return isDone
-        ? "Found the relevant content."
-        : "Looking through the content.";
+        ? "Conteúdo relevante encontrado."
+        : "Procurando no conteúdo.";
     case "getSlideAtIndex":
-      return isDone ? "Checked the slide." : "Checking the slide.";
+      return isDone ? "Slide verificado." : "Verificando o slide.";
     case "addNewSlide":
     case "addNewSlideLayout":
     case "updateElement":
@@ -181,21 +181,21 @@ const humanActivityForTool = (
     case "createComponent":
     case "updateSlide":
     case "saveSlide":
-      return isDone ? "Applied the change." : "Applying the change.";
+      return isDone ? "Alteração aplicada." : "Aplicando a alteração.";
     case "deleteComponent":
     case "deleteElement":
     case "deleteSlide":
       return isDone
-        ? "Removed the selected item."
-        : "Removing the selected item.";
+        ? "Item selecionado removido."
+        : "Removendo o item selecionado.";
     case "generateAssets":
       return isDone
-        ? "Prepared the visual assets."
-        : "Preparing visual assets.";
+        ? "Recursos visuais preparados."
+        : "Preparando recursos visuais.";
     case "setPresentationTheme":
-      return isDone ? "Updated the theme." : "Updating the theme.";
+      return isDone ? "Tema atualizado." : "Atualizando o tema.";
     default:
-      return isDone ? "Finished that step." : "Working on it.";
+      return isDone ? "Etapa concluída." : "Trabalhando nisso.";
   }
 };
 
@@ -238,7 +238,7 @@ export const formatTraceActivity = (
   }
   if (trace.tool && trace.status === "error") {
     return {
-      label: "I could not finish that step.",
+      label: "Não foi possível concluir esta etapa.",
       kind: trace.kind,
       round: trace.round,
       tool: trace.tool,
@@ -247,7 +247,7 @@ export const formatTraceActivity = (
   }
   if (trace.kind === "tool_plan" && Array.isArray(trace.tools) && trace.tools.length) {
     return {
-      label: "Planning the next step.",
+      label: "Planejando o próximo passo.",
       kind: trace.kind,
       round: trace.round,
       state: "info",

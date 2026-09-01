@@ -107,7 +107,7 @@ export const TemplateListCard = memo(function TemplateListCard({
       role="button"
       tabIndex={0}
       aria-pressed={isSelected}
-      aria-label={`${showArrow ? "Open" : "Select"} ${template.name} template`}
+      aria-label={`${showArrow ? "Abrir" : "Selecionar"} modelo ${template.name}`}
       className={cn(
         "group relative overflow-hidden border bg-white shadow-none outline-none transition-all duration-200",
         selectionPage ? "rounded-[12px]" : "rounded-[22px]",
@@ -137,7 +137,7 @@ export const TemplateListCard = memo(function TemplateListCard({
       )}
       {isSuggested && (
         <span className="absolute right-3.5 top-[52px] z-50 rounded-full border border-[#DDD7FF] bg-white/95 px-2.5 py-1 font-syne text-[10px] font-semibold text-[#6553E8] shadow-sm backdrop-blur">
-          Suggested
+          Sugerido
         </span>
       )}
       <TemplatePreviewStage selectionPage={selectionPage}>
@@ -217,7 +217,7 @@ export const ProcessingTemplateListCard = memo(
   }: {
     task: TemplateCreateTaskResponse;
   }) {
-    const templateName = task.data?.name?.trim() || "New template";
+    const templateName = task.data?.name?.trim() || "Novo modelo";
     const createdLayouts = task.data?.created_layouts ?? 0;
     const remainingLayouts = task.data?.remaining_layouts ?? 0;
     const totalLayouts = createdLayouts + remainingLayouts;
@@ -235,14 +235,14 @@ export const ProcessingTemplateListCard = memo(
     );
     const progressLabel =
       totalLayouts > 0
-        ? `${createdLayouts} of ${totalLayouts} layouts`
-        : "Preparing layouts";
+        ? `${createdLayouts} de ${totalLayouts} layouts`
+        : "Preparando layouts";
 
     return (
       <Card
         role="group"
         aria-disabled="true"
-        aria-label={`${templateName} template is processing`}
+        aria-label={`Modelo ${templateName} está sendo processado`}
         className={cn(
           "relative overflow-hidden rounded-[22px] border border-[#E8E9EC] bg-white",
           "cursor-not-allowed opacity-90 shadow-sm"
@@ -332,7 +332,7 @@ export function TemplateTabSwitcher({
           color: tab === "custom" ? "#5146E5" : "#3A3A3A",
         }}
       >
-        Custom
+        Personalizados
       </button>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -354,13 +354,13 @@ export function TemplateTabSwitcher({
           color: tab === "default" ? "#5146E5" : "#3A3A3A",
         }}
       >
-        Built-in
+        Padrão do Sistema
       </button>
     </div>
   );
 }
 
-export function TemplateListLoadingState({ message = "Loading templates..." }: { message?: string }) {
+export function TemplateListLoadingState({ message = "Carregando modelos..." }: { message?: string }) {
   return (
     <div className="flex items-center justify-center py-12 font-syne">
       <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
@@ -369,7 +369,7 @@ export function TemplateListLoadingState({ message = "Loading templates..." }: {
   );
 }
 
-export function TemplateListEmptyState({ message = "No templates available." }: { message?: string }) {
+export function TemplateListEmptyState({ message = "Nenhum modelo disponível." }: { message?: string }) {
   return (
     <div className="flex items-center justify-center py-12 font-syne text-gray-600">
       {message}

@@ -154,7 +154,7 @@ const EachSlide: React.FC<EachSlideProps> = ({
             {/* Primary Actions Group */}
             <div className="flex items-center bg-gray-50/80 rounded-lg p-1 gap-0.5">
               {/* Schema Button */}
-              <ToolTip content="Edit content schema">
+              <ToolTip content="Editar schema de conteúdo">
                 <button
                   onClick={() => {
                     if (isSchemaEditorOpen) {
@@ -181,7 +181,7 @@ const EachSlide: React.FC<EachSlideProps> = ({
 
             {/* Undo/Redo Group */}
             <div className="flex items-center bg-gray-50/80 rounded-lg p-1 gap-0.5">
-              <ToolTip content={canUndo ? "Undo (Ctrl+Z)" : "Nothing to undo"}>
+              <ToolTip content={canUndo ? "Desfazer (Ctrl+Z)" : "Nada para desfazer"}>
                 <button
                   onClick={undo}
                   disabled={!canUndo || !supportsReactEditing}
@@ -197,7 +197,7 @@ const EachSlide: React.FC<EachSlideProps> = ({
                   <Undo className="w-4 h-4" />
                 </button>
               </ToolTip>
-              <ToolTip content={canRedo ? "Redo (Ctrl+Shift+Z)" : "Nothing to redo"}>
+              <ToolTip content={canRedo ? "Refazer (Ctrl+Shift+Z)" : "Nada para refazer"}>
                 <button
                   onClick={redo}
                   disabled={!canRedo || !supportsReactEditing}
@@ -219,7 +219,7 @@ const EachSlide: React.FC<EachSlideProps> = ({
             <div className="w-px h-6 bg-gray-200 mx-1" />
 
             {/* Re-Construct Button */}
-            <ToolTip content="Re-Design this slide">
+            <ToolTip content="Redesenhar este slide">
               <button
                 onClick={handleRetrySlide}
                 disabled={!isSlideReady}
@@ -236,13 +236,13 @@ const EachSlide: React.FC<EachSlideProps> = ({
                 } : undefined}
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                Re-Construct
+                Reconstruir
               </button>
 
             </ToolTip>
 
             {/* Delete Button */}
-            <ToolTip content="Delete slide">
+            <ToolTip content="Excluir slide">
               <button
                 onClick={handleDeleteSlide}
                 disabled={!isSlideReady}
@@ -265,7 +265,7 @@ const EachSlide: React.FC<EachSlideProps> = ({
           <div className="mt-4">
             <div className="flex items-center gap-2 mb-2">
               <Loader2 className="w-4 h-4 animate-spin text-[#7A5AF8]" />
-              <span className="text-sm font-medium text-[#7A5AF8]">Generating slide layout...</span>
+              <span className="text-sm font-medium text-[#7A5AF8]">Gerando layout do slide...</span>
             </div>
             <Timer duration={120} />
           </div>
@@ -315,11 +315,11 @@ const EachSlide: React.FC<EachSlideProps> = ({
               <Trash2 className="h-5 w-5 text-[#D92D20]" />
             </div>
             <DialogTitle className="text-xl font-semibold leading-7 text-[#101323]">
-              Delete slide {index + 1}?
+              Excluir slide {index + 1}?
             </DialogTitle>
             <DialogDescription className="pt-1 text-sm leading-6 text-[#667085]">
-              This slide will be permanently removed from the template. This
-              action cannot be undone.
+              Este slide será removido permanentemente do modelo. Esta
+              ação não pode ser desfeita.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex-row border-t border-[#EAECF0] p-4 sm:justify-end sm:space-x-0">
@@ -328,7 +328,7 @@ const EachSlide: React.FC<EachSlideProps> = ({
               className="h-10 rounded-full border border-[#E1E1E5] px-5 text-xs font-semibold text-[#344054] transition hover:bg-[#F9FAFB]"
               onClick={() => setIsDeleteDialogOpen(false)}
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="button"
@@ -336,7 +336,7 @@ const EachSlide: React.FC<EachSlideProps> = ({
               onClick={confirmDeleteSlide}
             >
               <Trash2 className="h-4 w-4" />
-              Delete slide
+              Excluir slide
             </button>
           </DialogFooter>
         </DialogContent>

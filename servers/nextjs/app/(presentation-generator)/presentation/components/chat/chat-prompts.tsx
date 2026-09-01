@@ -39,7 +39,7 @@ export const suggestions: {
         </defs>
       </svg>
     ),
-    suggestion: "Generate a full presentation from my topic",
+    suggestion: "Gerar uma apresentação completa a partir do meu tema",
   },
   {
     id: "improve",
@@ -71,7 +71,7 @@ export const suggestions: {
         </defs>
       </svg>
     ),
-    suggestion: "Improve this slide content",
+    suggestion: "Melhorar o conteúdo deste slide",
   },
   {
     id: "rewrite",
@@ -86,7 +86,7 @@ export const suggestions: {
         />
       </svg>
     ),
-    suggestion: "Rewrite this content professionally",
+    suggestion: "Reescrever este conteúdo profissionalmente",
   },
   {
     id: "notes",
@@ -98,98 +98,98 @@ export const suggestions: {
         <path d="M4 8.5V7" stroke="#E17100" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    suggestion: "Add speaker notes to this slide",
+    suggestion: "Adicionar notas do orador a este slide",
   },
 ];
 
 export const outlineQuickPrompts = [
-  "Expand outline",
-  "Shorten outline",
-  "Reorder sections",
-  "Merge similar slides",
-  "Split large sections",
-  "Improve conclusion",
-  "Improve introduction",
+  "Expandir tópicos",
+  "Encurtar tópicos",
+  "Reordenar seções",
+  "Mesclar slides semelhantes",
+  "Dividir seções grandes",
+  "Melhorar a conclusão",
+  "Melhorar a introdução",
 ];
 
 export const presentationQuickPrompts = [
-  "Create an executive summary",
-  "Strengthen the story flow",
-  "Add data and citations",
-  "Create speaker notes",
+  "Criar um resumo executivo",
+  "Fortalecer o fluxo da narrativa",
+  "Adicionar dados e citações",
+  "Criar notas do orador",
 ];
 
 export const templateV2QuickPrompts = [
-  "Improve this slide's layout",
-  "Rewrite this slide for executives",
-  "Add a supporting visual",
-  "Make the deck visually consistent",
-  "Add data and source citations",
-  "Create speaker notes for this slide",
+  "Melhorar o layout deste slide",
+  "Reescrever este slide para executivos",
+  "Adicionar um elemento visual de suporte",
+  "Tornar a apresentação visualmente consistente",
+  "Adicionar dados e citações de fontes",
+  "Criar notas do orador para este slide",
 ];
 
 export const editorQuickPrompts = [
-  "Rewrite for executives",
-  "Improve slide layout",
-  "Add data & citations",
-  "Create speaker notes",
-  "Make the deck consistent",
+  "Reescrever para executivos",
+  "Melhorar o layout do slide",
+  "Adicionar dados e citações",
+  "Criar notas do orador",
+  "Tornar a apresentação consistente",
 ];
 
 export const outlineEditorQuickPrompts = [
-  "Strengthen the story flow",
-  "Make the outline concise",
-  "Reorder the sections",
-  "Merge similar slides",
-  "Improve the conclusion",
+  "Fortalecer o fluxo da narrativa",
+  "Tornar os tópicos concisos",
+  "Reordenar as seções",
+  "Mesclar slides semelhantes",
+  "Melhorar a conclusão",
 ];
 
 export const quickPromptGroups = [
   {
-    label: "Popular",
+    label: "Populares",
     prompts: [
-      "Make it shorter",
-      "Make this smaller",
-      "Generate a new image and replace this one",
+      "Tornar mais curto",
+      "Tornar menor",
+      "Gerar uma nova imagem e substituir esta",
     ],
   },
   {
-    label: "Add Data",
-    prompts: ["Add data and citations", "Add a chart", "Add a table"],
+    label: "Adicionar Dados",
+    prompts: ["Adicionar dados e citações", "Adicionar um gráfico", "Adicionar uma tabela"],
   },
   {
-    label: "Add Visuals",
+    label: "Adicionar Visuais",
     prompts: [
-      "Generate a new image and replace this one",
-      "Add a chart",
-      "Add a table",
+      "Gerar uma nova imagem e substituir esta",
+      "Adicionar um gráfico",
+      "Adicionar uma tabela",
     ],
   },
 ];
 
 export const outlineQuickPromptGroups = [
   {
-    label: "Popular",
+    label: "Populares",
     prompts: [
-      "Make the outline shorter",
-      "Expand the outline",
-      "Strengthen the story flow",
+      "Tornar os tópicos mais curtos",
+      "Expandir os tópicos",
+      "Fortalecer o fluxo da narrativa",
     ],
   },
   {
-    label: "Structure",
+    label: "Estrutura",
     prompts: [
-      "Reorder the sections",
-      "Merge similar slides",
-      "Split large sections",
+      "Reordenar as seções",
+      "Mesclar slides semelhantes",
+      "Dividir seções grandes",
     ],
   },
   {
-    label: "Refine Content",
+    label: "Refinar Conteúdo",
     prompts: [
-      "Rewrite for executives",
-      "Improve the introduction",
-      "Improve the conclusion",
+      "Reescrever para executivos",
+      "Melhorar a introdução",
+      "Melhorar a conclusão",
     ],
   },
 ];

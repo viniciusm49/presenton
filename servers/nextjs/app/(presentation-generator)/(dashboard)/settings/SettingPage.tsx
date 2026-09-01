@@ -55,7 +55,7 @@ const SettingsPage = () => {
   const [buttonState, setButtonState] = useState<ButtonState>({
     isLoading: false,
     isDisabled: false,
-    text: "Save Configuration",
+    text: "Salvar Configuração",
     showProgress: false,
   });
 
@@ -122,9 +122,9 @@ const SettingsPage = () => {
       return true;
     } catch (error: any) {
       notify.error(
-        "Cannot save settings",
+        "Não foi possível salvar as configurações",
         error?.message ||
-        `Unable to reach ${provider} with the provided API key. Please verify your settings and try again.`
+        `Não foi possível alcançar ${provider} com a chave de API fornecida. Por favor, verifique suas configurações e tente novamente.`
       );
       return false;
     }
@@ -169,7 +169,7 @@ const SettingsPage = () => {
       const isAuthenticated = await checkCurrentAuthStatus();
       if (!isAuthenticated) {
         requestChatGptReauth({
-          message: "Please sign in to ChatGPT again from Settings.",
+          message: "Por favor, faça login no ChatGPT novamente em Configurações.",
           source: "settings-save",
         });
         return;
@@ -179,8 +179,8 @@ const SettingsPage = () => {
       const isConnected = await checkPresentonAuthStatus();
       if (!isConnected) {
         notify.warning(
-          "Connect Presenton first",
-          "Sign in to Presenton Cloud before selecting it as the text provider."
+          "Conecte o Presenton primeiro",
+          "Faça login no Presenton Cloud antes de selecioná-lo como provedor de texto."
         );
         setSelectedProvider("text-provider");
         return;
@@ -191,7 +191,7 @@ const SettingsPage = () => {
     });
     const validationError = getLLMConfigValidationError(llmConfig);
     if (validationError) {
-      notify.warning("Cannot save settings", validationError);
+      notify.warning("Não foi possível salvar as configurações", validationError);
       if (
         selectedProvider === "image-provider" &&
         ((llmConfig.LLM === "openai" && !String(llmConfig.OPENAI_MODEL || "").trim()) ||
@@ -212,7 +212,7 @@ const SettingsPage = () => {
         ...prev,
         isLoading: true,
         isDisabled: true,
-        text: "Saving Configuration...",
+        text: "Salvando Configuração...",
       }));
       trackEvent(MixpanelEvent.Settings_SaveConfiguration_API_Call);
       if (
@@ -224,31 +224,31 @@ const SettingsPage = () => {
         ))
       ) {
         throw new Error(
-          `The selected model "${llmConfig.OLLAMA_MODEL}" is not available at ${llmConfig.OLLAMA_URL}. Check models and select an available model.`
+          `O modelo selecionado "${llmConfig.OLLAMA_MODEL}" não está disponível em ${llmConfig.OLLAMA_URL}. Verifique os modelos e selecione um disponível.`
         );
       }
       await handleSaveLLMConfig(llmConfig);
       notify.success(
-        "Settings saved",
-        "Your configuration was saved successfully."
+        "Configurações salvas",
+        "Sua configuração foi salva com sucesso."
       );
       setButtonState((prev) => ({
         ...prev,
         isLoading: false,
         isDisabled: false,
-        text: "Save Configuration",
+        text: "Salvar Configuração",
       }));
     } catch (error) {
       const message =
         error instanceof Error
           ? error.message
-          : "Something went wrong while saving.";
-      notify.error("Could not save settings", message);
+          : "Ocorreu um erro ao salvar.";
+      notify.error("Não foi possível salvar as configurações", message);
       setButtonState((prev) => ({
         ...prev,
         isLoading: false,
         isDisabled: false,
-        text: "Save Configuration",
+        text: "Salvar Configuração",
       }));
     }
   };
@@ -265,7 +265,7 @@ const SettingsPage = () => {
 
   const textProviderKey = llmConfig.LLM || "";
   const textProviderLabel =
-    LLM_PROVIDERS[textProviderKey]?.label || textProviderKey || "No text provider";
+    LLM_PROVIDERS[textProviderKey]?.label || textProviderKey || "Nenhum provedor de texto";
   const selectedTextModel =
     textProviderKey === "presenton"
       ? ""
@@ -307,19 +307,19 @@ const SettingsPage = () => {
     : textProviderLabel;
 
   const imageSummary = textProviderKey === "presenton"
-    ? "Cloud images"
+    ? "Imagens na Nuvem"
     : llmConfig.DISABLE_IMAGE_GENERATION
-      ? "Image generation disabled"
+      ? "Geração de imagens desativada"
       : llmConfig.IMAGE_PROVIDER
         ? IMAGE_PROVIDERS[llmConfig.IMAGE_PROVIDER]?.label ||
         llmConfig.IMAGE_PROVIDER
-        : "No image provider";
+        : "Nenhum provedor de imagens";
   const webSearchProviderKey = (llmConfig.WEB_SEARCH_PROVIDER || "").toLowerCase();
   const webSearchSummary = textProviderKey === "presenton"
-    ? "Cloud web search"
+    ? "Busca web na Nuvem"
     : llmConfig.WEB_GROUNDING
-      ? `Web: ${WEB_SEARCH_PROVIDERS[webSearchProviderKey]?.label || "No provider"}`
-      : "Web search disabled";
+      ? `Web: ${WEB_SEARCH_PROVIDERS[webSearchProviderKey]?.label || "Nenhum provedor"}`
+      : "Busca web desativada";
 
   useEffect(() => {
     if (
@@ -380,10 +380,10 @@ const SettingsPage = () => {
         ) {
 
           notify.warning(
-            "Provider setup required",
+            "Configuração de provedor necessária",
             !llmConfig.LLM
-              ? "Choose and configure a text provider before opening other pages."
-              : "Complete the selected text provider configuration and save it before leaving Settings.",
+              ? "Escolha e configure um provedor de texto antes de abrir outras páginas."
+              : "Conclua a configuração do provedor de texto selecionado e salve-a antes de sair de Configurações.",
             { id: "provider-setup-required" }
           );
           e.preventDefault();
@@ -426,7 +426,7 @@ const SettingsPage = () => {
           <div className="sticky right-0 top-0 z-40 mb-4 bg-white/90 py-[28px] backdrop-blur">
             <div className="flex  gap-3 items-center ">
               <h3 className=" text-[28px] tracking-[-0.84px] font-unbounded font-normal text-black flex items-center gap-2">
-                Settings
+                Configurações
               </h3>
               <p className="text-[10px] px-2.5 py-0.5 rounded-[50px] text-[#7A5AF8] border border-[#EDEEEF]  font-medium ">
                 {textSummary} · {imageSummary} · {webSearchSummary}
@@ -439,9 +439,9 @@ const SettingsPage = () => {
               role="alert"
               className="mb-5 mr-7 rounded-[12px] border border-amber-200 bg-amber-50 px-5 py-4 text-[#713F12]"
             >
-              <p className="text-sm font-semibold">Choose a text provider to continue</p>
+              <p className="text-sm font-semibold">Escolha um provedor de texto para continuar</p>
               <p className="mt-1 text-xs leading-5">
-                Presenton Cloud is disconnected. Select any text provider below and save the configuration before opening another page.
+                Presenton Cloud está desconectado. Selecione um provedor de texto abaixo e salve a configuração antes de abrir outra página.
               </p>
             </div>
           )}
@@ -457,13 +457,13 @@ const SettingsPage = () => {
           {selectedProvider === "session" && (
             <div className="w-full max-w-lg space-y-5 rounded-[20px] border border-[#EDEEEF] bg-white p-7">
               <div>
-                <h4 className="font-unbounded text-lg font-normal text-black">Sign out</h4>
+                <h4 className="font-unbounded text-lg font-normal text-black">Sair</h4>
                 <p className="mt-2 font-syne text-sm leading-relaxed text-[#494A4D]">
-                  End your session on this deployment. You will need to sign in again to use the app and access the API.
+                  Encerre sua sessão nesta instalação. Você precisará fazer login novamente para usar o aplicativo e acessar a API.
                 </p>
               </div>
               <LogoutButton
-                label="Sign out"
+                label="Sair"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-[58px] border border-[#EDEEEF] bg-[#7C51F8] px-5 py-3 font-syne text-xs font-semibold text-white transition hover:bg-[#6d46e6] disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>

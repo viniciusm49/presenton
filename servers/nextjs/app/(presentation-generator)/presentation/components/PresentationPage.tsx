@@ -112,7 +112,7 @@ type SlideAddedOptions = {
 
 const DEFAULT_LOADING_STATE: LoadingState = {
   isLoading: true,
-  message: "Loading presentation",
+  message: "Carregando apresentação",
   showProgress: false,
   duration: 0,
   extra_info: "",
@@ -120,10 +120,10 @@ const DEFAULT_LOADING_STATE: LoadingState = {
 
 const STREAM_LOADING_STATE: LoadingState = {
   isLoading: true,
-  message: "Creating your presentation",
+  message: "Criando sua apresentação",
   showProgress: true,
   duration: 90,
-  extra_info: "This can take a few minutes depending on slide count.",
+  extra_info: "Isso pode levar alguns minutos dependendo da quantidade de slides.",
 };
 
 const IDLE_LOADING_STATE: LoadingState = {
@@ -808,9 +808,9 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
           role="alert"
         >
           <AlertCircle className="w-16 h-16 mb-4 text-red-500" />
-          <h2 className="text-xl font-semibold mb-2">Something went wrong</h2>
+          <h2 className="text-xl font-semibold mb-2">Algo deu errado</h2>
           <p className="text-center mb-4">
-            We couldn't load your presentation. Please try again.
+            Não foi possível carregar sua apresentação. Por favor, tente novamente.
           </p>
           <div className="flex gap-2 justify-center items-center">
             <Button
@@ -822,7 +822,7 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
                 window.location.reload();
               }}
             >
-              Refresh Page
+              Atualizar Página
             </Button>
             <Button
               onClick={() => {
@@ -833,7 +833,7 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
                 router.push("/upload");
               }}
             >
-              Go to Upload
+              Ir para Envio
             </Button>
           </div>
         </div>
@@ -886,10 +886,10 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
                   className="h-4 w-4 text-[#6847F4]"
                   aria-hidden="true"
                 />
-                <span>Navigate with</span>
+                <span>Navegue com</span>
                 <span
                   className="flex items-center gap-1"
-                  aria-label="arrow keys"
+                  aria-label="teclas direcionais"
                 >
                   {NAVIGATION_HINT_KEYS.map((key) => (
                     <kbd
@@ -900,10 +900,10 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
                     </kbd>
                   ))}
                 </span>
-                <span>or the left thumbnails</span>
+                <span>ou pelas miniaturas à esquerda</span>
                 <button
                   type="button"
-                  aria-label="Dismiss navigation hint"
+                  aria-label="Dispensar dica de navegação"
                   onClick={dismissNavigationHint}
                   className="pointer-events-auto ml-1 flex h-7 w-7 items-center justify-center rounded-full text-[#667085] transition hover:bg-[#F0F1F4] hover:text-[#101323] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8]"
                 >
@@ -967,12 +967,12 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
             }}
           >
             <Sparkles className="h-4 w-4 text-[#7A5AF8]" aria-hidden="true" />
-            AI Assistant
+            Assistente IA
           </button>
 
           <button
             type="button"
-            aria-label="Close AI Assistant"
+            aria-label="Fechar Assistente IA"
             onClick={closeMobileAssistant}
             className={cn(
               "inset-0 z-[60] bg-black/35 xl:hidden",
@@ -983,7 +983,7 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
           <div
             id="presentation-mobile-assistant"
             role={isMobileAssistantOpen ? "dialog" : undefined}
-            aria-label={isMobileAssistantOpen ? "AI Assistant" : undefined}
+            aria-label={isMobileAssistantOpen ? "Assistente IA" : undefined}
             aria-modal={isMobileAssistantOpen ? true : undefined}
             className={cn(
               "h-screen w-[calc(100vw-16px)] max-w-[375px] shrink-0 flex-col bg-white shadow-[-12px_0_32px_rgba(16,24,40,0.18)] transition-[width] duration-200 xl:relative xl:z-auto xl:h-full xl:max-w-none xl:self-start xl:border-l xl:border-[#EDEEEF] xl:shadow-none",
@@ -996,7 +996,7 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
             {isRightPanelOpen ? (
               <button
                 type="button"
-                aria-label="Close tools panel"
+                aria-label="Fechar painel de ferramentas"
                 onClick={() => setIsRightPanelOpen(false)}
                 className="absolute -left-[10px] top-1/2 z-[80] hidden h-[36px] w-[16px] -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#E8E5FF] bg-[#FEFEFF] text-[#6938EF] shadow-[0_10px_26px_rgba(52,48,96,0.10)] transition-[border-color,box-shadow,color] hover:border-[#D9D6FE] hover:text-[#5925DC] hover:shadow-[0_12px_30px_rgba(52,48,96,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8] focus-visible:ring-offset-2 xl:flex"
               >
@@ -1010,12 +1010,12 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
             <div className="flex h-14 shrink-0 items-center justify-between border-b border-[#EDEEEF] px-4 xl:hidden">
               <div className="flex items-center gap-2 text-sm font-semibold text-[#101323]">
                 <Sparkles className="h-4 w-4 text-[#7A5AF8]" aria-hidden="true" />
-                AI Assistant
+                Assistente IA
               </div>
               <button
                 ref={mobileAssistantCloseRef}
                 type="button"
-                aria-label="Close AI Assistant"
+                aria-label="Fechar Assistente IA"
                 onClick={closeMobileAssistant}
                 className="flex h-8 w-8 items-center justify-center rounded-full text-[#667085] transition hover:bg-[#F6F6F9] hover:text-[#101323] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8]"
               >

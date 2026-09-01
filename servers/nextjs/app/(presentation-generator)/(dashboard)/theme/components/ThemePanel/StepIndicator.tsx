@@ -5,9 +5,9 @@ interface StepIndicatorProps {
 }
 
 const steps = [
-  { step: 1, label: 'Brand' },
-  { step: 2, label: 'Palette' },
-  { step: 3, label: 'Fonts' },
+  { step: 1, label: 'Marca' },
+  { step: 2, label: 'Paleta' },
+  { step: 3, label: 'Fontes' },
   { step: 4, label: 'Logo' },
 ]
 
@@ -23,7 +23,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => 
               : 'bg-white text-[#404348] border border-[#EDEEEF]'
               }`}
           >
-            Step-{step}
+            Etapa-{step}
           </span>
           <span className="text-[11px] font-normal text-black">{label}</span>
         </div>

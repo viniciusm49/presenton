@@ -238,8 +238,8 @@ export function TableToolbarControls({
     <div ref={toolbarRef} style={tableControlsStyle}>
       <button
         type="button"
-        aria-label="Cell background color"
-        title="Cell background"
+        aria-label="Cor de fundo da célula"
+        title="Fundo da célula"
         style={iconButtonStyle}
         onClick={() => colorInputRef.current?.click()}
       >
@@ -263,8 +263,8 @@ export function TableToolbarControls({
       <Divider />
       <button
         type="button"
-        aria-label="Table alignment"
-        title={`Align ${nextAlignmentLabel(activeCellAlignment)}`}
+        aria-label="Alinhamento da tabela"
+        title={`Alinhamento ${nextAlignmentLabel(activeCellAlignment)}`}
         style={iconButtonStyle}
         onClick={cycleActiveCellAlignment}
       >
@@ -273,8 +273,8 @@ export function TableToolbarControls({
       <Divider />
       <button
         type="button"
-        aria-label="Delete row"
-        title="Delete row"
+        aria-label="Excluir linha"
+        title="Excluir linha"
         disabled={!canDeleteRow}
         style={{
           ...iconButtonStyle,
@@ -288,9 +288,9 @@ export function TableToolbarControls({
       <Divider />
       <button
         type="button"
-        aria-label="Table cell actions"
+        aria-label="Ações da célula da tabela"
         aria-expanded={tableMenuOpen}
-        title="Table cell actions"
+        title="Ações da célula da tabela"
         style={{
           ...iconButtonStyle,
           ...(tableMenuOpen ? activeButtonStyle : null),
@@ -396,38 +396,38 @@ function TableToolbarMenu({
       <MenuItem
         disabled={!canDeleteRow}
         icon={<Rows3 size={20} strokeWidth={2.2} />}
-        label="Delete Row"
+        label="Excluir Linha"
         onClick={onDeleteRow}
       />
       <MenuItem
         disabled={!canDeleteColumn}
         icon={<Columns3 size={20} strokeWidth={2.2} />}
-        label="Delete Column"
+        label="Excluir Coluna"
         onClick={onDeleteColumn}
       />
       <MenuItem
         disabled={!canAddRow}
         icon={<Plus size={20} strokeWidth={2.4} />}
-        label="Add Row"
+        label="Adicionar Linha"
         onClick={onAddRow}
       />
       <MenuItem
         disabled={!canAddColumn}
         icon={<Plus size={20} strokeWidth={2.4} />}
-        label="Add Column"
+        label="Adicionar Coluna"
         onClick={onAddColumn}
       />
       <div style={menuDividerStyle} />
       <MenuItem
         disabled={!canMoveColumnRight}
         icon={<ChevronRight size={20} strokeWidth={2.4} />}
-        label="Move Column Right"
+        label="Mover Coluna para Direita"
         onClick={onMoveColumnRight}
       />
       <MenuItem
         disabled={!canMoveColumnLeft}
         icon={<ChevronLeft size={20} strokeWidth={2.4} />}
-        label="Move Column Left"
+        label="Mover Coluna para Esquerda"
         onClick={onMoveColumnLeft}
       />
     </FloatingToolbarPanel>

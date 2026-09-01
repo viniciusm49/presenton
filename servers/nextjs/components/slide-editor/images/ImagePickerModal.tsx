@@ -147,7 +147,7 @@ export function ImagePickerModal({
           setError(
             loadError instanceof Error
               ? loadError.message
-              : "Could not load generated images.",
+              : "Não foi possível carregar as imagens geradas.",
           );
         }
       })
@@ -177,7 +177,7 @@ export function ImagePickerModal({
           urls.map((url) => ({ prompt: starterQuery, url })),
         );
         if (!urls.length) {
-          setError("No starter images found. Try searching for something else.");
+          setError("Nenhuma imagem inicial encontrada. Tente buscar outro termo.");
         }
       })
       .catch((loadError: unknown) => {
@@ -185,7 +185,7 @@ export function ImagePickerModal({
           setError(
             loadError instanceof Error
               ? loadError.message
-              : "Could not load starter stock images.",
+              : "Não foi possível carregar imagens de banco.",
           );
         }
       })
@@ -220,7 +220,7 @@ export function ImagePickerModal({
           setError(
             loadError instanceof Error
               ? loadError.message
-              : "Could not load uploaded images.",
+              : "Não foi possível carregar imagens enviadas.",
           );
         }
       })
@@ -251,13 +251,13 @@ export function ImagePickerModal({
       setDiscoverImages(
         urls.map((url) => ({ prompt: query.trim(), url })),
       );
-      if (!urls.length) setError("No images found. Try different keywords.");
+      if (!urls.length) setError("Nenhuma imagem encontrada. Tente palavras-chave diferentes.");
     } catch (searchError: unknown) {
       setDiscoverImages([]);
       setError(
         searchError instanceof Error
           ? searchError.message
-          : "Stock image search failed.",
+          : "Falha na busca de imagens de banco.",
       );
     } finally {
       setIsWorking(false);
@@ -286,24 +286,24 @@ export function ImagePickerModal({
           (response): response is PromiseRejectedResult =>
             response.status === "rejected",
         );
-        throw failure?.reason ?? new Error("Image generation returned no images.");
+        throw failure?.reason ?? new Error("A geração de imagem não retornou imagens.");
       }
       setDiscoverImages((previous) =>
         dedupePickerImages([...images, ...previous]),
       );
       if (images.length < variationCount) {
         notify.warning(
-          "Some variants failed",
-          `Generated ${images.length} of ${variationCount} requested images.`,
+          "Algumas variações falharam",
+          `Geradas ${images.length} de ${variationCount} imagens solicitadas.`,
         );
       }
     } catch (generationError: unknown) {
       const message =
         generationError instanceof Error
           ? generationError.message
-          : "Image generation failed.";
+          : "Falha na geração de imagem.";
       setError(message);
-      notify.error("Image generation failed", message);
+      notify.error("Falha na geração de imagem", message);
     } finally {
       setIsWorking(false);
     }
@@ -318,11 +318,11 @@ export function ImagePickerModal({
   const uploadFile = async (file: File | undefined) => {
     if (!file) return;
     if (!file.type.startsWith("image/")) {
-      setError("Please upload a valid image file.");
+      setError("Por favor, envie um arquivo de imagem válido.");
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
-      setError("Image files must be smaller than 5MB.");
+      setError("Arquivos de imagem devem ter menos de 5MB.");
       return;
     }
 
@@ -332,17 +332,17 @@ export function ImagePickerModal({
     try {
       const asset = await ImagesApi.uploadImage(file);
       const image = assetToPickerImage(asset, "uploaded");
-      if (!image) throw new Error("Upload did not return an image URL.");
+      if (!image) throw new Error("O envio não retornou a URL da imagem.");
       setUploadedImages((previous) => [
         image,
         ...previous.filter((item) => item.id !== image.id),
       ]);
-      notify.success("Image uploaded", "Select it from your image library.");
+      notify.success("Imagem enviada", "Selecione-a na sua biblioteca de imagens.");
     } catch (uploadError: unknown) {
       const message =
-        uploadError instanceof Error ? uploadError.message : "Image upload failed.";
+        uploadError instanceof Error ? uploadError.message : "Falha no envio da imagem.";
       setError(message);
-      notify.error("Upload failed", message);
+      notify.error("Falha no envio", message);
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -366,11 +366,11 @@ export function ImagePickerModal({
       setUploadedImages((previous) =>
         previous.filter((candidate) => candidate.id !== image.id),
       );
-      notify.success("Image deleted", "The upload was removed from your library.");
+      notify.success("Imagem excluída", "O envio foi removido da sua biblioteca.");
     } catch (deleteError: unknown) {
       notify.error(
-        "Could not delete image",
-        deleteError instanceof Error ? deleteError.message : "Delete failed.",
+        "Não foi possível excluir a imagem",
+        deleteError instanceof Error ? deleteError.message : "Falha ao excluir.",
       );
     }
   };
@@ -395,16 +395,16 @@ export function ImagePickerModal({
             <header className="flex h-[85px] flex-none items-center justify-between border-b border-[#EDEEEF] bg-white px-6 shadow-[0_4px_7px_rgba(0,0,0,0.04)]">
               <div>
                 <DialogPrimitive.Title className="text-[18px] font-normal leading-normal">
-                  Change Image
+                  Alterar Imagem
                 </DialogPrimitive.Title>
                 <DialogPrimitive.Description className="mt-0.5 text-[14px] font-normal tracking-[-0.42px] text-[#808080]">
-                  Choose an image from the library or upload your own.
+                  Escolha uma imagem da biblioteca ou envie a sua.
                 </DialogPrimitive.Description>
               </div>
               <button
                 type="button"
-                aria-label="Upload an image"
-                title="Upload an image"
+                aria-label="Enviar uma imagem"
+                title="Enviar uma imagem"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
                 className="flex h-9 w-[100px] items-center justify-center rounded-full border border-[#EDEEEF] bg-white transition hover:bg-[#F9FAFB] disabled:cursor-wait"
@@ -414,7 +414,7 @@ export function ImagePickerModal({
                 ) : (
                   <Upload className="size-4 mr-1.5" strokeWidth={1.8} aria-hidden="true" />
                 )}
-                Upload
+                Enviar
               </button>
               <input
                 ref={fileInputRef}
@@ -430,7 +430,7 @@ export function ImagePickerModal({
                 <PickerNavButton
                   active={view === "discover"}
                   icon={<ImagePlus className="size-4" strokeWidth={1.7} />}
-                  label="Discover Image"
+                  label="Explorar Imagens"
                   onClick={() => {
                     setView("discover");
                     setIsLoadingLibrary(false);
@@ -440,7 +440,7 @@ export function ImagePickerModal({
                 <PickerNavButton
                   active={view === "uploads"}
                   icon={<Grid2X2 className="size-4" strokeWidth={1.7} />}
-                  label="Use Your Image"
+                  label="Usar Sua Imagem"
                   onClick={() => {
                     setView("uploads");
                     setError(null);
@@ -496,10 +496,10 @@ export function ImagePickerModal({
                       images={discoverImages}
                       emptyMessage={
                         generationDisabled && !stockProvider
-                          ? "Image generation is disabled in Settings."
+                          ? "A geração de imagens está desativada nas Configurações."
                           : stockProvider
-                            ? `Search ${providerLabel} for an image.`
-                            : "Generate images to see them here. Start by describing what you want to create above."
+                            ? `Busque uma imagem no ${providerLabel}.`
+                            : "Gere imagens para visualizá-las aqui. Comece descrevendo o que deseja criar acima."
                       }
                       onSelect={chooseImage}
                     />
@@ -508,7 +508,7 @@ export function ImagePickerModal({
                       compact
                       currentSource={currentSource}
                       images={uploadedImages}
-                      emptyMessage="Upload an image to add it to your library."
+                      emptyMessage="Envie uma imagem para adicioná-la à sua biblioteca."
                       onDelete={deleteUploadedImage}
                       onSelect={chooseImage}
                     />
@@ -519,8 +519,8 @@ export function ImagePickerModal({
                   <div className="pointer-events-none absolute inset-4 z-20 flex items-center justify-center rounded-[16px] border-2 border-dashed border-[#191919] bg-white/95 text-center">
                     <div>
                       <Upload className="mx-auto mb-2 size-6" aria-hidden="true" />
-                      <p className="text-[14px] font-medium">Drop image to upload</p>
-                      <p className="mt-1 text-[12px] text-[#808080]">Maximum file size: 5MB</p>
+                      <p className="text-[14px] font-medium">Solte a imagem para enviar</p>
+                      <p className="mt-1 text-[12px] text-[#808080]">Tamanho máximo do arquivo: 5MB</p>
                     </div>
                   </div>
                 ) : null}
@@ -529,7 +529,7 @@ export function ImagePickerModal({
           </div>
 
           <DialogPrimitive.Close
-            aria-label="Close image picker"
+            aria-label="Fechar seletor de imagens"
             className="absolute right-3 top-3 flex size-11 items-center justify-center rounded-full bg-white text-[#191919] shadow-sm transition hover:bg-[#F6F6F9] sm:-right-[68px] sm:top-0 sm:size-[52px]"
           >
             <X className="size-5" strokeWidth={1.5} aria-hidden="true" />
@@ -593,7 +593,7 @@ function DiscoverControls({
 
   if (isStock) {
     return (
-      <div className="flex h-[41px] flex-none gap-2.5" aria-label={`Search ${providerLabel}`}>
+      <div className="flex h-[41px] flex-none gap-2.5" aria-label={`Buscar no ${providerLabel}`}>
         <label className="flex min-w-0 flex-1 items-center gap-2.5 rounded-[8px] border border-[rgba(219,219,219,0.6)] bg-white px-2.5">
           <Search className="size-3.5 flex-none" strokeWidth={1.8} aria-hidden="true" />
           <textarea
@@ -603,13 +603,13 @@ function DiscoverControls({
             onKeyDown={(event) => {
               if (event.key === "Enter" && canRun) onRun();
             }}
-            placeholder="Search Image"
+            placeholder="Buscar Imagem"
             className="h-full min-w-0 flex-1 bg-transparent text-[14px] font-normal outline-none placeholder:text-[#999]"
           />
         </label>
         <button
           type="button"
-          aria-label={`Search ${providerLabel}`}
+          aria-label={`Buscar no ${providerLabel}`}
           onClick={onRun}
           disabled={!canRun}
           className="flex w-[132px] items-center justify-center rounded-[38.4px] bg-[#EDEEEF] px-[12.8px] py-2 text-[#191919] transition hover:bg-[#E1E1E5] disabled:cursor-not-allowed disabled:text-[#999]"
@@ -621,7 +621,7 @@ function DiscoverControls({
   }
 
   return (
-    <div className="flex h-[76px] flex-none gap-2.5" aria-label={`Generate with ${providerLabel}`}>
+    <div className="flex h-[76px] flex-none gap-2.5" aria-label={`Gerar com ${providerLabel}`}>
       <textarea
         autoFocus
         value={query}
@@ -631,14 +631,14 @@ function DiscoverControls({
             onRun();
           }
         }}
-        placeholder="Describe your image"
+        placeholder="Descreva sua imagem"
         className="min-w-0 flex-1 resize-none rounded-[8px] border border-[rgba(219,219,219,0.6)] bg-white px-2.5 py-3 text-[14px] font-normal outline-none shadow-[0_4px_7px_rgba(0,0,0,0.04)] placeholder:text-[#999] focus:border-[#B9BBC1]"
       />
       <div className="flex w-[150px] flex-none flex-col gap-2.5">
         <div className="flex h-[34px] items-center rounded-full border border-[#EDEEEF] bg-white">
           <button
             type="button"
-            aria-label="Fewer variations"
+            aria-label="Menos variações"
             disabled={variationCount <= 1 || isWorking}
             onClick={() => onVariationChange(-1)}
             className="flex h-full w-9 items-center justify-center rounded-l-full hover:bg-[#F9FAFB] disabled:opacity-35"
@@ -646,11 +646,11 @@ function DiscoverControls({
             <Minus className="size-3.5" />
           </button>
           <span className="flex h-4 flex-1 items-center justify-center border-x border-[#EDEEEF] text-[12px] font-semibold">
-            {variationCount} {variationCount === 1 ? "Variation" : "Variations"}
+            {variationCount} {variationCount === 1 ? "Variação" : "Variações"}
           </span>
           <button
             type="button"
-            aria-label="More variations"
+            aria-label="Mais variações"
             disabled={variationCount >= 4 || isWorking}
             onClick={() => onVariationChange(1)}
             className="flex h-full w-9 items-center justify-center rounded-r-full hover:bg-[#F9FAFB] disabled:opacity-35"
@@ -660,7 +660,7 @@ function DiscoverControls({
         </div>
         <button
           type="button"
-          aria-label={`Generate ${variationCount} image variations with ${providerLabel}`}
+          aria-label={`Gerar ${variationCount} variações de imagem com ${providerLabel}`}
           onClick={onRun}
           disabled={!canRun}
           className="flex h-8 items-center justify-center rounded-[38.4px] bg-[#EDEEEF] px-[12.8px] py-2 text-[#191919] transition hover:bg-[#E1E1E5] disabled:cursor-not-allowed disabled:text-[#999]"
@@ -720,7 +720,7 @@ function ImageResults({
         >
           <button
             type="button"
-            aria-label="Use this image"
+            aria-label="Usar esta imagem"
             onClick={() => onSelect(image)}
             className="absolute inset-0 h-full w-full overflow-hidden rounded-[10px] outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#191919]"
           >
@@ -733,13 +733,13 @@ function ImageResults({
               className="object-cover transition duration-300 group-hover:scale-[1.025]"
             />
             <span className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/45 via-transparent to-transparent p-2 opacity-0 transition group-hover:opacity-100 group-focus-within:opacity-100">
-              <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-medium text-[#191919]">Use image</span>
+              <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-medium text-[#191919]">Usar imagem</span>
             </span>
           </button>
           {onDelete && image.deletable && image.id ? (
             <button
               type="button"
-              aria-label="Delete uploaded image"
+              aria-label="Excluir imagem enviada"
               onClick={(event) => {
                 event.stopPropagation();
                 onDelete(image);

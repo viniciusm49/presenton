@@ -13,6 +13,8 @@ node_modules
 **/fastembed_cache
 **/chroma
 .cache
+!.cache/presentation-export
+!.cache/presentation-export/*
 app_data
 presentation-export
 servers/fastapi/tests

@@ -43,8 +43,8 @@ import OutlineStandardHeader from "./OutlineStandardHeader";
 import TemplateSelection from "./TemplateSelection";
 
 const DEFAULT_OUTLINE_CONFIG: PresentationConfig = {
-  slides: null,
-  language: LanguageType.Auto,
+  slides: "8",
+  language: LanguageType.Portuguese,
   prompt: "",
   tone: ToneType.Default,
   verbosity: VerbosityType.Standard,
@@ -226,7 +226,7 @@ const OutlinePage: React.FC = () => {
     }
 
     if (!hasSelectedTemplate) {
-      toast.error("Please select a template first");
+      toast.error("Por favor, selecione um modelo primeiro");
       return;
     }
 
@@ -235,17 +235,17 @@ const OutlinePage: React.FC = () => {
     }
 
     if (!draftConfig.language) {
-      toast.error("Please select language");
+      toast.error("Por favor, selecione um idioma");
       return;
     }
 
     if (documentPaths.length > 0 && draftConfig.language === LanguageType.Auto) {
-      toast.error("Please choose a language before regenerating from documents");
+      toast.error("Por favor, escolha um idioma antes de gerar a partir dos documentos");
       return;
     }
 
     if (!draftConfig.prompt.trim() && documentPaths.length === 0) {
-      toast.error("No Prompt or Document Provided");
+      toast.error("Nenhum prompt ou documento informado");
       return;
     }
 
@@ -298,11 +298,11 @@ const OutlinePage: React.FC = () => {
           "Failed to regenerate outline"
         ),
       });
-      toast.error("Outline Error", {
+      toast.error("Erro nos Tópicos", {
         description:
           error instanceof Error
             ? error.message
-            : "Failed to regenerate outline.",
+            : "Falha ao gerar os tópicos novamente.",
       });
     } finally {
       setIsRegeneratingOutline(false);
@@ -360,7 +360,7 @@ const OutlinePage: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#FEFEFF]">
         <OutlineStandardHeader
-          title="Outline Generation"
+          title="Geração de Tópicos"
           onBack={() => router.push("/dashboard")}
         />
         <EmptyStateView />
@@ -383,7 +383,7 @@ const OutlinePage: React.FC = () => {
       />
 
       <OutlineStandardHeader
-        title={isTemplateStage ? "Select Template" : "Outline Generation"}
+        title={isTemplateStage ? "Selecionar Modelo" : "Geração de Tópicos"}
         onBack={() => {
           if (isTemplateStage) {
             router.push("/dashboard");
@@ -438,7 +438,7 @@ const OutlinePage: React.FC = () => {
             <aside className="mx-auto mb-28 mt-8 flex h-[600px] w-[calc(100%-2.5rem)] overflow-hidden border border-[#EDEEEF] bg-[#FEFEFF] sm:w-[calc(100%-5rem)] lg:fixed lg:bottom-0 lg:right-0 lg:top-[68px] lg:z-40 lg:mx-0 lg:mb-0 lg:mt-0 lg:h-auto lg:w-[369px] lg:border-0">
               <nav
                 className="flex w-[70px] shrink-0 flex-col items-center gap-5 px-1.5 py-2"
-                aria-label="Outline tools"
+                aria-label="Ferramentas de estrutura"
               >
                 <div className="flex w-full flex-col items-center rounded-[10px] bg-[#F4F3FF]/60 py-7">
                   <div className="flex rounded-[10px] border border-[#EDEEEF] bg-white p-1.5 shadow-[0_6.6px_6.6px_rgba(124,81,248,0.14)]">

@@ -90,7 +90,7 @@ export default function AuthGate() {
         trackEvent(MixpanelEvent.Auth_Unauthorized_Redirect, {
           configured: true,
         });
-        notify.error("Unauthorized", "Sign in to view this page.", {
+        notify.error("Não autorizado", "Faça login para visualizar esta página.", {
           id: "auth-unauthorized-redirect",
           duration: 5000,
         });
@@ -110,7 +110,7 @@ export default function AuthGate() {
       });
 
       if (!response.ok) {
-        throw new Error("Could not load login state");
+        throw new Error("Não foi possível carregar o estado de login");
       }
 
       const data = (await response.json()) as AuthStatus;
@@ -134,12 +134,12 @@ export default function AuthGate() {
         auth_disabled: false,
         error_message: sanitizeAnalyticsError(
           fetchError,
-          "Could not load login state"
+          "Não foi possível carregar o estado de login"
         ),
       });
       notify.error(
-        "Could not load login",
-        "We could not connect to the login service. Please refresh and try again."
+        "Não foi possível carregar o login",
+        "Não foi possível conectar ao serviço de autenticação. Por favor, atualize a página e tente novamente."
       );
     } finally {
       setIsLoading(false);
@@ -177,8 +177,8 @@ export default function AuthGate() {
         reason: "username_too_short",
       });
       notify.warning(
-        "Username too short",
-        "Your username must be at least 3 characters."
+        "Nome de usuário muito curto",
+        "Seu nome de usuário deve ter pelo menos 3 caracteres."
       );
       return;
     }
@@ -190,8 +190,8 @@ export default function AuthGate() {
         reason: "password_too_short",
       });
       notify.warning(
-        "Password too short",
-        `Your password must be at least ${minimumPasswordLength} characters.`
+        "Senha muito curta",
+        `Sua senha deve ter pelo menos ${minimumPasswordLength} caracteres.`
       );
       return;
     }
@@ -202,8 +202,8 @@ export default function AuthGate() {
         reason: "passwords_do_not_match",
       });
       notify.warning(
-        "Passwords do not match",
-        "Make sure both password fields match before continuing."
+        "As senhas não coincidem",
+        "Certifique-se de que os dois campos de senha coincidam antes de continuar."
       );
       return;
     }
@@ -245,21 +245,21 @@ export default function AuthGate() {
             status_code: response.status,
             error_message: sanitizeAnalyticsError(
               detail,
-              isSetupMode ? "Could not create account" : "Sign-in failed"
+              isSetupMode ? "Não foi possível criar a conta" : "Falha no login"
             ),
           }
         );
         if (response.status === 401) {
           notify.error(
-            "Sign-in failed",
+            "Falha no login",
             detail === UNAUTHORIZED_DETAIL
-              ? "The username or password is incorrect. Please try again."
+              ? "O nome de usuário ou a senha estão incorretos. Por favor, tente novamente."
               : detail
           );
         } else {
           notify.error(
-            isSetupMode ? "Could not create account" : "Sign-in failed",
-            detail || "Something went wrong. Please try again."
+            isSetupMode ? "Não foi possível criar a conta" : "Falha no login",
+            detail || "Ocorreu um erro. Por favor, tente novamente."
           );
         }
         return;
@@ -277,7 +277,7 @@ export default function AuthGate() {
         });
         setPassword("");
         setConfirmPassword("");
-        notify.success("Account created", "Sign in with your new username and password to continue.", {
+        notify.success("Conta criada", "Faça login com seu novo usuário e senha para continuar.", {
           duration: 6000,
         });
         return;
@@ -296,8 +296,8 @@ export default function AuthGate() {
       setPassword("");
       setConfirmPassword("");
       notify.success(
-        "Signed in",
-        "Welcome back. Loading your workspace."
+        "Conectado",
+        "Bem-vindo de volta. Carregando sua área de trabalho."
       );
     } catch (submitError) {
       console.error(submitError);
@@ -309,13 +309,13 @@ export default function AuthGate() {
           status_code: null,
           error_message: sanitizeAnalyticsError(
             submitError,
-            isSetupMode ? "Could not create account" : "Login unavailable"
+            isSetupMode ? "Não foi possível criar a conta" : "Login indisponível"
           ),
         }
       );
       notify.error(
-        "Login unavailable",
-        "The login service is unavailable right now. Please try again in a moment."
+        "Login indisponível",
+        "O serviço de autenticação está indisponível no momento. Por favor, tente novamente em instantes."
       );
     } finally {
       setIsSubmitting(false);
@@ -328,7 +328,7 @@ export default function AuthGate() {
     status.authenticated ||
     !hasMetSplashDuration
   ) {
-    return <PresentonSplashLoader message="Preparing your workspace..." />;
+    return <PresentonSplashLoader message="Preparando sua área de trabalho..." />;
   }
 
   return (
@@ -347,10 +347,10 @@ export default function AuthGate() {
             </div>
             <div>
               <p className="font-syne text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7A5AF8]">
-                Secure instance
+                Instância segura
               </p>
               <h1 className="mt-1 font-unbounded text-xl font-normal leading-tight tracking-[-0.03em] text-black sm:text-[22px]">
-                {isSetupMode ? "Create your admin login" : "Sign in to continue"}
+                {isSetupMode ? "Crie seu login de administrador" : "Faça login para continuar"}
               </h1>
             </div>
           </div>
@@ -358,14 +358,14 @@ export default function AuthGate() {
 
         <p className="max-w-md text-sm leading-relaxed text-[#6B7280]">
           {isSetupMode
-            ? "One-time setup for this deployment. You will use the same username and password on future visits."
-            : "This deployment is protected. Enter your credentials to open the app."}
+            ? "Configuração única para esta instalação. Você usará o mesmo usuário e senha em acessos futuros."
+            : "Esta instalação está protegida. Insira suas credenciais para abrir o aplicativo."}
         </p>
 
         <form onSubmit={handleSubmit} className="mt-7 space-y-5">
           <div className="space-y-2">
             <label htmlFor="username" className="block text-sm font-medium text-[#374151]">
-              Username
+              Nome de usuário
             </label>
             <input
               id="username"
@@ -374,11 +374,11 @@ export default function AuthGate() {
               onChange={(event) =>
                 setUsername(event.target.value.replace(/\s/g, ""))
               }
-              placeholder="Username"
+              placeholder="Nome de usuário"
               minLength={3}
               maxLength={128}
               pattern="\S+"
-              title="Username cannot contain spaces"
+              title="O nome de usuário não pode conter espaços"
               required
               spellCheck={false}
               className="h-12 w-full rounded-lg border border-[#E1E1E5] bg-white px-4 text-sm text-[#191919] outline-none transition placeholder:text-[#9CA3AF] focus:border-[#7A5AF8] focus:ring-2 focus:ring-[#7A5AF8]/15"
@@ -388,7 +388,7 @@ export default function AuthGate() {
 
           <div className="space-y-2">
             <label htmlFor="password" className="block text-sm font-medium text-[#374151]">
-              Password
+              Senha
             </label>
             <input
               id="password"
@@ -397,7 +397,7 @@ export default function AuthGate() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder={
-                isSetupMode ? "At least 8 characters" : "Enter your password"
+                isSetupMode ? "Pelo menos 8 caracteres" : "Insira sua senha"
               }
               minLength={isSetupMode ? 8 : 6}
               maxLength={128}
@@ -410,7 +410,7 @@ export default function AuthGate() {
           {isSetupMode ? (
             <div className="space-y-2">
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-[#374151]">
-                Confirm password
+                Confirmar senha
               </label>
               <input
                 id="confirmPassword"
@@ -418,7 +418,7 @@ export default function AuthGate() {
                 autoComplete="new-password"
                 value={confirmPassword}
                 onChange={(event) => setConfirmPassword(event.target.value)}
-                placeholder="Re-enter your password"
+                placeholder="Digite sua senha novamente"
                 minLength={8}
                 maxLength={128}
                 required
@@ -430,7 +430,7 @@ export default function AuthGate() {
 
           {!isSetupMode && status.configured ? (
             <p className="rounded-lg border border-[#EDEEEF] bg-white px-4 py-3 text-xs leading-relaxed text-[#6B7280]">
-              Use the username and password provided by your administrator.
+              Use o nome de usuário e senha fornecidos pelo seu administrador.
             </p>
           ) : null}
 
@@ -441,11 +441,11 @@ export default function AuthGate() {
           >
             {isSubmitting
               ? isSetupMode
-                ? "Saving credentials…"
-                : "Signing in…"
+                ? "Salvando credenciais…"
+                : "Entrando…"
               : isSetupMode
-                ? "Create account"
-                : "Sign in"}
+                ? "Criar conta"
+                : "Entrar"}
           </button>
         </form>
       </section>

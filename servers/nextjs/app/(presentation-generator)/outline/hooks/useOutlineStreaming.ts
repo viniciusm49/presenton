@@ -13,7 +13,7 @@ import {
 
 const MAX_STREAM_RETRIES = 3;
 const STREAM_RETRY_DELAY_MS = 1_000;
-const DEFAULT_STATUS_MESSAGE = "Preparing your presentation outline";
+const DEFAULT_STATUS_MESSAGE = "Preparando os tópicos da sua apresentação";
 
 export const useOutlineStreaming = (
   presentationId: string | null,
@@ -91,7 +91,7 @@ export const useOutlineStreaming = (
       prevSlidesRef.current = [];
       activeIndexRef.current = -1;
       highestIndexRef.current = -1;
-      setStatusMessage("Reconnecting to outline stream");
+      setStatusMessage("Reconectando ao fluxo de tópicos");
 
       retryTimer = setTimeout(() => {
         if (!isClosed) {
@@ -116,8 +116,8 @@ export const useOutlineStreaming = (
           if (!scheduleRetry("invalid SSE payload")) {
             resetStreamingState();
             notify.error(
-              "Stream parse failed",
-              "Failed to parse outline stream response."
+              "Falha no processamento",
+              "Falha ao processar a resposta dos tópicos."
             );
           }
           return;
@@ -182,7 +182,7 @@ export const useOutlineStreaming = (
               setIsLoading(false);
               setActiveSlideIndex(null);
               setHighestActiveIndex(-1);
-              setStatusMessage("Outline ready");
+              setStatusMessage("Tópicos prontos");
               prevSlidesRef.current = outlinesData;
               activeIndexRef.current = -1;
               highestIndexRef.current = -1;
@@ -193,14 +193,14 @@ export const useOutlineStreaming = (
             } catch {
               if (!scheduleRetry("failed to parse complete payload")) {
                 resetStreamingState();
-                notify.error("Parse failed", "Failed to parse presentation data.");
+                notify.error("Falha no processamento", "Falha ao processar os dados da apresentação.");
               }
             }
             accumulatedChunks = "";
             break;
 
           case "closing":
-            resetStreamingState("Outline ready");
+            resetStreamingState("Tópicos prontos");
             isClosed = true;
             closeEventSource();
             clearRetryTimer();
@@ -221,9 +221,9 @@ export const useOutlineStreaming = (
               resetStreamingState();
               closeEventSource();
               notify.error(
-                "Outline streaming failed",
+                "Falha no fluxo de tópicos",
                 data.detail ||
-                  "Failed to connect to the server. Please try again."
+                  "Falha ao conectar ao servidor. Por favor, tente novamente."
               );
             }
             break;
@@ -235,8 +235,8 @@ export const useOutlineStreaming = (
           resetStreamingState();
           closeEventSource();
           notify.error(
-            "Connection failed",
-            "Failed to connect to the server. Please try again."
+            "Falha na conexão",
+            "Falha ao conectar ao servidor. Por favor, tente novamente."
           );
         }
       };

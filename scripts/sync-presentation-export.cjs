@@ -10,7 +10,12 @@ const fs = require("fs");
 const path = require("path");
 const https = require("https");
 const http = require("http");
+const dns = require("dns");
 const { execFileSync } = require("child_process");
+
+if (dns.setDefaultResultOrder) {
+  dns.setDefaultResultOrder("ipv4first");
+}
 
 const repoRoot = path.join(__dirname, "..");
 const targetRoot = path.join(repoRoot, "presentation-export");
@@ -318,9 +323,20 @@ async function main() {
     }
     console.log(`[presentation-export] Using local package ${localArchive}`);
     fs.copyFileSync(localArchive, archivePath);
+  } else if (fs.existsSync(archivePath) && fs.statSync(archivePath).size > 0) {
+    console.log(`[presentation-export] Using cached package ${archivePath}`);
   } else {
     console.log(`[presentation-export] Downloading ${downloadUrl}`);
-    await downloadFile(downloadUrl, archivePath);
+    try {
+      await downloadFile(downloadUrl, archivePath);
+    } catch (err) {
+      try {
+        console.log(`[presentation-export] Retrying download with curl...`);
+        execFileSync("curl", ["-L", "-s", "-o", archivePath, downloadUrl], { stdio: "inherit" });
+      } catch (curlErr) {
+        throw err;
+      }
+    }
   }
   installRuntime(version, archivePath);
 
