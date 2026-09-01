@@ -1,0 +1,19 @@
+services:
+  presenton:
+    build:
+      context: https://github.com/viniciusm49/presenton.git#main
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80"
+    volumes:
+      - presenton_data:/app_data
+    environment:
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+      - MIGRATE_DATABASE_ON_STARTUP=true
+      - CAN_CHANGE_KEYS=true
+      - ENABLE_PARALLEL_IMAGE_GENERATION=true
+      - MEM0_ENABLED=true
+
+volumes:
+  presenton_data:
