@@ -62,7 +62,6 @@ RUN mkdir -p /app/document-extraction-liteparse \
 COPY electron/resources/document-extraction/liteparse_runner.mjs /app/document-extraction-liteparse/liteparse_runner.mjs
 COPY scripts/sync-presentation-export.cjs /app/scripts/sync-presentation-export.cjs
 COPY scripts/run-presentation-export.mjs /app/scripts/run-presentation-export.mjs
-COPY .cache/presentation-export* /app/.cache/presentation-export/
 RUN rm -rf /app/presentation-export \
     && node /app/scripts/sync-presentation-export.cjs --force
 
