@@ -275,20 +275,42 @@ function installRuntime(version, archivePath) {
     )}\n`,
   );
   const npm = process.platform === "win32" ? "npm.cmd" : "npm";
-  execFileSync(
-    npm,
-    [
-      "install",
-      "--omit=dev",
-      "--ignore-scripts",
-      "--no-package-lock",
-      "--no-fund",
-      "--no-audit",
-      "--cache",
-      path.join(cacheDir, "npm"),
-    ],
-    { cwd: targetRoot, stdio: "inherit" },
-  );
+  const npmArgs = [
+    "install",
+    "--omit=dev",
+    "--ignore-scripts",
+    "--no-package-lock",
+    "--no-fund",
+    "--no-audit",
+    "--fetch-retries=5",
+    "--fetch-retry-mintimeout=20000",
+    "--fetch-retry-maxtimeout=120000",
+    "--cache",
+    path.join(cacheDir, "npm"),
+  ];
+
+  let success = false;
+  let lastError = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      console.log(`[presentation-export] Running npm install (attempt ${attempt}/3)...`);
+      execFileSync(npm, npmArgs, { cwd: targetRoot, stdio: "inherit" });
+      success = true;
+      break;
+    } catch (err) {
+      lastError = err;
+      console.warn(`[presentation-export] npm install attempt ${attempt} failed, retrying in 3s...`);
+      if (attempt < 3) {
+        try {
+          execFileSync("sleep", ["3"]);
+        } catch (_) {}
+      }
+    }
+  }
+  if (!success && lastError) {
+    throw lastError;
+  }
+
   fs.writeFileSync(
     versionManifestPath,
     `${JSON.stringify(
@@ -314,6 +336,7 @@ async function main() {
 
   const assetName = assetNameForVersion(version);
   const archivePath = path.join(cacheDir, assetName);
+  const bundledPath = path.join(repoRoot, "scripts", assetName);
   const downloadUrl = `${exportRepoBase}/${version}/${assetName}`;
   fs.mkdirSync(cacheDir, { recursive: true });
   const localArchive = String(process.env.EXPORT_CORE_ARCHIVE || "").trim();
@@ -323,6 +346,9 @@ async function main() {
     }
     console.log(`[presentation-export] Using local package ${localArchive}`);
     fs.copyFileSync(localArchive, archivePath);
+  } else if (fs.existsSync(bundledPath) && fs.statSync(bundledPath).size > 0) {
+    console.log(`[presentation-export] Using bundled package ${bundledPath}`);
+    fs.copyFileSync(bundledPath, archivePath);
   } else if (fs.existsSync(archivePath) && fs.statSync(archivePath).size > 0) {
     console.log(`[presentation-export] Using cached package ${archivePath}`);
   } else {
