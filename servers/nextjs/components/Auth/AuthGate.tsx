@@ -347,10 +347,10 @@ export default function AuthGate() {
             </div>
             <div>
               <p className="font-syne text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7A5AF8]">
-                Instância segura
+                Attlas Slides · based on Presenton
               </p>
               <h1 className="mt-1 font-unbounded text-xl font-normal leading-tight tracking-[-0.03em] text-black sm:text-[22px]">
-                {isSetupMode ? "Crie seu login de administrador" : "Faça login para continuar"}
+                {isSetupMode ? "Crie seu login de administrador" : "Faça login no Attlas Slides"}
               </h1>
             </div>
           </div>
@@ -358,8 +358,8 @@ export default function AuthGate() {
 
         <p className="max-w-md text-sm leading-relaxed text-[#6B7280]">
           {isSetupMode
-            ? "Configuração única para esta instalação. Você usará o mesmo usuário e senha em acessos futuros."
-            : "Esta instalação está protegida. Insira suas credenciais para abrir o aplicativo."}
+            ? "Configuração única para o Attlas Slides. Você usará o mesmo usuário e senha em acessos futuros."
+            : "Instalação protegida do Attlas Slides. Insira suas credenciais para continuar."}
         </p>
 
         <form onSubmit={handleSubmit} className="mt-7 space-y-5">

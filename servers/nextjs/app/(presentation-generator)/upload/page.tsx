@@ -5,9 +5,9 @@ import Header from "@/app/(presentation-generator)/(dashboard)/dashboard/compone
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Presenton | Open Source AI presentation generator",
+  title: "Attlas Slides - based on Presenton",
   description:
-    "Open-source AI presentation generator with custom layouts, multi-model support (OpenAI, Gemini, Ollama), and PDF/PPTX export. A free Gamma alternative.",
+    "Gerador de apresentações com inteligência artificial baseado em Presenton, com suporte a múltiplos modelos (OpenAI, Gemini, Ollama) e exportação para PDF e PPTX.",
   alternates: {
     canonical: "https://presenton.ai/create",
   },
@@ -24,18 +24,18 @@ export const metadata: Metadata = {
     "business presentations",
   ],
   openGraph: {
-    title: "Create Data Presentation | PresentOn",
+    title: "Attlas Slides - based on Presenton",
     description:
-      "Open-source AI presentation generator with custom layouts, multi-model support (OpenAI, Gemini, Ollama), and PDF/PPTX export. A free Gamma alternative.",
+      "Gerador de apresentações com inteligência artificial baseado em Presenton, com suporte a múltiplos modelos (OpenAI, Gemini, Ollama) e exportação para PDF e PPTX.",
     type: "website",
     url: "https://presenton.ai/create",
-    siteName: "PresentOn",
+    siteName: "Attlas Slides",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Create Data Presentation | PresentOn",
+    title: "Attlas Slides - based on Presenton",
     description:
-      "Open-source AI presentation generator with custom layouts, multi-model support (OpenAI, Gemini, Ollama), and PDF/PPTX export. A free Gamma alternative.",
+      "Gerador de apresentações com inteligência artificial baseado em Presenton, com suporte a múltiplos modelos (OpenAI, Gemini, Ollama) e exportação para PDF e PPTX.",
     site: "@presenton_ai",
     creator: "@presenton_ai",
   },

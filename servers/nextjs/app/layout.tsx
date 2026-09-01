@@ -41,9 +41,9 @@ const unbounded = Unbounded({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://presenton.ai"),
-  title: "Presenton - Open Source AI presentation generator",
+  title: "Attlas Slides - based on Presenton",
   description:
-    "Open-source AI presentation generator with custom layouts, multi-model support (OpenAI, Gemini, Ollama), and PDF/PPTX export. A free Gamma alternative.",
+    "Gerador de apresentações com inteligência artificial baseado em Presenton, com suporte a múltiplos modelos (OpenAI, Gemini, Ollama) e exportação para PDF e PPTX.",
   keywords: [
     "AI presentation generator",
     "data storytelling",
@@ -55,30 +55,30 @@ export const metadata: Metadata = {
     "professional slides",
   ],
   openGraph: {
-    title: "Presenton - Open Source AI presentation generator",
+    title: "Attlas Slides - based on Presenton",
     description:
-      "Open-source AI presentation generator with custom layouts, multi-model support (OpenAI, Gemini, Ollama), and PDF/PPTX export. A free Gamma alternative.",
+      "Gerador de apresentações com inteligência artificial baseado em Presenton, com suporte a múltiplos modelos (OpenAI, Gemini, Ollama) e exportação para PDF e PPTX.",
     url: "https://presenton.ai",
-    siteName: "Presenton",
+    siteName: "Attlas Slides",
     images: [
       {
         url: "https://presenton.ai/presenton-feature-graphics.png",
         width: 1200,
         height: 630,
-        alt: "Presenton Logo",
+        alt: "Attlas Slides",
       },
     ],
     type: "website",
-    locale: "en_US",
+    locale: "pt_BR",
   },
   alternates: {
     canonical: "https://presenton.ai",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Presenton - Open Source AI presentation generator",
+    title: "Attlas Slides - based on Presenton",
     description:
-      "Open-source AI presentation generator with custom layouts, multi-model support (OpenAI, Gemini, Ollama), and PDF/PPTX export. A free Gamma alternative.",
+      "Gerador de apresentações com inteligência artificial baseado em Presenton, com suporte a múltiplos modelos (OpenAI, Gemini, Ollama) e exportação para PDF e PPTX.",
     images: ["https://presenton.ai/presenton-feature-graphics.png"],
   },
 };
